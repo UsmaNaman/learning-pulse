@@ -3,28 +3,28 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Grid, Typography, Box, Card, CardContent, CardMedia } from '@mui/material';
 
 const HomePage = () => {
-  // Sample featured courses
-  const featuredCourses = [
+  // Sample skills that can be tracked
+  const trackableSkills = [
     {
       id: 1,
-      title: 'Introduction to Machine Learning',
-      description: 'Learn the fundamentals of machine learning algorithms and applications.',
-      image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      level: 'Beginner'
+      title: 'Systems Architecture',
+      description: 'Track progress on hardware, software, and system organization concepts.',
+      image: '/images/systems.jpg',
+      category: 'Computer Systems'
     },
     {
       id: 2,
-      title: 'Advanced Web Development',
-      description: 'Master modern web technologies including React, Node.js, and GraphQL.',
-      image: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      level: 'Intermediate'
+      title: 'Programming Concepts',
+      description: 'Monitor development in sequence, selection, iteration, and data structures.',
+      image: '/images/programming.jpg',
+      category: 'Development Skills'
     },
     {
       id: 3,
-      title: 'Data Science Fundamentals',
-      description: 'Explore data analysis, visualization, and statistical methods.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      level: 'Beginner'
+      title: 'Algorithms',
+      description: 'Track understanding of problem-solving techniques, sorting, and searching.',
+      image: '/images/algorithms.jpg',
+      category: 'Computational Thinking'
     }
   ];
 
@@ -67,12 +67,12 @@ const HomePage = () => {
             Learning Pulse
           </Typography>
           <Typography variant="h5" sx={{ mb: 4, maxWidth: '800px', mx: 'auto' }}>
-            Accelerate your learning journey with personalized courses and real-time performance analytics
+            KS3 Computer Science Skills Tracker for students and teachers
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
             <Button 
               component={Link} 
-              to="/courses" 
+              to="/dashboard" 
               variant="contained" 
               color="primary" 
               size="large"
@@ -89,7 +89,7 @@ const HomePage = () => {
                 }
               }}
             >
-              Explore Courses
+              View Dashboard
             </Button>
             <Button 
               component={Link} 
@@ -116,14 +116,14 @@ const HomePage = () => {
         </Box>
       </Box>
 
-      {/* Featured Courses Section */}
+      {/* Trackable Skills Section */}
       <Box sx={{ mb: 8 }}>
         <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 'bold', mb: 4 }}>
-          Featured Courses
+          Track Your Computer Science Skills
         </Typography>
         <Grid container spacing={4}>
-          {featuredCourses.map((course) => (
-            <Grid item key={course.id} xs={12} sm={6} md={4}>
+          {trackableSkills.map((skill) => (
+            <Grid item key={skill.id} xs={12} sm={6} md={4}>
               <Card 
                 sx={{ 
                   height: '100%', 
@@ -141,24 +141,24 @@ const HomePage = () => {
                 <CardMedia
                   component="img"
                   height="200"
-                  image={course.image}
-                  alt={course.title}
+                  image={skill.image}
+                  alt={skill.title}
                 />
                 <CardContent sx={{ flexGrow: 1, p: 3 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                     <Typography variant="caption" color="primary" fontWeight="bold">
-                      {course.level}
+                      {skill.category}
                     </Typography>
                   </Box>
                   <Typography gutterBottom variant="h5" component="h3" fontWeight="bold">
-                    {course.title}
+                    {skill.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    {course.description}
+                    {skill.description}
                   </Typography>
                   <Button 
                     component={Link} 
-                    to={`/courses/${course.id}`}
+                    to="/dashboard"
                     variant="contained" 
                     color="primary"
                     fullWidth
@@ -167,7 +167,7 @@ const HomePage = () => {
                       borderRadius: '8px'
                     }}
                   >
-                    View Course
+                    Track Progress
                   </Button>
                 </CardContent>
               </Card>
@@ -177,7 +177,7 @@ const HomePage = () => {
         <Box sx={{ textAlign: 'center', mt: 4 }}>
           <Button 
             component={Link} 
-            to="/courses" 
+            to="/dashboard" 
             variant="outlined" 
             color="primary"
             sx={{ 
@@ -187,7 +187,7 @@ const HomePage = () => {
               fontSize: '1.1rem'
             }}
           >
-            View All Courses
+            View All Skills
           </Button>
         </Box>
       </Box>
@@ -200,70 +200,55 @@ const HomePage = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <Box sx={{ textAlign: 'center', p: 3 }}>
-              <Box sx={{ 
-                height: 80, 
-                width: 80, 
-                backgroundColor: 'rgba(74, 0, 224, 0.1)', 
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mx: 'auto',
-                mb: 2
-              }}>
-                <span style={{ fontSize: '2rem' }}>📊</span>
-              </Box>
+              <Card sx={{ mb: 2, borderRadius: '12px', overflow: 'hidden' }}>
+                <CardMedia
+                  component="img"
+                  height="180"
+                  image="/images/visual.jpg"
+                  alt="Visual Progress Tracking"
+                />
+              </Card>
               <Typography variant="h6" component="h3" gutterBottom fontWeight="bold">
-                Real-time Analytics
+                Visual Progress Tracking
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Track your progress with detailed analytics and personalized insights to optimize your learning journey.
+                Track curriculum-aligned skills with intuitive visualizations and identify areas requiring improvement.
               </Typography>
             </Box>
           </Grid>
           <Grid item xs={12} md={4}>
             <Box sx={{ textAlign: 'center', p: 3 }}>
-              <Box sx={{ 
-                height: 80, 
-                width: 80, 
-                backgroundColor: 'rgba(74, 0, 224, 0.1)', 
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mx: 'auto',
-                mb: 2
-              }}>
-                <span style={{ fontSize: '2rem' }}>👨‍🏫</span>
-              </Box>
+              <Card sx={{ mb: 2, borderRadius: '12px', overflow: 'hidden' }}>
+                <CardMedia
+                  component="img"
+                  height="180"
+                  image="/images/personalized.jpg"
+                  alt="Personalized Learning"
+                />
+              </Card>
               <Typography variant="h6" component="h3" gutterBottom fontWeight="bold">
-                Expert Instructors
+                Personalized Learning
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Learn from industry experts with years of practical experience and proven teaching methodologies.
+                Receive targeted recommendations based on your current mastery level for each KS3 topic.
               </Typography>
             </Box>
           </Grid>
           <Grid item xs={12} md={4}>
             <Box sx={{ textAlign: 'center', p: 3 }}>
-              <Box sx={{ 
-                height: 80, 
-                width: 80, 
-                backgroundColor: 'rgba(74, 0, 224, 0.1)', 
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mx: 'auto',
-                mb: 2
-              }}>
-                <span style={{ fontSize: '2rem' }}>🔄</span>
-              </Box>
+              <Card sx={{ mb: 2, borderRadius: '12px', overflow: 'hidden' }}>
+                <CardMedia
+                  component="img"
+                  height="180"
+                  image="/images/teacher.jpg"
+                  alt="Teacher Insights"
+                />
+              </Card>
               <Typography variant="h6" component="h3" gutterBottom fontWeight="bold">
-                Adaptive Learning
+                Teacher Insights
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Our platform adapts to your learning pace and style, providing customized recommendations and challenges.
+                Teachers can monitor class progress, identify common struggle areas, and adjust instruction accordingly.
               </Typography>
             </Box>
           </Grid>
@@ -273,41 +258,59 @@ const HomePage = () => {
       {/* Testimonials Section */}
       <Box sx={{ mb: 8 }}>
         <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 'bold', mb: 4 }}>
-          Student Success Stories
+          User Success Stories
         </Typography>
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            <Card sx={{ p: 3, borderRadius: '12px', height: '100%' }}>
-              <Box sx={{ mb: 2 }}>
+            <Card sx={{ borderRadius: '12px', height: '100%', overflow: 'hidden' }}>
+              <CardMedia
+                component="img"
+                height="180"
+                image="/images/student1.jpg"
+                alt="Student Success Story"
+              />
+              <Box sx={{ p: 3 }}>
                 <Typography variant="h6" component="p" gutterBottom>
-                  "Learning Pulse transformed my career path. The data science course helped me land my dream job!"
+                  "Learning Pulse helped me identify my weak areas in Computer Science. My test scores have improved dramatically!"
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  — Sarah Johnson, Data Analyst
+                  — Sarah Johnson, Year 9 Student
                 </Typography>
               </Box>
             </Card>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Card sx={{ p: 3, borderRadius: '12px', height: '100%' }}>
-              <Box sx={{ mb: 2 }}>
+            <Card sx={{ borderRadius: '12px', height: '100%', overflow: 'hidden' }}>
+              <CardMedia
+                component="img"
+                height="180"
+                image="/images/student2.jpg"
+                alt="Student Success Story"
+              />
+              <Box sx={{ p: 3 }}>
                 <Typography variant="h6" component="p" gutterBottom>
-                  "The progress tracking feature motivated me to complete courses I would have otherwise abandoned."
+                  "The skills tracking features help me take ownership of my learning and focus on topics I really need to improve."
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  — Michael Chen, Software Developer
+                  — Michael Chen, Year 8 Student
                 </Typography>
               </Box>
             </Card>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Card sx={{ p: 3, borderRadius: '12px', height: '100%' }}>
-              <Box sx={{ mb: 2 }}>
+            <Card sx={{ borderRadius: '12px', height: '100%', overflow: 'hidden' }}>
+              <CardMedia
+                component="img"
+                height="180"
+                image="/images/teacher-profile.jpg"
+                alt="Teacher Success Story"
+              />
+              <Box sx={{ p: 3 }}>
                 <Typography variant="h6" component="p" gutterBottom>
-                  "As an instructor, the analytics tools help me understand where my students struggle and improve my teaching."
+                  "As a teacher, the analytics tools help me understand where my students struggle and tailor my lessons to their needs."
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  — Dr. Emily Rodriguez, Computer Science Professor
+                  — Ms. Emily Rodriguez, KS3 Computer Science Teacher
                 </Typography>
               </Box>
             </Card>
@@ -327,10 +330,10 @@ const HomePage = () => {
         }}
       >
         <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 'bold' }}>
-          Ready to accelerate your learning?
+          Ready to track your progress?
         </Typography>
         <Typography variant="subtitle1" sx={{ mb: 4, maxWidth: '700px', mx: 'auto' }}>
-          Join thousands of learners already benefiting from Learning Pulse's innovative platform.
+          Join teachers and students already benefiting from Learning Pulse's skills tracking platform.
         </Typography>
         <Button 
           component={Link} 

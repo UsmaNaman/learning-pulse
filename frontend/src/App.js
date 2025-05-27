@@ -16,6 +16,7 @@ import Dashboard from './pages/Dashboard';
 import Courses from './pages/Courses';
 // import CourseDetail from './pages/CourseDetail';
 import Profile from './pages/Profile';
+import StudentReport from './pages/StudentReport';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
                 <Route element={<ProtectedRoute />}>
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/profile" element={<Profile />} />
+                  <Route path="/student-report/:studentId" element={<StudentReport />} />
                 </Route>
                 
                 {/* Fallback route */}

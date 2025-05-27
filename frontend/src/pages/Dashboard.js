@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { courseService, progressService } from '../services';
 import { 
@@ -673,6 +674,8 @@ const StudentProgressTab = ({ students }) => {
                               size="small" 
                               variant="outlined"
                               color="primary"
+                              component={Link}
+                              to={`/student-report/${studentData.student.id}`}
                             >
                               View Full Report
                             </Button>
