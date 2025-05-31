@@ -29,6 +29,20 @@ const AssessmentSchema = new mongoose.Schema({
         type: String,
         required: true
       },
+      bloomsLevel: {
+        type: Number,
+        min: 1,
+        max: 5,
+        required: true
+      },
+      bloomsKeywords: [{
+        type: String
+      }],
+      questionType: {
+        type: String,
+        enum: ['multiple-choice', 'true-false', 'short-answer', 'coding', 'analysis', 'evaluation'],
+        required: true
+      },
       options: [{
         text: String,
         isCorrect: Boolean
@@ -37,6 +51,19 @@ const AssessmentSchema = new mongoose.Schema({
       points: {
         type: Number,
         default: 1
+      },
+      feedback: {
+        correct: String,
+        incorrect: String,
+        hint: String
+      },
+      scaffolding: {
+        hintsAvailable: {
+          type: Number,
+          default: 0
+        },
+        examplesProvided: Boolean,
+        processFeedback: Boolean
       }
     }],
     validate: {

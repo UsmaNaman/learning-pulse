@@ -403,7 +403,7 @@ const Profile = () => {
                   Strongest: Programming Concepts
                 </Typography>
                 <Typography variant="body2">
-                  Needs work: Cyber Security
+                  Needs work: Network Security
                 </Typography>
                 <Button variant="text" color="primary" size="small" sx={{ mt: 1 }}>
                   View Detailed Progress

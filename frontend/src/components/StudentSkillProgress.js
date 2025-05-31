@@ -5,9 +5,26 @@ import {
   LinearProgress, 
   Paper, 
   Grid,
-  Tooltip
+  Tooltip,
+  Chip
 } from '@mui/material';
 import TopicResources from './TopicResources';
+// Bloom's taxonomy utility - inline for now
+const getBloomsLevel = (percentage) => {
+  const BLOOMS_LEVELS = {
+    1: { name: 'remember', label: 'Remember', description: 'Recall facts and basic concepts', color: '#f44336' },
+    2: { name: 'understand', label: 'Understand', description: 'Explain ideas or concepts', color: '#ff9800' },
+    3: { name: 'apply', label: 'Apply', description: 'Use information in new situations', color: '#2196f3' },
+    4: { name: 'analyze', label: 'Analyze', description: 'Draw connections and organize information', color: '#4caf50' },
+    5: { name: 'evaluate', label: 'Evaluate', description: 'Justify decisions and critique work', color: '#9c27b0' }
+  };
+  
+  if (percentage >= 85) return { level: 5, ...BLOOMS_LEVELS[5] };
+  if (percentage >= 70) return { level: 4, ...BLOOMS_LEVELS[4] };
+  if (percentage >= 55) return { level: 3, ...BLOOMS_LEVELS[3] };
+  if (percentage >= 40) return { level: 2, ...BLOOMS_LEVELS[2] };
+  return { level: 1, ...BLOOMS_LEVELS[1] };
+};
 
 /**
  * Component to display a student's skill progress across different topics
@@ -21,17 +38,15 @@ const StudentSkillProgress = ({ skills = [], title = "Topic Progress" }) => {
     sys_arch: "Systems Architecture",
     mem_storage: "Memory and Storage",
     networks: "Computer Networks",
-    security: "Cyber Security",
+    security: "Network Security",
     programming: "Programming Concepts",
     algo: "Algorithms",
     ethics: "Ethical, Legal, Cultural Issues"
   };
 
-  // Get color based on mastery level
-  const getMasteryColor = (mastery) => {
-    if (mastery >= 70) return '#4caf50'; // Green
-    if (mastery >= 30) return '#ff9800'; // Amber
-    return '#f44336'; // Red
+  // Get color and Bloom's level based on mastery
+  const getBloomsInfo = (mastery) => {
+    return getBloomsLevel(mastery);
   };
 
   // If no skills, show empty state
@@ -53,31 +68,64 @@ const StudentSkillProgress = ({ skills = [], title = "Topic Progress" }) => {
       <Grid container spacing={2}>
         {skills.map(skill => {
           const friendlyName = skill.name || skillNames[skill.id] || skill.id;
-          const masteryColor = getMasteryColor(skill.mastery);
+          const bloomsInfo = getBloomsInfo(skill.mastery);
           
           return (
             <Grid item xs={12} key={skill.id}>
-              <Box sx={{ mb: 1, display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="body2">{friendlyName}</Typography>
+              <Box sx={{ mb: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Typography variant="body2">{friendlyName}</Typography>
+                  <Chip 
+                    label={bloomsInfo.label}
+                    size="small"
+                    sx={{ 
+                      backgroundColor: bloomsInfo.color,
+                      color: 'white',
+                      fontSize: '0.7rem',
+                      height: '20px'
+                    }}
+                  />
+                </Box>
                 <Typography variant="body2" fontWeight="bold">
                   {skill.mastery}%
                 </Typography>
               </Box>
               
-              <Tooltip title={`${skill.mastery}% mastery in ${friendlyName}`}>
+              <Tooltip title={`${bloomsInfo.label}: ${bloomsInfo.description} (${skill.mastery}% mastery)`}>
                 <LinearProgress
                   variant="determinate"
                   value={skill.mastery}
+                  role="progressbar"
+                  aria-label={`${friendlyName} progress`}
+                  aria-describedby={`progress-desc-${skill.id}`}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={skill.mastery}
                   sx={{
                     height: 10,
                     borderRadius: 5,
                     backgroundColor: '#e0e0e0',
                     '& .MuiLinearProgress-bar': {
-                      backgroundColor: masteryColor
+                      backgroundColor: bloomsInfo.color
                     }
                   }}
                 />
               </Tooltip>
+              
+              {/* Screen reader description */}
+              <Typography 
+                id={`progress-desc-${skill.id}`}
+                variant="body2" 
+                sx={{ 
+                  position: 'absolute',
+                  left: '-10000px',
+                  width: '1px',
+                  height: '1px',
+                  overflow: 'hidden'
+                }}
+              >
+                {`${friendlyName}: ${skill.mastery}% mastery at ${bloomsInfo.label} level. ${bloomsInfo.description}`}
+              </Typography>
               
               {/* Display resources for this topic if available */}
               {skill.resources && skill.resources.length > 0 && (

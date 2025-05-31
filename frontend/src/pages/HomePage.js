@@ -67,7 +67,7 @@ const HomePage = () => {
             Learning Pulse
           </Typography>
           <Typography variant="h5" sx={{ mb: 4, maxWidth: '800px', mx: 'auto' }}>
-            KS3 Computer Science Skills Tracker for students and teachers
+            KS4 Computer Science Skills Tracker for students and teachers
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
             <Button 
@@ -230,7 +230,7 @@ const HomePage = () => {
                 Personalized Learning
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Receive targeted recommendations based on your current mastery level for each KS3 topic.
+                Receive targeted recommendations based on your current mastery level for each KS4 topic.
               </Typography>
             </Box>
           </Grid>
@@ -310,7 +310,7 @@ const HomePage = () => {
                   "As a teacher, the analytics tools help me understand where my students struggle and tailor my lessons to their needs."
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  — Ms. Emily Rodriguez, KS3 Computer Science Teacher
+                  — Ms. Emily Rodriguez, KS4 Computer Science Teacher
                 </Typography>
               </Box>
             </Card>

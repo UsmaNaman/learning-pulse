@@ -1,8 +1,8 @@
-# Learning Pulse: KS3 Computer Science Skills Tracker
+# Learning Pulse: KS4 Computer Science Skills Tracker
 
 ## Overview
 
-Learning Pulse is a comprehensive web-based system designed to support KS3 Computer Science students in tracking their progress, identifying knowledge gaps, and accessing appropriate revision materials. This blended e-learning platform bridges classroom instruction with independent learning, empowering students to take ownership of their revision journey.
+Learning Pulse is a comprehensive web-based system designed to support KS4 Computer Science students in tracking their progress, identifying knowledge gaps, and accessing appropriate revision materials. This blended e-learning platform bridges classroom instruction with independent learning, empowering students to take ownership of their revision journey.
 
 ![Dashboard Screenshot](screenshots/dashboard.png)
 
@@ -46,7 +46,7 @@ cp .env.example .env
 4. Initialize the database:
 ```bash
 npm run seed
-# This will populate the database with KS3 Computer Science curriculum data
+# This will populate the database with KS4 Computer Science curriculum data
 ```
 
 5. Start the development server:
@@ -121,7 +121,7 @@ This project follows a modern client-server architecture with clear separation o
 ### Core Data Structures
 
 - **User**: Student and teacher profiles with authentication information
-- **Curriculum Topic**: KS3 Computer Science topics organized by categories
+- **Curriculum Topic**: KS4 Computer Science topics organized by categories
 - **Mastery Level**: Five-level framework (Novice, Developing, Proficient, Advanced, Expert)
 - **Resource**: Learning materials linked to curriculum topics
 - **Assessment**: Results tracking with competency measurements

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { courseService, progressService } from '../services';
 import { 
   Box, Typography, Grid, Card, CardContent, LinearProgress, Paper, Tabs, Tab, 
   Divider, List, ListItem, ListItemText, ListItemIcon, Chip, Avatar, Button,
-  Collapse, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, IconButton
+  Collapse, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, IconButton,
+  Dialog, DialogTitle, DialogContent, DialogActions, TextField, FormControl,
+  InputLabel, Select, MenuItem
 } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import SchoolIcon from '@mui/icons-material/School';
@@ -17,14 +19,21 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import WarningIcon from '@mui/icons-material/Warning';
 import InfoIcon from '@mui/icons-material/Info';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import MessageIcon from '@mui/icons-material/Message';
+import SendIcon from '@mui/icons-material/Send';
+import CloseIcon from '@mui/icons-material/Close';
 
 // Import our custom components
 import StudentSkillProgress from '../components/StudentSkillProgress';
 import ProgressSummaryCard from '../components/ProgressSummaryCard';
 import RecentActivityList from '../components/RecentActivityList';
+import MotivationalElements from '../components/MotivationalElements';
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
+  const location = useLocation();
   const [courses, setCourses] = useState([]);
   const [userProgress, setUserProgress] = useState({});
   const [loading, setLoading] = useState(true);
@@ -40,15 +49,34 @@ const Dashboard = () => {
         
         // Check URL to determine which student data to fetch
         const urlParams = new URLSearchParams(window.location.search);
-        const studentId = urlParams.get('student') || 'john';
+        const studentId = urlParams.get('student');
         const viewType = urlParams.get('view');
         
         // Fetch the appropriate dashboard data based on view type or URL params
         if (viewType === 'student' || studentId) {
           try {
-            const mockResponse = await axios.get(`http://localhost:5000/api/mock/dashboard/${studentId}`);
+            // Use the current user's name (first name) if available, or specified student ID
+            const effectiveStudentId = studentId || (currentUser?.name ? currentUser.name.toLowerCase().split(' ')[0] : 'john');
+            const mockResponse = await axios.get(`http://localhost:5000/api/mock/dashboard/${effectiveStudentId}`);
             setDashboardStats(mockResponse.data);
-            console.log(`Directly fetched mock student data for ${studentId}:`, mockResponse.data);
+            console.log(`Directly fetched mock student data for ${effectiveStudentId}:`, mockResponse.data);
+            
+            // If instructor is viewing a student, also fetch student analytics
+            if (currentUser?.role === 'instructor' && studentId) {
+              try {
+                const analyticsResponse = await axios.get(`http://localhost:5000/api/analytics/user/${studentId}/timeline?timeframe=30`, {
+                  headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                setDashboardStats(prev => ({
+                  ...prev,
+                  analytics: analyticsResponse.data,
+                  isInstructorView: true,
+                  viewingStudentId: studentId
+                }));
+              } catch (analyticsError) {
+                console.warn('Could not fetch student analytics:', analyticsError);
+              }
+            }
           } catch (mockError) {
             console.warn(`Could not fetch mock dashboard data for ${studentId}`, mockError);
           }
@@ -56,7 +84,10 @@ const Dashboard = () => {
           try {
             const instructorResponse = await axios.get('http://localhost:5000/api/mock/instructor-dashboard');
             setStudents(instructorResponse.data.students);
-            setDashboardStats(instructorResponse.data.classStats);
+            setDashboardStats({
+              ...instructorResponse.data.classStats,
+              instructorInfo: instructorResponse.data.instructor
+            });
             setCourses(instructorResponse.data.courseStats);
             console.log('Directly fetched mock instructor data');
           } catch (mockError) {
@@ -95,7 +126,7 @@ const Dashboard = () => {
             try {
               // Get the student ID from URL or use current user's ID or default to 'john'
               const urlParams = new URLSearchParams(window.location.search);
-              const studentId = urlParams.get('student') || currentUser?.id || 'john';
+              const studentId = urlParams.get('student') || currentUser?.id || currentUser?.name?.toLowerCase().split(' ')[0] || 'john';
               
               // Fetch from our mock API endpoint with the student ID
               const mockResponse = await axios.get(`http://localhost:5000/api/mock/dashboard/${studentId}`);
@@ -135,7 +166,10 @@ const Dashboard = () => {
               const instructorDashRes = await axios.get('http://localhost:5000/api/mock/instructor-dashboard');
               console.log('Fetched instructor dashboard data:', instructorDashRes.data);
               setStudents(instructorDashRes.data.students);
-              setDashboardStats(instructorDashRes.data.classStats);
+              setDashboardStats({
+                ...instructorDashRes.data.classStats,
+                instructorInfo: instructorDashRes.data.instructor
+              });
               setCourses(instructorDashRes.data.courseStats);
             } catch (instructorError) {
               console.warn('Could not fetch instructor dashboard', instructorError);
@@ -195,20 +229,38 @@ const Dashboard = () => {
   if (loading) return <Box p={4}><Typography>Loading dashboard...</Typography></Box>;
   if (error) return <Box p={4}><Typography color="error">{error}</Typography></Box>;
 
-  // For debugging
-  console.log('Current dashboard stats:', dashboardStats);
-  console.log('Current students:', students);
-  console.log('Current courses:', courses);
+  // Check if we're viewing a student dashboard
+  // If the URL contains 'student=' parameter OR view=student, show student dashboard
+  const urlParams = new URLSearchParams(window.location.search);
+  const hasStudentParam = urlParams.get('student') !== null;
+  const isExplicitStudentView = urlParams.get('view') === 'student';
+  const isInstructorViewingStudent = hasStudentParam && currentUser?.role === 'instructor';
+  const isActualStudent = currentUser?.role === 'student';
   
-  // Check if we're viewing the dashboard for John Smith (for demo purposes)
-  // If so, show the student dashboard, otherwise show instructor dashboard
-  const isDemoStudentView = window.location.search.includes('view=student') || 
-                            window.location.search.includes('student=john');
+  // Show student dashboard if:
+  // 1. URL has student parameter (instructor viewing student)
+  // 2. URL explicitly says view=student 
+  // 3. Current user is actually a student
+  const shouldShowStudentDashboard = hasStudentParam || isExplicitStudentView || isActualStudent;
+  
+  // For debugging
+  console.log('Dashboard decision logic:', {
+    currentUserRole: currentUser?.role,
+    urlParams: Object.fromEntries(urlParams.entries()),
+    hasStudentParam,
+    isExplicitStudentView,
+    isInstructorViewingStudent,
+    isActualStudent,
+    shouldShowStudentDashboard,
+    dashboardStats: dashboardStats
+  });
+  
+  const studentId = urlParams.get('student') || currentUser?.id || currentUser?.name?.toLowerCase().split(' ')[0] || 'john';
                             
-  // Return the appropriate dashboard (instructor or student)
-  if (isDemoStudentView || currentUser?.role === 'student') {
+  // Return the appropriate dashboard
+  if (shouldShowStudentDashboard) {
     return <StudentDashboard 
-      currentUser={currentUser || {name: "John Smith", role: "student"}} 
+      currentUser={currentUser || {name: dashboardStats?.studentName || "Student", role: "student"}} 
       courses={courses} 
       userProgress={userProgress} 
       dashboardStats={dashboardStats} 
@@ -216,7 +268,7 @@ const Dashboard = () => {
   } else {
     // Default to teacher dashboard
     return <TeacherDashboard 
-      currentUser={currentUser || {name: "David Jones", role: "instructor"}}
+      currentUser={currentUser || {name: "Usman Akram", role: "instructor"}}
       courses={courses} 
       students={students} 
       dashboardStats={dashboardStats}
@@ -228,6 +280,17 @@ const Dashboard = () => {
 
 // Student Dashboard Component
 const StudentDashboard = ({ currentUser, courses, userProgress, dashboardStats }) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const isInstructorView = dashboardStats?.isInstructorView || (currentUser?.role === 'instructor' && urlParams.get('student'));
+  const viewingStudentId = dashboardStats?.viewingStudentId || urlParams.get('student');
+  
+  // Debug logging
+  console.log('StudentDashboard render:', {
+    currentUserRole: currentUser?.role,
+    isInstructorView,
+    viewingStudentId,
+    studentName: dashboardStats?.studentName
+  });
   const calculateProgress = (courseId, progress) => {
     if (!progress || !progress.courses) return 0;
     
@@ -239,9 +302,47 @@ const StudentDashboard = ({ currentUser, courses, userProgress, dashboardStats }
 
   return (
     <Box p={4}>
-      <Typography variant="h4" gutterBottom>
-        Welcome, {currentUser.name || dashboardStats?.studentName || "Student"}
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+        <Typography variant="h4" gutterBottom>
+          {isInstructorView ? 
+            `Student Analytics: ${dashboardStats?.studentName || "Student"}` :
+            `Welcome, ${dashboardStats?.studentName || currentUser?.name || "Student"}`
+          }
+        </Typography>
+
+        <Box>
+          {isInstructorView ? (
+            <Button 
+              component={Link} 
+              to="/dashboard?view=instructor" 
+              variant="outlined" 
+              color="primary"
+              startIcon={<KeyboardBackspaceIcon />}
+              sx={{ mr: 2 }}
+            >
+              Back to Class Overview
+            </Button>
+          ) : null}
+          
+          <Button 
+            component={Link} 
+            to="/student-selector" 
+            variant="outlined" 
+            color="primary"
+            startIcon={<PeopleAltIcon />}
+            sx={{ ml: 2 }}
+          >
+            {isInstructorView ? 'View Another Student' : 'Switch Student'}
+          </Button>
+        </Box>
+      </Box>
+      
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+        <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center' }}>
+          <SchoolIcon sx={{ mr: 0.5, fontSize: '1rem' }} />
+          Currently viewing dashboard for: <strong style={{ marginLeft: '4px' }}>{dashboardStats?.studentName || currentUser?.name || "Student"}</strong>
+        </Typography>
+      </Box>
       
       {/* Top stats cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -308,6 +409,7 @@ const StudentDashboard = ({ currentUser, courses, userProgress, dashboardStats }
             strengths={dashboardStats?.insights?.strengths}
             weaknesses={dashboardStats?.insights?.areasForImprovement}
             studentName={dashboardStats?.studentName}
+            skills={dashboardStats?.skills || []}
           />
           
           {/* Recent Activity List */}
@@ -316,6 +418,172 @@ const StudentDashboard = ({ currentUser, courses, userProgress, dashboardStats }
           />
         </Grid>
       </Grid>
+      
+      {/* Motivational Elements Section */}
+      {!isInstructorView && (
+        <>
+          <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+            Your Achievements
+          </Typography>
+          <MotivationalElements 
+            studentProgress={dashboardStats?.insights || {}}
+            recentActivities={dashboardStats?.recentActivity || []}
+            overallProgress={dashboardStats?.overallProgress || 0}
+            awardedBadges={dashboardStats?.badges || []}
+          />
+        </>
+      )}
+
+      {/* Instructor Analytics Section */}
+      {isInstructorView && dashboardStats?.analytics && (
+        <>
+          <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+            🔍 Instructor Analytics
+          </Typography>
+          
+          <Grid container spacing={3}>
+            {/* Activity Timeline */}
+            <Grid item xs={12} md={6}>
+              <Paper sx={{ p: 3 }}>
+                <Typography variant="h6" gutterBottom>
+                  Recent Activity Timeline
+                </Typography>
+                
+                {dashboardStats.analytics.interactions?.slice(0, 10).map((interaction, index) => (
+                  <Box key={index} sx={{ mb: 2, pb: 1, borderBottom: '1px solid #e0e0e0' }}>
+                    <Typography variant="body2" fontWeight="bold">
+                      {interaction.interactionType.replace(/_/g, ' ').toUpperCase()}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {new Date(interaction.timestamp).toLocaleDateString()} at {new Date(interaction.timestamp).toLocaleTimeString()}
+                    </Typography>
+                    {interaction.metadata?.topicId && (
+                      <Chip 
+                        label={interaction.metadata.topicId}
+                        size="small"
+                        sx={{ ml: 1, fontSize: '0.7rem' }}
+                      />
+                    )}
+                  </Box>
+                )) || (
+                  <Typography color="text.secondary">No recent activity data available</Typography>
+                )}
+              </Paper>
+            </Grid>
+
+            {/* Engagement Metrics */}
+            <Grid item xs={12} md={6}>
+              <Paper sx={{ p: 3 }}>
+                <Typography variant="h6" gutterBottom>
+                  Engagement Metrics (Last 30 Days)
+                </Typography>
+                
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="body2">
+                    Total Interactions: <strong>{dashboardStats.analytics.totalCount || 0}</strong>
+                  </Typography>
+                </Box>
+                
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="body2">
+                    Time Period: <strong>{dashboardStats.analytics.timeframe || 30} days</strong>
+                  </Typography>
+                </Box>
+                
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="body2">
+                    Most Active Day: <strong>
+                      {dashboardStats.analytics.interactions?.length > 0 ? 
+                        new Date(dashboardStats.analytics.interactions[0].timestamp).toLocaleDateString() : 
+                        'No data'
+                      }
+                    </strong>
+                  </Typography>
+                </Box>
+
+                {/* Interaction Types Breakdown */}
+                <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+                  Activity Breakdown:
+                </Typography>
+                {(() => {
+                  const interactionTypes = {};
+                  dashboardStats.analytics.interactions?.forEach(interaction => {
+                    const type = interaction.interactionType;
+                    interactionTypes[type] = (interactionTypes[type] || 0) + 1;
+                  });
+                  
+                  return Object.entries(interactionTypes).map(([type, count]) => (
+                    <Box key={type} sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                      <Typography variant="body2">{type.replace(/_/g, ' ')}</Typography>
+                      <Typography variant="body2" fontWeight="bold">{count}</Typography>
+                    </Box>
+                  ));
+                })()}
+              </Paper>
+            </Grid>
+
+            {/* Learning Patterns */}
+            <Grid item xs={12}>
+              <Paper sx={{ p: 3 }}>
+                <Typography variant="h6" gutterBottom>
+                  Learning Patterns & Insights
+                </Typography>
+                
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={4}>
+                    <Alert severity="info">
+                      <Typography variant="body2">
+                        <strong>Peak Activity:</strong> Based on timestamps, this student is most active during regular school hours.
+                      </Typography>
+                    </Alert>
+                  </Grid>
+                  
+                  <Grid item xs={12} sm={4}>
+                    <Alert severity={dashboardStats.overallProgress >= 70 ? "success" : "warning"}>
+                      <Typography variant="body2">
+                        <strong>Progress Rate:</strong> {dashboardStats.overallProgress >= 70 ? "Above average" : "Needs attention"} - {dashboardStats.overallProgress}% overall mastery
+                      </Typography>
+                    </Alert>
+                  </Grid>
+                  
+                  <Grid item xs={12} sm={4}>
+                    <Alert severity="info">
+                      <Typography variant="body2">
+                        <strong>Engagement Level:</strong> {dashboardStats.analytics.totalCount > 50 ? "High" : dashboardStats.analytics.totalCount > 20 ? "Medium" : "Low"} - {dashboardStats.analytics.totalCount} interactions in {dashboardStats.analytics.timeframe} days
+                      </Typography>
+                    </Alert>
+                  </Grid>
+                </Grid>
+                
+                {/* Recommendations */}
+                <Typography variant="subtitle2" gutterBottom sx={{ mt: 3 }}>
+                  📝 Instructor Recommendations:
+                </Typography>
+                <List dense>
+                  {dashboardStats.overallProgress < 50 && (
+                    <ListItem>
+                      <ListItemIcon><WarningIcon color="warning" /></ListItemIcon>
+                      <ListItemText primary="Consider scheduling a one-on-one session to address learning gaps" />
+                    </ListItem>
+                  )}
+                  {dashboardStats.analytics.totalCount < 10 && (
+                    <ListItem>
+                      <ListItemIcon><InfoIcon color="info" /></ListItemIcon>
+                      <ListItemText primary="Low engagement detected - try gamification or different learning materials" />
+                    </ListItem>
+                  )}
+                  {dashboardStats.overallProgress >= 80 && (
+                    <ListItem>
+                      <ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon>
+                      <ListItemText primary="Excellent progress! Consider providing advanced challenges" />
+                    </ListItem>
+                  )}
+                </List>
+              </Paper>
+            </Grid>
+          </Grid>
+        </>
+      )}
       
       {/* Enrolled Courses Section */}
       <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
@@ -366,7 +634,7 @@ const TeacherDashboard = ({ currentUser, courses, students, dashboardStats, tabV
   return (
     <Box p={4}>
       <Typography variant="h4" gutterBottom>
-        Instructor Dashboard: {currentUser.name}
+        Instructor Dashboard: {dashboardStats?.instructorInfo?.name || currentUser.name}
       </Typography>
       
       {/* Summary Cards */}
@@ -449,10 +717,47 @@ const TeacherDashboard = ({ currentUser, courses, students, dashboardStats, tabV
 const StudentProgressTab = ({ students }) => {
   // State to track expanded student cards
   const [expandedStudent, setExpandedStudent] = useState(null);
+  // State for messaging modal
+  const [messageModalOpen, setMessageModalOpen] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [messageSubject, setMessageSubject] = useState('');
+  const [messageContent, setMessageContent] = useState('');
+  const [messagePriority, setMessagePriority] = useState('normal');
   
   // Function to toggle expansion
   const handleExpandClick = (studentId) => {
     setExpandedStudent(expandedStudent === studentId ? null : studentId);
+  };
+  
+  // Function to handle messaging a student
+  const handleMessageStudent = (student) => {
+    setSelectedStudent(student);
+    setMessageModalOpen(true);
+  };
+  
+  // Function to handle closing the message modal
+  const handleCloseMessageModal = () => {
+    setMessageModalOpen(false);
+    setSelectedStudent(null);
+    setMessageSubject('');
+    setMessageContent('');
+    setMessagePriority('normal');
+  };
+  
+  // Function to send the message
+  const handleSendMessage = () => {
+    // TODO: Implement API call to send message
+    console.log('Sending message:', {
+      to: selectedStudent,
+      subject: messageSubject,
+      content: messageContent,
+      priority: messagePriority
+    });
+    
+    // For now, just show an alert
+    alert(`Message sent to ${selectedStudent.name}:\n\nSubject: ${messageSubject}\nContent: ${messageContent}`);
+    
+    handleCloseMessageModal();
   };
   
   // Function to get risk level color
@@ -670,15 +975,35 @@ const StudentProgressTab = ({ students }) => {
                                 'Unknown'}
                             </Typography>
                             
-                            <Button 
-                              size="small" 
-                              variant="outlined"
-                              color="primary"
-                              component={Link}
-                              to={`/student-report/${studentData.student.id}`}
-                            >
-                              View Full Report
-                            </Button>
+                            <Box sx={{ display: 'flex', gap: 1 }}>
+                              <Button 
+                                size="small" 
+                                variant="outlined"
+                                color="primary"
+                                component={Link}
+                                to={`/dashboard?student=${studentData.student.id}&view=student`}
+                              >
+                                View Dashboard
+                              </Button>
+                              <Button 
+                                size="small" 
+                                variant="outlined"
+                                color="secondary"
+                                component={Link}
+                                to={`/student-report/${studentData.student.id}`}
+                              >
+                                Full Report
+                              </Button>
+                              <Button 
+                                size="small" 
+                                variant="contained"
+                                color="info"
+                                onClick={() => handleMessageStudent(studentData.student)}
+                                startIcon={<MessageIcon />}
+                              >
+                                Message
+                              </Button>
+                            </Box>
                           </Box>
                         </Paper>
                       </Grid>
@@ -694,6 +1019,83 @@ const StudentProgressTab = ({ students }) => {
           <Typography>No student data available</Typography>
         </Paper>
       )}
+      
+      {/* Message Student Modal */}
+      <Dialog 
+        open={messageModalOpen} 
+        onClose={handleCloseMessageModal}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <MessageIcon sx={{ mr: 1 }} />
+            Message Student: {selectedStudent?.name}
+          </Box>
+          <IconButton onClick={handleCloseMessageModal}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
+            <TextField
+              label="Subject"
+              fullWidth
+              value={messageSubject}
+              onChange={(e) => setMessageSubject(e.target.value)}
+              placeholder="Enter message subject..."
+              required
+            />
+            
+            <FormControl fullWidth>
+              <InputLabel>Priority</InputLabel>
+              <Select
+                value={messagePriority}
+                onChange={(e) => setMessagePriority(e.target.value)}
+                label="Priority"
+              >
+                <MenuItem value="low">Low Priority</MenuItem>
+                <MenuItem value="normal">Normal Priority</MenuItem>
+                <MenuItem value="high">High Priority</MenuItem>
+                <MenuItem value="urgent">Urgent</MenuItem>
+              </Select>
+            </FormControl>
+            
+            <TextField
+              label="Message"
+              multiline
+              rows={6}
+              fullWidth
+              value={messageContent}
+              onChange={(e) => setMessageContent(e.target.value)}
+              placeholder="Type your message here..."
+              required
+            />
+            
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+              📧 This message will be sent to: {selectedStudent?.email}
+            </Typography>
+          </Box>
+        </DialogContent>
+        
+        <DialogActions sx={{ p: 2 }}>
+          <Button 
+            onClick={handleCloseMessageModal}
+            variant="outlined"
+          >
+            Cancel
+          </Button>
+          <Button 
+            onClick={handleSendMessage}
+            variant="contained"
+            startIcon={<SendIcon />}
+            disabled={!messageSubject.trim() || !messageContent.trim()}
+          >
+            Send Message
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

@@ -33,12 +33,22 @@ const johnData = {
         { 
           type: "worksheet", 
           title: "Von Neumann Architecture", 
-          url: "/worksheets/sys_arch_ws1.pdf" 
+          url: "https://cdn.savemyexams.com/pdfs/PfIkRd.pdf" 
+        },
+        { 
+          type: "worksheet", 
+          title: "Systems Architecture Worksheet", 
+          url: "https://docs.google.com/document/d/1TWjiO8KYwiiiRoC7eOWNxRlbqTPipMMIaaVjKvjykLc/edit?usp=sharing" 
         },
         { 
           type: "link", 
           title: "BBC Bitesize: CPU Systems", 
-          url: "https://www.bbc.co.uk/bitesize/guides/zmb9mp3/revision/1" 
+          url: "https://www.bbc.co.uk/bitesize/guides/zbfny4j/revision/6#:~:text=Systems%20architecture%20%2D%20OCRCPU%20performance,describes%20how%20a%20processor%20functions.&text=Save%20guides%2C%20add%20subjects%20and,off%20with%20your%20BBC%20account." 
+        },
+        { 
+          type: "quiz", 
+          title: "Computer Systems Architecture Quiz", 
+          url: "/worksheets/computer_systems_architecture_quiz.html" 
         }
       ]
     },
@@ -50,17 +60,32 @@ const johnData = {
         { 
           type: "video", 
           title: "RAM & ROM Explained", 
-          url: "https://www.youtube.com/watch?v=1H-GtLzDuEw" 
+          url: "https://youtu.be/Q2pzT6oYPWg?si=YAcHN3Hu8Az7TkRu" 
+        },
+        { 
+          type: "video", 
+          title: "Memory and Storage Video", 
+          url: "https://youtu.be/dhQOkkZXu5w?si=ZzjsPFGSG76VSJhP" 
         },
         { 
           type: "worksheet", 
-          title: "Storage Devices Comparison", 
-          url: "/worksheets/mem_storage_ws1.pdf" 
+          title: "Storage Devices Comparison (Self-Marked)", 
+          url: "/worksheets/storage_devices_self_marked.html" 
+        },
+        { 
+          type: "worksheet", 
+          title: "Memory and Storage Worksheet", 
+          url: "https://docs.google.com/document/d/1kvjKHSvhHFIVO1XxTqssamLP1HGv6Fsjro1L7raBb2I/edit?usp=sharing" 
         },
         { 
           type: "link", 
           title: "Seneca: Memory & Storage", 
-          url: "https://senecalearning.com/en-GB/revision-notes/gcse/computer-science/ocr" 
+          url: "https://senecalearning.com/en-GB/definitions/memory/" 
+        },
+        { 
+          type: "link", 
+          title: "BBC Bitesize: Memory and Storage", 
+          url: "https://www.bbc.co.uk/bitesize/guides/zd4r97h/revision/1" 
         }
       ]
     },
@@ -72,7 +97,7 @@ const johnData = {
         { 
           type: "video", 
           title: "Network Topologies & Protocols", 
-          url: "https://www.youtube.com/watch?v=Hkl3JBM2rIE" 
+          url: "https://youtube.com/playlist?list=PLCiOXwirraUBnOLZCIxrLTSuIfgvYeWj-&si=WuktcTOyqb08qYan" 
         },
         { 
           type: "worksheet", 
@@ -88,17 +113,17 @@ const johnData = {
     },
     {
       id: "security",
-      name: "Cyber Security",
+      name: "Network Security",
       mastery: 30,
       resources: [
         { 
           type: "video", 
-          title: "Cyber Attacks & Prevention Methods", 
-          url: "https://www.youtube.com/watch?v=5MMoxyK1Y9o" 
+          title: "J277 1.4.1 Threats to Computer Systems and Networks", 
+          url: "https://youtu.be/4f05t8ppJfk?si=oeiGrNYUuHPR0I1r" 
         },
         { 
           type: "worksheet", 
-          title: "Security Threats & Mitigation", 
+          title: "J277 1.4.2 Identifying and Preventing Vulnerabilities", 
           url: "/worksheets/security_ws1.pdf" 
         },
         { 
@@ -116,17 +141,52 @@ const johnData = {
         { 
           type: "video", 
           title: "Selection, Iteration & Sequence", 
-          url: "https://www.youtube.com/watch?v=WXgvAVl6fqE" 
+          url: "https://youtu.be/t0VphK9cWgE?si=KJTMM38oX6exgmPg" 
+        },
+        { 
+          type: "video", 
+          title: "Producing Robust Programs", 
+          url: "https://youtu.be/2IIF4Infdf4?si=mWLxqKMyTYbco-84" 
+        },
+        { 
+          type: "video", 
+          title: "Programming Fundamentals Video", 
+          url: "https://youtu.be/dpBe_TXFqZ8?si=LyC8AXq7tk8DIEj0" 
         },
         { 
           type: "worksheet", 
           title: "Programming Constructs", 
-          url: "/worksheets/prog_fund_ws1.pdf" 
+          url: "/worksheets/prog_fund_ws1.html" 
+        },
+        { 
+          type: "worksheet", 
+          title: "Programming Constructs OCR – Year 10 Worksheet", 
+          url: "/worksheets/programming_constructs_ocr_year10.html" 
+        },
+        { 
+          type: "worksheet", 
+          title: "Producing Robust Programmes Worksheet", 
+          url: "https://docs.google.com/document/d/1tQoKrgB17aAi6v2F8OZ4GgMQSlEzVuV1GXrq1ATy9KA/edit?usp=sharing" 
+        },
+        { 
+          type: "worksheet", 
+          title: "Programming Fundamentals Worksheet", 
+          url: "https://docs.google.com/document/d/17_ZypEHE9wvGCvrH3EwY-NE1TCIZNCDTR44py-KUN9s/edit?usp=sharing" 
         },
         { 
           type: "link", 
           title: "BBC Bitesize: Python Programming", 
           url: "https://www.bbc.co.uk/bitesize/guides/zts8v9q/revision/4" 
+        },
+        { 
+          type: "link", 
+          title: "BBC Bitesize: Producing Robust Programs", 
+          url: "https://www.bbc.co.uk/bitesize/guides/z4cg4qt/revision/1" 
+        },
+        { 
+          type: "link", 
+          title: "BBC Bitesize: Programming Fundamentals", 
+          url: "https://www.bbc.co.uk/bitesize/guides/znh6pbk/revision/3" 
         }
       ]
     },
@@ -138,7 +198,7 @@ const johnData = {
         { 
           type: "video", 
           title: "Binary, Denary & Hex Conversions", 
-          url: "https://www.youtube.com/watch?v=rKJbOCXKu0I" 
+          url: "https://www.youtube.com/watch?v=nmbr7GxN6TA&ab_channel=Craig%27n%27Dave" 
         },
         { 
           type: "worksheet", 
@@ -148,7 +208,7 @@ const johnData = {
         { 
           type: "link", 
           title: "BBC Bitesize: Representing Data", 
-          url: "https://www.bbc.co.uk/bitesize/guides/zpfdwmn/revision/1" 
+          url: "https://www.bbc.co.uk/bitesize/guides/zfspfcw/revision/9#:~:text=Units%20and%20data%20representation%20%2D%20OCRSound,are%20also%20done%20in%20binary." 
         }
       ]
     },
@@ -160,17 +220,49 @@ const johnData = {
         { 
           type: "video", 
           title: "Searching & Sorting Algorithms", 
-          url: "https://www.youtube.com/watch?v=DLvJkG2a2aU" 
+          url: "https://youtube.com/playlist?list=PLCiOXwirraUAzsy9tacd98LBTbj7cyFQV&si=qc69yJWHt6NwYAuf" 
+        },
+        { 
+          type: "video", 
+          title: "Algorithms Video", 
+          url: "https://youtu.be/wLJ1n47sGRI?si=YFufeD_DLkHgSTiD" 
         },
         { 
           type: "worksheet", 
-          title: "Algorithm Efficiency & Big O", 
-          url: "/worksheets/algo_ws1.pdf" 
+          title: "Algorithms Worksheet", 
+          url: "https://docs.google.com/document/d/1Vup5Emtl8V86MpKMWdHmxzFgo5IsVmo5TprxDy1EZ8U/edit?usp=sharing" 
         },
         { 
           type: "link", 
           title: "VisuAlgo: Sorting Algorithms", 
           url: "https://visualgo.net/en/sorting" 
+        },
+        { 
+          type: "link", 
+          title: "BBC Bitesize: Algorithms", 
+          url: "https://www.bbc.co.uk/bitesize/guides/z6m7xfr/revision/1" 
+        }
+      ]
+    },
+    {
+      id: "boolean_logic",
+      name: "Boolean Logic",
+      mastery: 45,
+      resources: [
+        { 
+          type: "video", 
+          title: "Boolean Logic & Truth Tables", 
+          url: "https://youtu.be/jN9WtjyjXf4?si=MoYR8LJ570_daAHR" 
+        },
+        { 
+          type: "worksheet", 
+          title: "Boolean Logic Worksheet", 
+          url: "https://docs.google.com/document/d/1YbUNlX1NnGF8hzgoVzgkRv54L-B4yARN3x0dVQrcLlQ/edit?usp=sharing" 
+        },
+        { 
+          type: "link", 
+          title: "BBC Bitesize: Boolean Logic", 
+          url: "https://www.bbc.co.uk/bitesize/guides/zjw8jty/revision/1" 
         }
       ]
     },
@@ -182,7 +274,7 @@ const johnData = {
         { 
           type: "video", 
           title: "Privacy, Legislation & Cultural Impact", 
-          url: "https://www.youtube.com/watch?v=qI9AK0401D0" 
+          url: "https://youtube.com/playlist?list=PLCiOXwirraUCJmKc7xDNgrKdUNIxIeQbi&si=V-gPwV0vmKPLPSkF" 
         },
         { 
           type: "worksheet", 
@@ -210,12 +302,17 @@ const johnData = {
         { 
           type: "video", 
           title: "Selection, Iteration & Sequence", 
-          url: "https://www.youtube.com/watch?v=WXgvAVl6fqE" 
+          url: "https://youtu.be/t0VphK9cWgE?si=KJTMM38oX6exgmPg" 
         },
         { 
           type: "worksheet", 
           title: "Programming Constructs", 
-          url: "/worksheets/prog_fund_ws1.pdf" 
+          url: "/worksheets/prog_fund_ws1.html" 
+        },
+        { 
+          type: "worksheet", 
+          title: "Programming Constructs OCR – Year 10 Worksheet", 
+          url: "/worksheets/programming_constructs_ocr_year10.html" 
         }
       ]
     },
@@ -301,11 +398,11 @@ const johnData = {
     },
     {
       type: "activity",
-      title: "Cyber Security Worksheet",
+      title: "Network Security Worksheet",
       completedAt: getDateBefore(9),
       score: 35,
       topicId: "security",
-      topicName: "Cyber Security",
+      topicName: "Network Security",
       resources: [
         { 
           type: "worksheet", 
@@ -332,10 +429,44 @@ const johnData = {
   ],
   insights: {
     strengths: ["Programming Fundamentals", "Algorithms"],
-    areasForImprovement: ["Computer Networks", "Cyber Security"],
+    areasForImprovement: ["Computer Networks", "Network Security"],
     lastActive: null, // Will be set to the most recent activity date
     activityCount: 8
-  }
+  },
+  badges: [
+    {
+      id: 'first_login',
+      title: 'Welcome Aboard!',
+      description: 'Completed your first login',
+      icon: '🎉',
+      color: '#2196f3',
+      earnedDate: '2024-01-15'
+    },
+    {
+      id: 'quiz_master',
+      title: 'Quiz Master',
+      description: 'Scored 90%+ on 5 quizzes',
+      icon: '🧠',
+      color: '#9c27b0',
+      earnedDate: '2024-01-20'
+    },
+    {
+      id: 'blooms_climber',
+      title: "Bloom's Climber",
+      description: 'Reached Analyze level in any topic',
+      icon: '🏔️',
+      color: '#4caf50',
+      earnedDate: '2024-01-22'
+    },
+    {
+      id: 'perfectionist',
+      title: 'Perfectionist',
+      description: 'Achieved 100% on any assessment',
+      icon: '💯',
+      color: '#ffc107',
+      earnedDate: '2024-01-18'
+    }
+  ]
 };
 
 // Calculate the overall progress based on skill masteries

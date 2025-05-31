@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { AuthProvider } from './context/AuthContext';
 import theme from './theme';
+import './styles/accessibility.css';
 
 // Components
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import StudentDashboardSelector from './components/StudentDashboardSelector';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -39,6 +41,7 @@ function App() {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/student-report/:studentId" element={<StudentReport />} />
+                  <Route path="/student-selector" element={<StudentDashboardSelector />} />
                 </Route>
                 
                 {/* Fallback route */}

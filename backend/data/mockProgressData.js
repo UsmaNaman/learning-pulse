@@ -21,7 +21,7 @@ const topics = [
     name: "Systems Architecture",
     resources: [
       { type: "video", title: "CPU Components Explained", url: "https://www.youtube.com/watch?v=CPU_example" },
-      { type: "pdf", title: "Von Neumann Architecture", url: "/resources/sys_arch/von_neumann.pdf" },
+      { type: "pdf", title: "Von Neumann Architecture", url: "https://cdn.savemyexams.com/pdfs/PfIkRd.pdf" },
       { type: "worksheet", title: "CPU Performance Factors", url: "/resources/sys_arch/cpu_performance.pdf" }
     ]
   },
@@ -29,7 +29,7 @@ const topics = [
     id: "mem_storage", 
     name: "Memory and Storage",
     resources: [
-      { type: "video", title: "Primary Storage Overview", url: "https://www.youtube.com/watch?v=memory_example" },
+      { type: "video", title: "RAM & ROM Explained", url: "https://youtu.be/Q2pzT6oYPWg?si=YAcHN3Hu8Az7TkRu" },
       { type: "link", title: "Data Storage Calculations", url: "https://www.craigndave.org/storage-calculations/" },
       { type: "pdf", title: "Secondary Storage Devices", url: "/resources/mem_storage/secondary_storage.pdf" }
     ]
@@ -38,25 +38,26 @@ const topics = [
     id: "networks", 
     name: "Computer Networks",
     resources: [
-      { type: "video", title: "Network Topologies", url: "https://www.youtube.com/watch?v=network_topologies" },
-      { type: "pdf", title: "Protocols and Layers", url: "/resources/networks/protocols.pdf" },
+      { type: "video", title: "Network Topologies & Protocols", url: "https://youtube.com/playlist?list=PLCiOXwirraUBnOLZCIxrLTSuIfgvYeWj-&si=WuktcTOyqb08qYan" },
+      { type: "pdf", title: "Protocols and Layers", url: "https://www.highsted.kent.sch.uk/assets/PDFs/Knowledge-organiser-2023/KO-KS4-Terms-3-4/Computer-Science-GCSE.pdf" },
       { type: "link", title: "Packet Switching Interactive", url: "https://www.craigndave.org/packet-switching-demo/" }
     ]
   },
   { 
     id: "security", 
-    name: "Cyber Security",
+    name: "Network Security",
     resources: [
-      { type: "video", title: "Malware Types Explained", url: "https://www.youtube.com/watch?v=malware_types" },
-      { type: "pdf", title: "Social Engineering Threats", url: "/resources/security/social_engineering.pdf" },
-      { type: "worksheet", title: "Network Security Measures", url: "/resources/security/network_security.pdf" }
+      { type: "video", title: "J277 1.4.1 Threats to Computer Systems and Networks", url: "https://youtu.be/4f05t8ppJfk?si=oeiGrNYUuHPR0I1r" },
+      { type: "pdf", title: "J277 1.4.1 Brute Force and DoS Attacks", url: "/resources/security/social_engineering.pdf" },
+      { type: "worksheet", title: "J277 1.4.2 Firewalls and Penetration Testing", url: "/resources/security/network_security.pdf" }
     ]
   },
   { 
     id: "programming", 
     name: "Programming Concepts",
     resources: [
-      { type: "video", title: "Selection & Iteration", url: "https://www.youtube.com/watch?v=selection_iteration" },
+      { type: "video", title: "Selection, Iteration & Sequence", url: "https://youtu.be/t0VphK9cWgE?si=KJTMM38oX6exgmPg" },
+      { type: "worksheet", title: "Programming Constructs OCR – Year 10 Worksheet", url: "/worksheets/programming_constructs_ocr_year10.html" },
       { type: "link", title: "Python Tutor Visualizer", url: "https://pythontutor.com/" },
       { type: "pdf", title: "Data Types & Operators", url: "/resources/programming/data_types.pdf" }
     ]
@@ -65,7 +66,7 @@ const topics = [
     id: "algo", 
     name: "Algorithms",
     resources: [
-      { type: "video", title: "Searching Algorithms", url: "https://www.youtube.com/watch?v=searching_algorithms" },
+      { type: "video", title: "Searching & Sorting Algorithms", url: "https://youtube.com/playlist?list=PLCiOXwirraUAzsy9tacd98LBTbj7cyFQV&si=qc69yJWHt6NwYAuf" },
       { type: "link", title: "Sorting Visualizations", url: "https://visualgo.net/en/sorting" },
       { type: "worksheet", title: "Algorithm Efficiency", url: "/resources/algo/efficiency.pdf" }
     ] 
@@ -74,7 +75,7 @@ const topics = [
     id: "ethics", 
     name: "Ethical, Legal, Cultural Issues",
     resources: [
-      { type: "video", title: "Privacy & Data Protection", url: "https://www.youtube.com/watch?v=privacy_data" },
+      { type: "video", title: "Privacy, Legislation & Cultural Impact", url: "https://youtube.com/playlist?list=PLCiOXwirraUCJmKc7xDNgrKdUNIxIeQbi&si=V-gPwV0vmKPLPSkF" },
       { type: "pdf", title: "Copyright & Licensing", url: "/resources/ethics/copyright.pdf" },
       { type: "link", title: "Environmental Impact of Computing", url: "https://www.craigndave.org/environmental-impact/" }
     ]
@@ -351,5 +352,146 @@ const mockProgressData = {
     }
   })
 };
+
+// Add badges to students after generation
+mockProgressData.fatima.badges = [
+  {
+    id: 'first_login',
+    title: 'Welcome Aboard!',
+    description: 'Completed your first login',
+    icon: '🎉',
+    color: '#2196f3',
+    earnedDate: '2024-01-12'
+  },
+  {
+    id: 'week_warrior',
+    title: 'Week Warrior',
+    description: 'Active for 7 consecutive days',
+    icon: '⚡',
+    color: '#ff9800',
+    earnedDate: '2024-01-19'
+  },
+  {
+    id: 'quiz_master',
+    title: 'Quiz Master',
+    description: 'Scored 90%+ on 5 quizzes',
+    icon: '🧠',
+    color: '#9c27b0',
+    earnedDate: '2024-01-24'
+  },
+  {
+    id: 'blooms_climber',
+    title: "Bloom's Climber",
+    description: 'Reached Analyze level in any topic',
+    icon: '🏔️',
+    color: '#4caf50',
+    earnedDate: '2024-01-20'
+  },
+  {
+    id: 'code_ninja',
+    title: 'Code Ninja',
+    description: 'Completed 10 coding challenges',
+    icon: '🥷',
+    color: '#607d8b',
+    earnedDate: '2024-01-26'
+  },
+  {
+    id: 'reflection_guru',
+    title: 'Reflection Guru',
+    description: 'Submitted 5 learning reflections',
+    icon: '🧘',
+    color: '#795548',
+    earnedDate: '2024-01-23'
+  }
+];
+
+mockProgressData.ava.badges = [
+  {
+    id: 'first_login',
+    title: 'Welcome Aboard!',
+    description: 'Completed your first login',
+    icon: '🎉',
+    color: '#2196f3',
+    earnedDate: '2024-01-10'
+  },
+  {
+    id: 'week_warrior',
+    title: 'Week Warrior',
+    description: 'Active for 7 consecutive days',
+    icon: '⚡',
+    color: '#ff9800',
+    earnedDate: '2024-01-17'
+  },
+  {
+    id: 'quiz_master',
+    title: 'Quiz Master',
+    description: 'Scored 90%+ on 5 quizzes',
+    icon: '🧠',
+    color: '#9c27b0',
+    earnedDate: '2024-01-19'
+  },
+  {
+    id: 'blooms_climber',
+    title: "Bloom's Climber",
+    description: 'Reached Analyze level in any topic',
+    icon: '🏔️',
+    color: '#4caf50',
+    earnedDate: '2024-01-14'
+  },
+  {
+    id: 'code_ninja',
+    title: 'Code Ninja',
+    description: 'Completed 10 coding challenges',
+    icon: '🥷',
+    color: '#607d8b',
+    earnedDate: '2024-01-25'
+  },
+  {
+    id: 'perfectionist',
+    title: 'Perfectionist',
+    description: 'Achieved 100% on any assessment',
+    icon: '💯',
+    color: '#ffc107',
+    earnedDate: '2024-01-16'
+  },
+  {
+    id: 'speed_learner',
+    title: 'Speed Learner',
+    description: 'Completed 3 activities in one day',
+    icon: '💨',
+    color: '#f44336',
+    earnedDate: '2024-01-21'
+  }
+];
+
+mockProgressData.david.badges = [
+  {
+    id: 'first_login',
+    title: 'Welcome Aboard!',
+    description: 'Completed your first login',
+    icon: '🎉',
+    color: '#2196f3',
+    earnedDate: '2024-01-14'
+  },
+  {
+    id: 'blooms_climber',
+    title: "Bloom's Climber",
+    description: 'Reached Analyze level in any topic',
+    icon: '🏔️',
+    color: '#4caf50',
+    earnedDate: '2024-01-22'
+  }
+];
+
+mockProgressData.liam.badges = [
+  {
+    id: 'first_login',
+    title: 'Welcome Aboard!',
+    description: 'Completed your first login',
+    icon: '🎉',
+    color: '#2196f3',
+    earnedDate: '2024-01-16'
+  }
+];
 
 module.exports = mockProgressData;

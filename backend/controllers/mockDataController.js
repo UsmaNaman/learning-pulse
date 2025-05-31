@@ -69,7 +69,8 @@ exports.getMockDashboard = (req, res) => {
       areasForImprovement: weaknesses,
       lastActive: studentData.recentActivity[0]?.completedAt || null,
       activityCount: studentData.recentActivity.length
-    }
+    },
+    badges: studentData.badges || []
   });
 };
 

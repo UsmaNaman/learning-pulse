@@ -8,10 +8,14 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  Alert,
+  Chip
 } from '@mui/material';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import WarningIcon from '@mui/icons-material/Warning';
+import RecommendIcon from '@mui/icons-material/Recommend';
 
 /**
  * Component to display a summary of student progress
@@ -25,7 +29,8 @@ const ProgressSummaryCard = ({
   overallProgress = 0, 
   strengths = [], 
   weaknesses = [], 
-  studentName = "Student" 
+  studentName = "Student",
+  skills = [] // Add skills prop to identify weakest and next topics
 }) => {
   // Helper to get color based on progress level
   const getProgressColor = (progress) => {
@@ -36,6 +41,46 @@ const ProgressSummaryCard = ({
 
   // Get the color for overall progress
   const progressColor = getProgressColor(overallProgress);
+
+  // Identify weakest topic and next suggested topic
+  const getWeakestTopic = () => {
+    if (!skills.length) return null;
+    return skills.reduce((weakest, current) => 
+      current.mastery < weakest.mastery ? current : weakest
+    );
+  };
+
+  const getNextSuggestedTopic = () => {
+    if (!skills.length) return null;
+    
+    // Find topics that are close to the next Bloom's level
+    const sortedSkills = [...skills].sort((a, b) => {
+      // Prioritize topics that are close to moving up a Bloom's level
+      const aNextThreshold = getNextBloomsThreshold(a.mastery);
+      const bNextThreshold = getNextBloomsThreshold(b.mastery);
+      const aGap = aNextThreshold - a.mastery;
+      const bGap = bNextThreshold - b.mastery;
+      
+      // If gaps are similar, prioritize lower mastery topics
+      if (Math.abs(aGap - bGap) < 5) {
+        return a.mastery - b.mastery;
+      }
+      return aGap - bGap;
+    });
+    
+    return sortedSkills[0];
+  };
+
+  const getNextBloomsThreshold = (mastery) => {
+    if (mastery < 40) return 40; // To reach Understand
+    if (mastery < 55) return 55; // To reach Apply
+    if (mastery < 70) return 70; // To reach Analyze
+    if (mastery < 85) return 85; // To reach Evaluate
+    return 100; // Mastery
+  };
+
+  const weakestTopic = getWeakestTopic();
+  const nextSuggestedTopic = getNextSuggestedTopic();
 
   return (
     <Paper sx={{ p: 3, mb: 3 }}>
@@ -86,6 +131,38 @@ const ProgressSummaryCard = ({
       </Box>
       
       <Divider sx={{ my: 2 }} />
+      
+      {/* Weakest Topic Alert */}
+      {weakestTopic && (
+        <Alert 
+          severity="warning" 
+          icon={<WarningIcon />}
+          sx={{ mb: 2 }}
+        >
+          <Typography variant="subtitle2" fontWeight="bold">
+            Weakest Topic: {weakestTopic.name}
+          </Typography>
+          <Typography variant="body2">
+            {weakestTopic.mastery}% mastery - Consider focusing review time here
+          </Typography>
+        </Alert>
+      )}
+      
+      {/* Next Suggested Topic */}
+      {nextSuggestedTopic && (
+        <Alert 
+          severity="info" 
+          icon={<RecommendIcon />}
+          sx={{ mb: 2 }}
+        >
+          <Typography variant="subtitle2" fontWeight="bold">
+            Next Topic Suggested: {nextSuggestedTopic.name}
+          </Typography>
+          <Typography variant="body2">
+            {nextSuggestedTopic.mastery}% mastery - {getNextBloomsThreshold(nextSuggestedTopic.mastery) - nextSuggestedTopic.mastery}% from next Bloom's level
+          </Typography>
+        </Alert>
+      )}
       
       {/* Strengths section */}
       <Box sx={{ mb: 2 }}>

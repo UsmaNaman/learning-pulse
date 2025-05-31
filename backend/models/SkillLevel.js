@@ -4,7 +4,17 @@ const SkillLevelSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    enum: ['beginner', 'intermediate', 'advanced', 'expert'],
+    enum: ['remember', 'understand', 'apply', 'analyze', 'evaluate'],
+  },
+  bloomsLevel: {
+    type: Number,
+    required: true,
+    min: 1,
+    max: 5
+  },
+  bloomsDescription: {
+    type: String,
+    required: true
   },
   description: {
     type: String,

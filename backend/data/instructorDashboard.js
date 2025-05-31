@@ -11,10 +11,10 @@ const mockProgressData = require('./mockProgressData');
 const instructorDashboard = {
   instructor: {
     id: "instructor1",
-    name: "David Jones",
-    email: "jones@school.edu",
+    name: "Usman Akram",
+    email: "smith@school.edu",
     role: "instructor",
-    classGroups: ["CS-10A", "CS-11B", "CS-9C"],
+    classGroups: ["CS-10A", "CS-10B", "CS-11A"],
     subjects: ["Computer Science"]
   },
   
@@ -26,7 +26,7 @@ const instructorDashboard = {
     atRiskStudents: 2,
     classChallenges: [
       { name: "Computer Networks", count: 3 },
-      { name: "Cyber Security", count: 3 },
+      { name: "Network Security", count: 3 },
       { name: "Memory and Storage", count: 2 }
     ],
     overallProgress: 65,
@@ -44,7 +44,7 @@ const instructorDashboard = {
     ],
     strugglingTopics: [
       { name: "Computer Networks", averageMastery: 38 },
-      { name: "Cyber Security", averageMastery: 42 }
+      { name: "Network Security", averageMastery: 42 }
     ],
     weeklyActivity: [
       { day: "Monday", count: 8 },
@@ -71,7 +71,7 @@ const instructorDashboard = {
         { name: "Systems Architecture", progress: 72 },
         { name: "Memory and Storage", progress: 59 },
         { name: "Computer Networks", progress: 42 },
-        { name: "Cyber Security", progress: 45 },
+        { name: "Network Security", progress: 45 },
         { name: "Programming Fundamentals", progress: 85 },
         { name: "Data Representation", progress: 64 },
         { name: "Algorithms", progress: 74 },
@@ -140,7 +140,41 @@ const instructorDashboard = {
         topicMastery: johnData.skills.map(skill => ({
           topic: skill.name,
           mastery: skill.mastery
-        }))
+        })),
+        badges: [
+          {
+            id: 'first_login',
+            title: 'Welcome Aboard!',
+            description: 'Completed your first login',
+            icon: '🎉',
+            color: '#2196f3',
+            earnedDate: '2024-01-15'
+          },
+          {
+            id: 'quiz_master',
+            title: 'Quiz Master',
+            description: 'Scored 90%+ on 5 quizzes',
+            icon: '🧠',
+            color: '#9c27b0',
+            earnedDate: '2024-01-20'
+          },
+          {
+            id: 'blooms_climber',
+            title: "Bloom's Climber",
+            description: 'Reached Analyze level in any topic',
+            icon: '🏔️',
+            color: '#4caf50',
+            earnedDate: '2024-01-22'
+          },
+          {
+            id: 'perfectionist',
+            title: 'Perfectionist',
+            description: 'Achieved 100% on any assessment',
+            icon: '💯',
+            color: '#ffc107',
+            earnedDate: '2024-01-18'
+          }
+        ]
       }
     },
     {
@@ -166,7 +200,65 @@ const instructorDashboard = {
         topicMastery: mockProgressData.ava.skills.map(skill => ({
           topic: skill.name,
           mastery: skill.mastery
-        }))
+        })),
+        badges: [
+          {
+            id: 'first_login',
+            title: 'Welcome Aboard!',
+            description: 'Completed your first login',
+            icon: '🎉',
+            color: '#2196f3',
+            earnedDate: '2024-01-10'
+          },
+          {
+            id: 'week_warrior',
+            title: 'Week Warrior',
+            description: 'Active for 7 consecutive days',
+            icon: '⚡',
+            color: '#ff9800',
+            earnedDate: '2024-01-17'
+          },
+          {
+            id: 'quiz_master',
+            title: 'Quiz Master',
+            description: 'Scored 90%+ on 5 quizzes',
+            icon: '🧠',
+            color: '#9c27b0',
+            earnedDate: '2024-01-19'
+          },
+          {
+            id: 'blooms_climber',
+            title: "Bloom's Climber",
+            description: 'Reached Analyze level in any topic',
+            icon: '🏔️',
+            color: '#4caf50',
+            earnedDate: '2024-01-14'
+          },
+          {
+            id: 'code_ninja',
+            title: 'Code Ninja',
+            description: 'Completed 10 coding challenges',
+            icon: '🥷',
+            color: '#607d8b',
+            earnedDate: '2024-01-25'
+          },
+          {
+            id: 'perfectionist',
+            title: 'Perfectionist',
+            description: 'Achieved 100% on any assessment',
+            icon: '💯',
+            color: '#ffc107',
+            earnedDate: '2024-01-16'
+          },
+          {
+            id: 'speed_learner',
+            title: 'Speed Learner',
+            description: 'Completed 3 activities in one day',
+            icon: '💨',
+            color: '#f44336',
+            earnedDate: '2024-01-21'
+          }
+        ]
       }
     },
     {
@@ -192,7 +284,25 @@ const instructorDashboard = {
         topicMastery: mockProgressData.david.skills.map(skill => ({
           topic: skill.name,
           mastery: skill.mastery
-        }))
+        })),
+        badges: [
+          {
+            id: 'first_login',
+            title: 'Welcome Aboard!',
+            description: 'Completed your first login',
+            icon: '🎉',
+            color: '#2196f3',
+            earnedDate: '2024-01-14'
+          },
+          {
+            id: 'blooms_climber',
+            title: "Bloom's Climber",
+            description: 'Reached Analyze level in any topic',
+            icon: '🏔️',
+            color: '#4caf50',
+            earnedDate: '2024-01-22'
+          }
+        ]
       }
     },
     {
@@ -218,7 +328,57 @@ const instructorDashboard = {
         topicMastery: mockProgressData.fatima.skills.map(skill => ({
           topic: skill.name,
           mastery: skill.mastery
-        }))
+        })),
+        badges: [
+          {
+            id: 'first_login',
+            title: 'Welcome Aboard!',
+            description: 'Completed your first login',
+            icon: '🎉',
+            color: '#2196f3',
+            earnedDate: '2024-01-12'
+          },
+          {
+            id: 'week_warrior',
+            title: 'Week Warrior',
+            description: 'Active for 7 consecutive days',
+            icon: '⚡',
+            color: '#ff9800',
+            earnedDate: '2024-01-19'
+          },
+          {
+            id: 'quiz_master',
+            title: 'Quiz Master',
+            description: 'Scored 90%+ on 5 quizzes',
+            icon: '🧠',
+            color: '#9c27b0',
+            earnedDate: '2024-01-24'
+          },
+          {
+            id: 'blooms_climber',
+            title: "Bloom's Climber",
+            description: 'Reached Analyze level in any topic',
+            icon: '🏔️',
+            color: '#4caf50',
+            earnedDate: '2024-01-20'
+          },
+          {
+            id: 'code_ninja',
+            title: 'Code Ninja',
+            description: 'Completed 10 coding challenges',
+            icon: '🥷',
+            color: '#607d8b',
+            earnedDate: '2024-01-26'
+          },
+          {
+            id: 'reflection_guru',
+            title: 'Reflection Guru',
+            description: 'Submitted 5 learning reflections',
+            icon: '🧘',
+            color: '#795548',
+            earnedDate: '2024-01-23'
+          }
+        ]
       }
     },
     {
@@ -244,7 +404,17 @@ const instructorDashboard = {
         topicMastery: mockProgressData.liam.skills.map(skill => ({
           topic: skill.name,
           mastery: skill.mastery
-        }))
+        })),
+        badges: [
+          {
+            id: 'first_login',
+            title: 'Welcome Aboard!',
+            description: 'Completed your first login',
+            icon: '🎉',
+            color: '#2196f3',
+            earnedDate: '2024-01-16'
+          }
+        ]
       }
     }
   ],
@@ -255,7 +425,7 @@ const instructorDashboard = {
       { topic: "Systems Architecture", currentAvg: 68, previousAvg: 62, change: "+6%" },
       { topic: "Memory and Storage", currentAvg: 55, previousAvg: 52, change: "+3%" },
       { topic: "Computer Networks", currentAvg: 35, previousAvg: 31, change: "+4%" },
-      { topic: "Cyber Security", currentAvg: 30, previousAvg: 28, change: "+2%" },
+      { topic: "Network Security", currentAvg: 30, previousAvg: 28, change: "+2%" },
       { topic: "Programming Fundamentals", currentAvg: 88, previousAvg: 80, change: "+8%" },
       { topic: "Data Representation", currentAvg: 62, previousAvg: 58, change: "+4%" },
       { topic: "Algorithms", currentAvg: 75, previousAvg: 71, change: "+4%" },

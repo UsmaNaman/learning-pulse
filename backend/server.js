@@ -14,6 +14,7 @@ const assessmentRoutes = require('./routes/assessments');
 const progressRoutes = require('./routes/progress');
 const learningPathRoutes = require('./routes/learningPaths');
 const activityRoutes = require('./routes/activities');
+const analyticsRoutes = require('./routes/analytics');
 
 // Initialize express app
 const app = express();
@@ -45,6 +46,7 @@ app.use('/api/assessments', assessmentRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/learning-paths', learningPathRoutes);
 app.use('/api/activities', activityRoutes);
+app.use('/api/analytics', analyticsRoutes); // Analytics routes
 app.use('/api/mock', mockDataRoutes); // Mount mock data routes
 
 // Simple test route

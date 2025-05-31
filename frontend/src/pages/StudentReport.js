@@ -22,7 +22,17 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  CircularProgress
+  CircularProgress,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  IconButton
 } from '@mui/material';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
@@ -32,6 +42,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import MessageIcon from '@mui/icons-material/Message';
+import SendIcon from '@mui/icons-material/Send';
+import CloseIcon from '@mui/icons-material/Close';
 
 import StudentSkillProgress from '../components/StudentSkillProgress';
 import ProgressSummaryCard from '../components/ProgressSummaryCard';
@@ -44,6 +57,12 @@ const StudentReport = () => {
   const [studentData, setStudentData] = useState(null);
   const [activities, setActivities] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+  
+  // Messaging state
+  const [messageModalOpen, setMessageModalOpen] = useState(false);
+  const [messageSubject, setMessageSubject] = useState('');
+  const [messageContent, setMessageContent] = useState('');
+  const [messagePriority, setMessagePriority] = useState('normal');
 
   useEffect(() => {
     const fetchStudentReport = async () => {
@@ -136,6 +155,33 @@ const StudentReport = () => {
     
     fetchStudentReport();
   }, [studentId]);
+  
+  // Messaging functions
+  const handleMessageStudent = () => {
+    setMessageModalOpen(true);
+  };
+  
+  const handleCloseMessageModal = () => {
+    setMessageModalOpen(false);
+    setMessageSubject('');
+    setMessageContent('');
+    setMessagePriority('normal');
+  };
+  
+  const handleSendMessage = () => {
+    // TODO: Implement API call to send message
+    console.log('Sending message:', {
+      to: { id: studentId, name: studentData?.studentName },
+      subject: messageSubject,
+      content: messageContent,
+      priority: messagePriority
+    });
+    
+    // For now, just show an alert
+    alert(`Message sent to ${studentData?.studentName}:\n\nSubject: ${messageSubject}\nContent: ${messageContent}`);
+    
+    handleCloseMessageModal();
+  };
   
   if (loading) {
     return (
@@ -249,7 +295,7 @@ const StudentReport = () => {
               <Box>
                 <Typography variant="h5">{studentData.studentName || 'Student'}</Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Year Group: {studentData.yearGroup || 'KS3'} | 
+                  Year Group: {studentData.yearGroup || 'KS4'} | 
                   Class: {studentData.className || 'Computer Science'} | 
                   Student ID: {studentId}
                 </Typography>
@@ -462,11 +508,90 @@ const StudentReport = () => {
           <Button 
             variant="contained" 
             color="primary"
+            startIcon={<MessageIcon />}
+            onClick={handleMessageStudent}
           >
             Message Student
           </Button>
         </Box>
       </Box>
+      
+      {/* Message Student Modal */}
+      <Dialog 
+        open={messageModalOpen} 
+        onClose={handleCloseMessageModal}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <MessageIcon sx={{ mr: 1 }} />
+            Message Student: {studentData?.studentName}
+          </Box>
+          <IconButton onClick={handleCloseMessageModal}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
+            <TextField
+              label="Subject"
+              fullWidth
+              value={messageSubject}
+              onChange={(e) => setMessageSubject(e.target.value)}
+              placeholder="Enter message subject..."
+              required
+            />
+            
+            <FormControl fullWidth>
+              <InputLabel>Priority</InputLabel>
+              <Select
+                value={messagePriority}
+                onChange={(e) => setMessagePriority(e.target.value)}
+                label="Priority"
+              >
+                <MenuItem value="low">Low Priority</MenuItem>
+                <MenuItem value="normal">Normal Priority</MenuItem>
+                <MenuItem value="high">High Priority</MenuItem>
+                <MenuItem value="urgent">Urgent</MenuItem>
+              </Select>
+            </FormControl>
+            
+            <TextField
+              label="Message"
+              multiline
+              rows={6}
+              fullWidth
+              value={messageContent}
+              onChange={(e) => setMessageContent(e.target.value)}
+              placeholder="Type your message here..."
+              required
+            />
+            
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+              📧 This message will be sent to: {studentData?.studentName} (Student ID: {studentId})
+            </Typography>
+          </Box>
+        </DialogContent>
+        
+        <DialogActions sx={{ p: 2 }}>
+          <Button 
+            onClick={handleCloseMessageModal}
+            variant="outlined"
+          >
+            Cancel
+          </Button>
+          <Button 
+            onClick={handleSendMessage}
+            variant="contained"
+            startIcon={<SendIcon />}
+            disabled={!messageSubject.trim() || !messageContent.trim()}
+          >
+            Send Message
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };

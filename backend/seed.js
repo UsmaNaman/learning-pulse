@@ -114,7 +114,7 @@ async function seedTopics() {
     {
       name: 'Algorithms',
       category: 'Computational Thinking',
-      curriculumReference: 'KS3-CT1',
+      curriculumReference: 'KS4-CT1',
       description: 'Understanding and creating algorithms, flowcharts, pseudocode',
       subtopics: [
         { name: 'Algorithmic Thinking', description: 'Understanding what algorithms are and why they are important' },
@@ -126,7 +126,7 @@ async function seedTopics() {
     {
       name: 'Programming Constructs',
       category: 'Programming',
-      curriculumReference: 'KS3-P1',
+      curriculumReference: 'KS4-P1',
       description: 'Sequence, selection, iteration, variables',
       subtopics: [
         { name: 'Sequence', description: 'Ordering instructions logically' },
@@ -138,7 +138,7 @@ async function seedTopics() {
     {
       name: 'Data Representation',
       category: 'Data & Information',
-      curriculumReference: 'KS3-D1',
+      curriculumReference: 'KS4-D1',
       description: 'Binary, units, text/image representation',
       subtopics: [
         { name: 'Binary Number System', description: 'Understanding the binary system and conversion' },
@@ -150,7 +150,7 @@ async function seedTopics() {
     {
       name: 'Computer Systems',
       category: 'Hardware & Software',
-      curriculumReference: 'KS3-CS1',
+      curriculumReference: 'KS4-CS1',
       description: 'Components, input/output, storage, software classifications',
       subtopics: [
         { name: 'Hardware Components', description: 'Understanding CPU, memory, and storage' },
@@ -162,7 +162,7 @@ async function seedTopics() {
     {
       name: 'Networks',
       category: 'Computer Systems',
-      curriculumReference: 'KS3-CS2',
+      curriculumReference: 'KS4-CS2',
       description: 'Network types, internet, protocols, security',
       subtopics: [
         { name: 'Network Types', description: 'LANs, WANs, and network topologies' },
@@ -174,7 +174,7 @@ async function seedTopics() {
     {
       name: 'E-Safety & Ethics',
       category: 'Digital Literacy',
-      curriculumReference: 'KS3-DL1',
+      curriculumReference: 'KS4-DL1',
       description: 'Online safety, privacy, cyberbullying, digital footprint',
       subtopics: [
         { name: 'Online Safety', description: 'Protecting yourself online' },
@@ -186,7 +186,7 @@ async function seedTopics() {
     {
       name: 'Problem Solving',
       category: 'Computational Thinking',
-      curriculumReference: 'KS3-CT2',
+      curriculumReference: 'KS4-CT2',
       description: 'Decomposition, pattern recognition, abstraction',
       subtopics: [
         { name: 'Decomposition', description: 'Breaking down complex problems' },
@@ -198,7 +198,7 @@ async function seedTopics() {
     {
       name: 'Boolean Logic',
       category: 'Data & Information',
-      curriculumReference: 'KS3-D2',
+      curriculumReference: 'KS4-D2',
       description: 'AND, OR, NOT gates, truth tables',
       subtopics: [
         { name: 'Logical Operators', description: 'AND, OR, NOT operations' },
@@ -210,7 +210,7 @@ async function seedTopics() {
     {
       name: 'Programming Languages',
       category: 'Programming',
-      curriculumReference: 'KS3-P2',
+      curriculumReference: 'KS4-P2',
       description: 'Text-based languages (Python), syntax, debugging',
       subtopics: [
         { name: 'Python Basics', description: 'Fundamental Python programming concepts' },
@@ -222,7 +222,7 @@ async function seedTopics() {
     {
       name: 'Data Handling',
       category: 'Data & Information',
-      curriculumReference: 'KS3-D3',
+      curriculumReference: 'KS4-D3',
       description: 'Collecting, analyzing and visualizing data',
       subtopics: [
         { name: 'Data Collection', description: 'Methods of gathering reliable data' },
@@ -240,12 +240,12 @@ async function seedUsers() {
   // Create teachers
   const teachers = [
     {
-      name: 'Jane Smith',
+      name: 'Usman Akram',
       email: 'smith@school.edu',
       password: await bcrypt.hash('password123', 10),
       role: 'instructor', // Using instructor instead of teacher to match the enum in User model
       department: 'Computing',
-      classes: ['8A', '8B', '9A']
+      classes: ['10A', '10B', '11A']
     },
     {
       name: 'David Jones',
@@ -253,7 +253,7 @@ async function seedUsers() {
       password: await bcrypt.hash('password123', 10),
       role: 'instructor', // Using instructor instead of teacher to match the enum in User model
       department: 'Computing',
-      classes: ['8C', '8D', '9B']
+      classes: ['10C', '10D', '11B']
     }
   ];
 
@@ -264,8 +264,8 @@ async function seedUsers() {
       email: 'john.s@school.edu',
       password: await bcrypt.hash('student123', 10),
       role: 'student',
-      yearGroup: 8,
-      class: '8A',
+      yearGroup: 10,
+      class: '10A',
       preferences: {
         learningStyle: 'Visual',
         preferredResourceTypes: ['Video', 'Interactive'],
@@ -277,8 +277,8 @@ async function seedUsers() {
       email: 'emily.j@school.edu',
       password: await bcrypt.hash('student123', 10),
       role: 'student',
-      yearGroup: 8,
-      class: '8A',
+      yearGroup: 10,
+      class: '10A',
       preferences: {
         learningStyle: 'Interactive',
         preferredResourceTypes: ['Simulation', 'Game'],
@@ -290,8 +290,8 @@ async function seedUsers() {
       email: 'david.w@school.edu',
       password: await bcrypt.hash('student123', 10),
       role: 'student',
-      yearGroup: 8,
-      class: '8A',
+      yearGroup: 10,
+      class: '10A',
       preferences: {
         learningStyle: 'Reading/Writing',
         preferredResourceTypes: ['Document', 'Quiz'],
@@ -303,8 +303,8 @@ async function seedUsers() {
       email: 'sarah.b@school.edu',
       password: await bcrypt.hash('student123', 10),
       role: 'student',
-      yearGroup: 8,
-      class: '8B',
+      yearGroup: 10,
+      class: '10B',
       preferences: {
         learningStyle: 'Auditory',
         preferredResourceTypes: ['Video', 'Audio'],
@@ -316,8 +316,8 @@ async function seedUsers() {
       email: 'michael.t@school.edu',
       password: await bcrypt.hash('student123', 10),
       role: 'student',
-      yearGroup: 8,
-      class: '8B',
+      yearGroup: 10,
+      class: '10B',
       preferences: {
         learningStyle: 'Kinesthetic',
         preferredResourceTypes: ['Interactive', 'Simulation'],
@@ -383,8 +383,8 @@ async function seedResources(topics) {
     {
       title: 'Sequence, Selection, Iteration',
       type: 'Video',
-      format: 'mp4',
-      url: '/resources/videos/sequence-selection-iteration.mp4',
+      format: 'youtube',
+      url: 'https://youtu.be/t0VphK9cWgE?si=KJTMM38oX6exgmPg',
       topic: topics[1]._id, // Programming Constructs
       subtopic: topics[1].subtopics[0].name, // Sequence
       difficultyLevel: 'Introductory',
@@ -392,6 +392,19 @@ async function seedResources(topics) {
       description: 'Understanding the three basic programming constructs.',
       author: 'Computing Department',
       tags: ['programming', 'basics', 'constructs']
+    },
+    {
+      title: 'Programming Constructs OCR – Year 10 Worksheet',
+      type: 'Document',
+      format: 'html',
+      url: '/worksheets/programming_constructs_ocr_year10.html',
+      topic: topics[1]._id, // Programming Constructs
+      subtopic: topics[1].subtopics[0].name, // Sequence
+      difficultyLevel: 'Introductory',
+      estimatedDuration: 25,
+      description: 'Comprehensive worksheet covering sequence, selection, and iteration with answer key.',
+      author: 'Computing Department',
+      tags: ['programming', 'constructs', 'worksheet', 'ocr', 'year10']
     },
     {
       title: 'If Statements in Python',
