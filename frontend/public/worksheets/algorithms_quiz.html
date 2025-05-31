@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithms Quiz - OCR J277</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .quiz-info {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #3498db;
+        }
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 8px;
+        }
+        .option {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .option:hover {
+            background-color: #ecf0f1;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        .submit-btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .submit-btn:hover {
+            background-color: #229954;
+        }
+        .results {
+            display: none;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .results h2 {
+            color: #155724;
+            margin-top: 0;
+        }
+        .correct { color: #27ae60; font-weight: bold; }
+        .incorrect { color: #e74c3c; font-weight: bold; }
+        .time-up {
+            background-color: #e74c3c !important;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .code-snippet {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer" id="timer">Time: 30:00</div>
+    
+    <div class="container">
+        <h1>Algorithms Quiz</h1>
+        <p style="text-align: center;"><em>OCR J277 Computer Science - Unit Assessment</em></p>
+        
+        <div class="quiz-info">
+            <p><strong>Instructions:</strong></p>
+            <ul>
+                <li>This quiz contains 15 multiple choice questions</li>
+                <li>You have 30 minutes to complete the quiz</li>
+                <li>Each question is worth 1 mark</li>
+                <li>Pass mark: 60% (9/15 questions)</li>
+                <li>Select the best answer for each question</li>
+                <li>Click "Submit Quiz" when finished</li>
+            </ul>
+        </div>
+        
+        <form id="quizForm">
+            <div class="question">
+                <div class="question-number">Question 1</div>
+                <p>What is an algorithm?</p>
+                <label class="option"><input type="radio" name="q1" value="a"> A) A computer programming language</label>
+                <label class="option"><input type="radio" name="q1" value="b"> B) A step-by-step set of instructions to solve a problem</label>
+                <label class="option"><input type="radio" name="q1" value="c"> C) A type of computer hardware</label>
+                <label class="option"><input type="radio" name="q1" value="d"> D) A software application</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 2</div>
+                <p>Which sorting algorithm repeatedly finds the minimum element and places it at the beginning?</p>
+                <label class="option"><input type="radio" name="q2" value="a"> A) Bubble Sort</label>
+                <label class="option"><input type="radio" name="q2" value="b"> B) Selection Sort</label>
+                <label class="option"><input type="radio" name="q2" value="c"> C) Insertion Sort</label>
+                <label class="option"><input type="radio" name="q2" value="d"> D) Quick Sort</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 3</div>
+                <p>What is the main purpose of pseudocode?</p>
+                <label class="option"><input type="radio" name="q3" value="a"> A) To write executable code</label>
+                <label class="option"><input type="radio" name="q3" value="b"> B) To plan and describe algorithms in plain language</label>
+                <label class="option"><input type="radio" name="q3" value="c"> C) To test programs for errors</label>
+                <label class="option"><input type="radio" name="q3" value="d"> D) To create user interfaces</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 4</div>
+                <p>In a flowchart, what shape represents a decision point?</p>
+                <label class="option"><input type="radio" name="q4" value="a"> A) Rectangle</label>
+                <label class="option"><input type="radio" name="q4" value="b"> B) Oval</label>
+                <label class="option"><input type="radio" name="q4" value="c"> C) Diamond</label>
+                <label class="option"><input type="radio" name="q4" value="d"> D) Circle</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 5</div>
+                <p>Which search algorithm works by repeatedly dividing the search space in half?</p>
+                <label class="option"><input type="radio" name="q5" value="a"> A) Linear Search</label>
+                <label class="option"><input type="radio" name="q5" value="b"> B) Binary Search</label>
+                <label class="option"><input type="radio" name="q5" value="c"> C) Random Search</label>
+                <label class="option"><input type="radio" name="q5" value="d"> D) Depth-First Search</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 6</div>
+                <p>What is a prerequisite for binary search to work correctly?</p>
+                <label class="option"><input type="radio" name="q6" value="a"> A) The data must be in random order</label>
+                <label class="option"><input type="radio" name="q6" value="b"> B) The data must be sorted</label>
+                <label class="option"><input type="radio" name="q6" value="c"> C) The data must be numerical</label>
+                <label class="option"><input type="radio" name="q6" value="d"> D) The data must be stored in an array</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 7</div>
+                <p>What does Big O notation describe?</p>
+                <label class="option"><input type="radio" name="q7" value="a"> A) The size of the input data</label>
+                <label class="option"><input type="radio" name="q7" value="b"> B) The complexity or efficiency of an algorithm</label>
+                <label class="option"><input type="radio" name="q7" value="c"> C) The number of programmers needed</label>
+                <label class="option"><input type="radio" name="q7" value="d"> D) The amount of memory used</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 8</div>
+                <p>In bubble sort, what happens during each pass?</p>
+                <label class="option"><input type="radio" name="q8" value="a"> A) The smallest element moves to the front</label>
+                <label class="option"><input type="radio" name="q8" value="b"> B) Adjacent elements are compared and swapped if needed</label>
+                <label class="option"><input type="radio" name="q8" value="c"> C) The list is divided in half</label>
+                <label class="option"><input type="radio" name="q8" value="d"> D) Random elements are selected</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 9</div>
+                <p>What is the time complexity of linear search in the worst case?</p>
+                <label class="option"><input type="radio" name="q9" value="a"> A) O(1)</label>
+                <label class="option"><input type="radio" name="q9" value="b"> B) O(log n)</label>
+                <label class="option"><input type="radio" name="q9" value="c"> C) O(n)</label>
+                <label class="option"><input type="radio" name="q9" value="d"> D) O(n²)</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 10</div>
+                <p>Which of these is NOT a typical step in algorithm design?</p>
+                <label class="option"><input type="radio" name="q10" value="a"> A) Define the problem</label>
+                <label class="option"><input type="radio" name="q10" value="b"> B) Design the solution</label>
+                <label class="option"><input type="radio" name="q10" value="c"> C) Choose the programming language</label>
+                <label class="option"><input type="radio" name="q10" value="d"> D) Test the algorithm</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 11</div>
+                <p>What does this pseudocode do?</p>
+                <div class="code-snippet">
+SET count = 0<br>
+FOR i = 1 TO 10<br>
+&nbsp;&nbsp;SET count = count + i<br>
+END FOR<br>
+OUTPUT count
+                </div>
+                <label class="option"><input type="radio" name="q11" value="a"> A) Counts from 1 to 10</label>
+                <label class="option"><input type="radio" name="q11" value="b"> B) Calculates the sum of numbers from 1 to 10</label>
+                <label class="option"><input type="radio" name="q11" value="c"> C) Finds the largest number from 1 to 10</label>
+                <label class="option"><input type="radio" name="q11" value="d"> D) Multiplies numbers from 1 to 10</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 12</div>
+                <p>Which algorithm is generally more efficient for large datasets?</p>
+                <label class="option"><input type="radio" name="q12" value="a"> A) Linear search</label>
+                <label class="option"><input type="radio" name="q12" value="b"> B) Binary search</label>
+                <label class="option"><input type="radio" name="q12" value="c"> C) Both are equally efficient</label>
+                <label class="option"><input type="radio" name="q12" value="d"> D) It depends on the computer speed</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 13</div>
+                <p>In flowcharts, what does a rectangle represent?</p>
+                <label class="option"><input type="radio" name="q13" value="a"> A) Start or end point</label>
+                <label class="option"><input type="radio" name="q13" value="b"> B) Decision point</label>
+                <label class="option"><input type="radio" name="q13" value="c"> C) Process or action</label>
+                <label class="option"><input type="radio" name="q13" value="d"> D) Input or output</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 14</div>
+                <p>What is the main advantage of using algorithms?</p>
+                <label class="option"><input type="radio" name="q14" value="a"> A) They make programs run faster</label>
+                <label class="option"><input type="radio" name="q14" value="b"> B) They provide a clear, step-by-step solution to problems</label>
+                <label class="option"><input type="radio" name="q14" value="c"> C) They reduce the cost of software</label>
+                <label class="option"><input type="radio" name="q14" value="d"> D) They eliminate the need for testing</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 15</div>
+                <p>Which of these best describes insertion sort?</p>
+                <label class="option"><input type="radio" name="q15" value="a"> A) Builds the sorted list one element at a time</label>
+                <label class="option"><input type="radio" name="q15" value="b"> B) Repeatedly finds the maximum element</label>
+                <label class="option"><input type="radio" name="q15" value="c"> C) Divides the list into smaller sublists</label>
+                <label class="option"><input type="radio" name="q15" value="d"> D) Compares every element with every other element</label>
+            </div>
+        </form>
+        
+        <button type="button" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+        
+        <div id="results" class="results"></div>
+    </div>
+
+    <script>
+        // Quiz timer
+        let timeLeft = 30 * 60; // 30 minutes in seconds
+        const timerElement = document.getElementById('timer');
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 60) {
+                timerElement.classList.add('time-up');
+            }
+            
+            if (timeLeft <= 0) {
+                submitQuiz();
+                return;
+            }
+            
+            timeLeft--;
+        }
+        
+        // Start timer
+        const timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // Correct answers
+        const answers = {
+            q1: 'b', q2: 'b', q3: 'b', q4: 'c', q5: 'b',
+            q6: 'b', q7: 'b', q8: 'b', q9: 'c', q10: 'c',
+            q11: 'b', q12: 'b', q13: 'c', q14: 'b', q15: 'a'
+        };
+
+        function submitQuiz() {
+            clearInterval(timerInterval);
+            
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            let score = 0;
+            let results = '<h2>Quiz Results</h2>';
+            
+            for (let i = 1; i <= 15; i++) {
+                const questionKey = `q${i}`;
+                const userAnswer = formData.get(questionKey);
+                const correctAnswer = answers[questionKey];
+                
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    results += `<p class="correct">Question ${i}: ✓ Correct</p>`;
+                } else {
+                    results += `<p class="incorrect">Question ${i}: ✗ Your answer: ${(userAnswer || 'Not answered').toUpperCase()}, Correct answer: ${correctAnswer.toUpperCase()}</p>`;
+                }
+            }
+            
+            const percentage = Math.round((score / 15) * 100);
+            const passed = percentage >= 60;
+            
+            results = `
+                <h2>Quiz Complete!</h2>
+                <p><strong>Score: ${score}/15 (${percentage}%)</strong></p>
+                <p><strong>Result: ${passed ? 'PASS' : 'FAIL'}</strong> (Pass mark: 60%)</p>
+                <hr>
+                ${results}
+                <hr>
+                <p><strong>Topics to review:</strong></p>
+                <ul>
+                    <li>Algorithm Design and Problem Solving</li>
+                    <li>Pseudocode and Flowcharts</li>
+                    <li>Searching Algorithms (Linear, Binary)</li>
+                    <li>Sorting Algorithms (Bubble, Selection, Insertion)</li>
+                    <li>Algorithm Efficiency and Big O Notation</li>
+                </ul>
+            `;
+            
+            document.getElementById('results').innerHTML = results;
+            document.getElementById('results').style.display = 'block';
+            
+            // Disable form
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => input.disabled = true);
+            
+            // Hide submit button
+            document.querySelector('.submit-btn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

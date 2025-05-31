@@ -86,6 +86,11 @@ const johnData = {
           type: "link", 
           title: "BBC Bitesize: Memory and Storage", 
           url: "https://www.bbc.co.uk/bitesize/guides/zd4r97h/revision/1" 
+        },
+        { 
+          type: "quiz", 
+          title: "Memory and Storage End-of-Unit Quiz", 
+          url: "/worksheets/memory_storage_quiz.html" 
         }
       ]
     },
@@ -108,6 +113,11 @@ const johnData = {
           type: "link", 
           title: "BBC Bitesize: Computer Networks", 
           url: "https://www.bbc.co.uk/bitesize/guides/zc6rcdm/revision/1" 
+        },
+        { 
+          type: "quiz", 
+          title: "Computer Networks End-of-Unit Quiz", 
+          url: "/worksheets/networks_quiz.html" 
         }
       ]
     },
@@ -130,6 +140,11 @@ const johnData = {
           type: "link", 
           title: "BBC Bitesize: Network Security", 
           url: "https://www.bbc.co.uk/bitesize/guides/z8nk87h/revision/1" 
+        },
+        { 
+          type: "quiz", 
+          title: "Network Security End-of-Unit Quiz", 
+          url: "/worksheets/networks_quiz.html" 
         }
       ]
     },
@@ -209,6 +224,11 @@ const johnData = {
           type: "link", 
           title: "BBC Bitesize: Representing Data", 
           url: "https://www.bbc.co.uk/bitesize/guides/zfspfcw/revision/9#:~:text=Units%20and%20data%20representation%20%2D%20OCRSound,are%20also%20done%20in%20binary." 
+        },
+        { 
+          type: "quiz", 
+          title: "Data Representation End-of-Unit Quiz", 
+          url: "/worksheets/data_representation_quiz.html" 
         }
       ]
     },
@@ -241,6 +261,11 @@ const johnData = {
           type: "link", 
           title: "BBC Bitesize: Algorithms", 
           url: "https://www.bbc.co.uk/bitesize/guides/z6m7xfr/revision/1" 
+        },
+        { 
+          type: "quiz", 
+          title: "Algorithms End-of-Unit Quiz", 
+          url: "/worksheets/algorithms_quiz.html" 
         }
       ]
     },
@@ -263,6 +288,11 @@ const johnData = {
           type: "link", 
           title: "BBC Bitesize: Boolean Logic", 
           url: "https://www.bbc.co.uk/bitesize/guides/zjw8jty/revision/1" 
+        },
+        { 
+          type: "quiz", 
+          title: "Boolean Logic End-of-Unit Quiz", 
+          url: "/worksheets/boolean_logic_quiz.html" 
         }
       ]
     },
@@ -285,6 +315,11 @@ const johnData = {
           type: "link", 
           title: "BBC Bitesize: Ethics & Environment", 
           url: "https://www.bbc.co.uk/bitesize/guides/zbxbwmn/revision/1" 
+        },
+        { 
+          type: "quiz", 
+          title: "Ethics, Legal & Cultural Issues End-of-Unit Quiz", 
+          url: "/worksheets/ethics_legal_quiz.html" 
         }
       ]
     }

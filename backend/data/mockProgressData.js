@@ -31,7 +31,8 @@ const topics = [
     resources: [
       { type: "video", title: "RAM & ROM Explained", url: "https://youtu.be/Q2pzT6oYPWg?si=YAcHN3Hu8Az7TkRu" },
       { type: "link", title: "Data Storage Calculations", url: "https://www.craigndave.org/storage-calculations/" },
-      { type: "pdf", title: "Secondary Storage Devices", url: "/resources/mem_storage/secondary_storage.pdf" }
+      { type: "pdf", title: "Secondary Storage Devices", url: "/resources/mem_storage/secondary_storage.pdf" },
+      { type: "quiz", title: "Memory and Storage End-of-Unit Quiz", url: "/worksheets/memory_storage_quiz.html" }
     ]
   },
   { 
@@ -40,7 +41,8 @@ const topics = [
     resources: [
       { type: "video", title: "Network Topologies & Protocols", url: "https://youtube.com/playlist?list=PLCiOXwirraUBnOLZCIxrLTSuIfgvYeWj-&si=WuktcTOyqb08qYan" },
       { type: "pdf", title: "Protocols and Layers", url: "https://www.highsted.kent.sch.uk/assets/PDFs/Knowledge-organiser-2023/KO-KS4-Terms-3-4/Computer-Science-GCSE.pdf" },
-      { type: "link", title: "Packet Switching Interactive", url: "https://www.craigndave.org/packet-switching-demo/" }
+      { type: "link", title: "Packet Switching Interactive", url: "https://www.craigndave.org/packet-switching-demo/" },
+      { type: "quiz", title: "Computer Networks End-of-Unit Quiz", url: "/worksheets/networks_quiz.html" }
     ]
   },
   { 
@@ -49,7 +51,8 @@ const topics = [
     resources: [
       { type: "video", title: "J277 1.4.1 Threats to Computer Systems and Networks", url: "https://youtu.be/4f05t8ppJfk?si=oeiGrNYUuHPR0I1r" },
       { type: "pdf", title: "J277 1.4.1 Brute Force and DoS Attacks", url: "/resources/security/social_engineering.pdf" },
-      { type: "worksheet", title: "J277 1.4.2 Firewalls and Penetration Testing", url: "/resources/security/network_security.pdf" }
+      { type: "worksheet", title: "J277 1.4.2 Firewalls and Penetration Testing", url: "/resources/security/network_security.pdf" },
+      { type: "quiz", title: "Network Security End-of-Unit Quiz", url: "/worksheets/networks_quiz.html" }
     ]
   },
   { 
@@ -63,13 +66,32 @@ const topics = [
     ]
   },
   { 
+    id: "data_rep", 
+    name: "Data Representation",
+    resources: [
+      { type: "video", title: "Binary, Denary & Hex Conversions", url: "https://www.youtube.com/watch?v=nmbr7GxN6TA&ab_channel=Craig%27n%27Dave" },
+      { type: "worksheet", title: "Number Systems & Encoding", url: "/worksheets/data_rep_ws1.pdf" },
+      { type: "quiz", title: "Data Representation End-of-Unit Quiz", url: "/worksheets/data_representation_quiz.html" }
+    ]
+  },
+  { 
     id: "algo", 
     name: "Algorithms",
     resources: [
       { type: "video", title: "Searching & Sorting Algorithms", url: "https://youtube.com/playlist?list=PLCiOXwirraUAzsy9tacd98LBTbj7cyFQV&si=qc69yJWHt6NwYAuf" },
       { type: "link", title: "Sorting Visualizations", url: "https://visualgo.net/en/sorting" },
-      { type: "worksheet", title: "Algorithm Efficiency", url: "/resources/algo/efficiency.pdf" }
+      { type: "worksheet", title: "Algorithm Efficiency", url: "/resources/algo/efficiency.pdf" },
+      { type: "quiz", title: "Algorithms End-of-Unit Quiz", url: "/worksheets/algorithms_quiz.html" }
     ] 
+  },
+  { 
+    id: "boolean_logic", 
+    name: "Boolean Logic",
+    resources: [
+      { type: "video", title: "Boolean Logic & Truth Tables", url: "https://youtu.be/jN9WtjyjXf4?si=MoYR8LJ570_daAHR" },
+      { type: "worksheet", title: "Boolean Logic Worksheet", url: "https://docs.google.com/document/d/1YbUNlX1NnGF8hzgoVzgkRv54L-B4yARN3x0dVQrcLlQ/edit?usp=sharing" },
+      { type: "quiz", title: "Boolean Logic End-of-Unit Quiz", url: "/worksheets/boolean_logic_quiz.html" }
+    ]
   },
   { 
     id: "ethics", 
@@ -77,7 +99,8 @@ const topics = [
     resources: [
       { type: "video", title: "Privacy, Legislation & Cultural Impact", url: "https://youtube.com/playlist?list=PLCiOXwirraUCJmKc7xDNgrKdUNIxIeQbi&si=V-gPwV0vmKPLPSkF" },
       { type: "pdf", title: "Copyright & Licensing", url: "/resources/ethics/copyright.pdf" },
-      { type: "link", title: "Environmental Impact of Computing", url: "https://www.craigndave.org/environmental-impact/" }
+      { type: "link", title: "Environmental Impact of Computing", url: "https://www.craigndave.org/environmental-impact/" },
+      { type: "quiz", title: "Ethics, Legal & Cultural Issues End-of-Unit Quiz", url: "/worksheets/ethics_legal_quiz.html" }
     ]
   }
 ];
