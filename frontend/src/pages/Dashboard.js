@@ -346,7 +346,7 @@ const StudentDashboard = ({ currentUser, courses, userProgress, dashboardStats }
       
       {/* Top stats cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={2.4}>
           <Card>
             <CardContent>
               <Typography variant="h6" color="primary">Overall Progress</Typography>
@@ -356,17 +356,53 @@ const StudentDashboard = ({ currentUser, courses, userProgress, dashboardStats }
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={2.4}>
           <Card>
             <CardContent>
-              <Typography variant="h6" color="primary">Skills Tracked</Typography>
+              <Typography variant="h6" color="primary">Last Quiz Score</Typography>
               <Typography variant="h4">
-                {dashboardStats?.skills?.length || 0}
+                {(() => {
+                  const quizzes = dashboardStats?.recentActivity?.filter(activity => 
+                    activity.type === 'assessment') || [];
+                  const lastQuiz = quizzes.length > 0 ? quizzes[0] : null;
+                  return lastQuiz ? `${lastQuiz.score}%` : 'N/A';
+                })()}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {(() => {
+                  const quizzes = dashboardStats?.recentActivity?.filter(activity => 
+                    activity.type === 'assessment') || [];
+                  const lastQuiz = quizzes.length > 0 ? quizzes[0] : null;
+                  return lastQuiz ? lastQuiz.title : 'No quizzes taken';
+                })()}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={2.4}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" color="primary">Quiz Average</Typography>
+              <Typography variant="h4">
+                {(() => {
+                  const quizzes = dashboardStats?.recentActivity?.filter(activity => 
+                    activity.type === 'assessment') || [];
+                  if (quizzes.length === 0) return 'N/A';
+                  const average = quizzes.reduce((sum, quiz) => sum + quiz.score, 0) / quizzes.length;
+                  return `${Math.round(average)}%`;
+                })()}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {(() => {
+                  const quizzes = dashboardStats?.recentActivity?.filter(activity => 
+                    activity.type === 'assessment') || [];
+                  return `${quizzes.length} quiz${quizzes.length !== 1 ? 'es' : ''} taken`;
+                })()}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={2.4}>
           <Card>
             <CardContent>
               <Typography variant="h6" color="primary">Activities</Typography>
@@ -376,7 +412,7 @@ const StudentDashboard = ({ currentUser, courses, userProgress, dashboardStats }
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={2.4}>
           <Card>
             <CardContent>
               <Typography variant="h6" color="primary">Last Active</Typography>
