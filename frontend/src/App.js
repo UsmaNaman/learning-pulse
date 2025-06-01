@@ -25,7 +25,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AuthProvider>
-        <Router>
+        <Router basename="/learning-pulse">
           <div className="app">
             <Navbar />
             <main style={{ minHeight: 'calc(100vh - 120px)', backgroundColor: '#f8f9fa', paddingTop: '1rem', paddingBottom: '3rem' }}>
