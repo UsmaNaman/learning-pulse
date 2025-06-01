@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Container, Grid, Typography, Box, Card, CardContent, CardMedia } from '@mui/material';
+import { Button, Container, Grid, Typography, Box, Card, CardContent, CardMedia, Alert } from '@mui/material';
 
 const HomePage = () => {
   // Sample skills that can be tracked
@@ -28,8 +28,35 @@ const HomePage = () => {
     }
   ];
 
+  const isGitHubPages = window.location.hostname === 'usmanaman.github.io';
+
   return (
     <Container maxWidth="lg">
+      {/* Demo Banner for GitHub Pages */}
+      {isGitHubPages && (
+        <Alert 
+          severity="info" 
+          sx={{ 
+            mt: 2, 
+            mb: 4, 
+            borderRadius: '8px',
+            '& .MuiAlert-message': { 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: 1 
+            }
+          }}
+        >
+          <Typography variant="h6" component="div">
+            🚀 Demo Mode - Try Learning Pulse!
+          </Typography>
+          <Typography variant="body2">
+            This is a demonstration version with sample data for John Smith and Emily Jones. 
+            Use the demo login buttons to explore student and instructor dashboards.
+          </Typography>
+        </Alert>
+      )}
+      
       {/* Hero Section */}
       <Box 
         sx={{

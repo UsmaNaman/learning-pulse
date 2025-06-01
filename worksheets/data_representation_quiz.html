@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Representation Quiz - OCR J277</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .quiz-info {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #3498db;
+        }
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 8px;
+        }
+        .option {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .option:hover {
+            background-color: #ecf0f1;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        .submit-btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .submit-btn:hover {
+            background-color: #229954;
+        }
+        .results {
+            display: none;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .results h2 {
+            color: #155724;
+            margin-top: 0;
+        }
+        .correct { color: #27ae60; font-weight: bold; }
+        .incorrect { color: #e74c3c; font-weight: bold; }
+        .time-up {
+            background-color: #e74c3c !important;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="timer" id="timer">Time: 25:00</div>
+    
+    <div class="container">
+        <h1>Data Representation Quiz</h1>
+        <p style="text-align: center;"><em>OCR J277 Computer Science - Unit Assessment</em></p>
+        
+        <div class="quiz-info">
+            <p><strong>Instructions:</strong></p>
+            <ul>
+                <li>This quiz contains 15 multiple choice questions</li>
+                <li>You have 25 minutes to complete the quiz</li>
+                <li>Each question is worth 1 mark</li>
+                <li>Pass mark: 60% (9/15 questions)</li>
+                <li>Select the best answer for each question</li>
+                <li>Click "Submit Quiz" when finished</li>
+            </ul>
+        </div>
+        
+        <form id="quizForm">
+            <div class="question">
+                <div class="question-number">Question 1</div>
+                <p>What is the binary representation of the decimal number 13?</p>
+                <label class="option"><input type="radio" name="q1" value="a"> A) 1011</label>
+                <label class="option"><input type="radio" name="q1" value="b"> B) 1101</label>
+                <label class="option"><input type="radio" name="q1" value="c"> C) 1001</label>
+                <label class="option"><input type="radio" name="q1" value="d"> D) 1111</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 2</div>
+                <p>How many unique values can be represented with 4 bits?</p>
+                <label class="option"><input type="radio" name="q2" value="a"> A) 4</label>
+                <label class="option"><input type="radio" name="q2" value="b"> B) 8</label>
+                <label class="option"><input type="radio" name="q2" value="c"> C) 16</label>
+                <label class="option"><input type="radio" name="q2" value="d"> D) 32</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 3</div>
+                <p>What does ASCII stand for?</p>
+                <label class="option"><input type="radio" name="q3" value="a"> A) American Standard Code for Information Interchange</label>
+                <label class="option"><input type="radio" name="q3" value="b"> B) Advanced System Code for Internet Information</label>
+                <label class="option"><input type="radio" name="q3" value="c"> C) Automatic Standard Control for Input Information</label>
+                <label class="option"><input type="radio" name="q3" value="d"> D) American System for Computer Information Interface</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 4</div>
+                <p>What is the decimal value of the binary number 1010?</p>
+                <label class="option"><input type="radio" name="q4" value="a"> A) 8</label>
+                <label class="option"><input type="radio" name="q4" value="b"> B) 10</label>
+                <label class="option"><input type="radio" name="q4" value="c"> C) 12</label>
+                <label class="option"><input type="radio" name="q4" value="d"> D) 14</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 5</div>
+                <p>How many bits are typically used to represent one character in ASCII?</p>
+                <label class="option"><input type="radio" name="q5" value="a"> A) 6 bits</label>
+                <label class="option"><input type="radio" name="q5" value="b"> B) 7 bits</label>
+                <label class="option"><input type="radio" name="q5" value="c"> C) 8 bits</label>
+                <label class="option"><input type="radio" name="q5" value="d"> D) 16 bits</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 6</div>
+                <p>What is the hexadecimal representation of the decimal number 255?</p>
+                <label class="option"><input type="radio" name="q6" value="a"> A) EE</label>
+                <label class="option"><input type="radio" name="q6" value="b"> B) FF</label>
+                <label class="option"><input type="radio" name="q6" value="c"> C) 100</label>
+                <label class="option"><input type="radio" name="q6" value="d"> D) AA</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 7</div>
+                <p>How many bytes are in a kilobyte (KB)?</p>
+                <label class="option"><input type="radio" name="q7" value="a"> A) 1000 bytes</label>
+                <label class="option"><input type="radio" name="q7" value="b"> B) 1024 bytes</label>
+                <label class="option"><input type="radio" name="q7" value="c"> C) 512 bytes</label>
+                <label class="option"><input type="radio" name="q7" value="d"> D) 2048 bytes</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 8</div>
+                <p>Which number system uses base 16?</p>
+                <label class="option"><input type="radio" name="q8" value="a"> A) Binary</label>
+                <label class="option"><input type="radio" name="q8" value="b"> B) Octal</label>
+                <label class="option"><input type="radio" name="q8" value="c"> C) Decimal</label>
+                <label class="option"><input type="radio" name="q8" value="d"> D) Hexadecimal</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 9</div>
+                <p>What is the main advantage of Unicode over ASCII?</p>
+                <label class="option"><input type="radio" name="q9" value="a"> A) Uses less memory</label>
+                <label class="option"><input type="radio" name="q9" value="b"> B) Faster processing</label>
+                <label class="option"><input type="radio" name="q9" value="c"> C) Can represent many more characters from different languages</label>
+                <label class="option"><input type="radio" name="q9" value="d"> D) Only works with newer computers</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 10</div>
+                <p>In image representation, what does a pixel represent?</p>
+                <label class="option"><input type="radio" name="q10" value="a"> A) A complete image</label>
+                <label class="option"><input type="radio" name="q10" value="b"> B) The smallest unit of an image</label>
+                <label class="option"><input type="radio" name="q10" value="c"> C) The resolution of an image</label>
+                <label class="option"><input type="radio" name="q10" value="d"> D) The file size of an image</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 11</div>
+                <p>What is the binary equivalent of hexadecimal A?</p>
+                <label class="option"><input type="radio" name="q11" value="a"> A) 1010</label>
+                <label class="option"><input type="radio" name="q11" value="b"> B) 1100</label>
+                <label class="option"><input type="radio" name="q11" value="c"> C) 1110</label>
+                <label class="option"><input type="radio" name="q11" value="d"> D) 1111</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 12</div>
+                <p>How many bits are in one byte?</p>
+                <label class="option"><input type="radio" name="q12" value="a"> A) 4</label>
+                <label class="option"><input type="radio" name="q12" value="b"> B) 6</label>
+                <label class="option"><input type="radio" name="q12" value="c"> C) 8</label>
+                <label class="option"><input type="radio" name="q12" value="d"> D) 10</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 13</div>
+                <p>What determines the color depth of a digital image?</p>
+                <label class="option"><input type="radio" name="q13" value="a"> A) The number of pixels</label>
+                <label class="option"><input type="radio" name="q13" value="b"> B) The number of bits used to represent each pixel</label>
+                <label class="option"><input type="radio" name="q13" value="c"> C) The width and height of the image</label>
+                <label class="option"><input type="radio" name="q13" value="d"> D) The file format used</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 14</div>
+                <p>Which unit is larger than a megabyte?</p>
+                <label class="option"><input type="radio" name="q14" value="a"> A) Kilobyte</label>
+                <label class="option"><input type="radio" name="q14" value="b"> B) Gigabyte</label>
+                <label class="option"><input type="radio" name="q14" value="c"> C) Byte</label>
+                <label class="option"><input type="radio" name="q14" value="d"> D) Bit</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 15</div>
+                <p>What happens when you add 1 to the binary number 1111?</p>
+                <label class="option"><input type="radio" name="q15" value="a"> A) 1110</label>
+                <label class="option"><input type="radio" name="q15" value="b"> B) 10000</label>
+                <label class="option"><input type="radio" name="q15" value="c"> C) 1000</label>
+                <label class="option"><input type="radio" name="q15" value="d"> D) 1112</label>
+            </div>
+        </form>
+        
+        <button type="button" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+        
+        <div id="results" class="results"></div>
+    </div>
+
+    <script>
+        // Quiz timer
+        let timeLeft = 25 * 60; // 25 minutes in seconds
+        const timerElement = document.getElementById('timer');
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 60) {
+                timerElement.classList.add('time-up');
+            }
+            
+            if (timeLeft <= 0) {
+                submitQuiz();
+                return;
+            }
+            
+            timeLeft--;
+        }
+        
+        // Start timer
+        const timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // Correct answers
+        const answers = {
+            q1: 'b', q2: 'c', q3: 'a', q4: 'b', q5: 'c',
+            q6: 'b', q7: 'b', q8: 'd', q9: 'c', q10: 'b',
+            q11: 'a', q12: 'c', q13: 'b', q14: 'b', q15: 'b'
+        };
+
+        function submitQuiz() {
+            clearInterval(timerInterval);
+            
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            let score = 0;
+            let results = '<h2>Quiz Results</h2>';
+            
+            for (let i = 1; i <= 15; i++) {
+                const questionKey = `q${i}`;
+                const userAnswer = formData.get(questionKey);
+                const correctAnswer = answers[questionKey];
+                
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    results += `<p class="correct">Question ${i}: ✓ Correct</p>`;
+                } else {
+                    results += `<p class="incorrect">Question ${i}: ✗ Your answer: ${(userAnswer || 'Not answered').toUpperCase()}, Correct answer: ${correctAnswer.toUpperCase()}</p>`;
+                }
+            }
+            
+            const percentage = Math.round((score / 15) * 100);
+            const passed = percentage >= 60;
+            
+            results = `
+                <h2>Quiz Complete!</h2>
+                <p><strong>Score: ${score}/15 (${percentage}%)</strong></p>
+                <p><strong>Result: ${passed ? 'PASS' : 'FAIL'}</strong> (Pass mark: 60%)</p>
+                <hr>
+                ${results}
+                <hr>
+                <p><strong>Topics to review:</strong></p>
+                <ul>
+                    <li>Binary and Decimal Number Conversion</li>
+                    <li>Hexadecimal Number System</li>
+                    <li>ASCII and Unicode Character Encoding</li>
+                    <li>Units of Information (Bits, Bytes, KB, MB, GB)</li>
+                    <li>Digital Image Representation</li>
+                </ul>
+            `;
+            
+            document.getElementById('results').innerHTML = results;
+            document.getElementById('results').style.display = 'block';
+            
+            // Disable form
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => input.disabled = true);
+            
+            // Hide submit button
+            document.querySelector('.submit-btn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

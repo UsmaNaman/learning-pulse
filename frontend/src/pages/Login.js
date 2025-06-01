@@ -56,10 +56,10 @@ const Login = () => {
     
     // Set credentials based on role
     const demoCredentials = {
-      email: role === 'student' ? 'john.s@school.edu' : 
-             role === 'instructor' ? 'smith@school.edu' : 
-             'jones@school.edu',
-      password: role === 'student' ? 'student123' : 'password123'
+      email: role === 'john' ? 'john.s@school.edu' : 
+             role === 'emily' ? 'emily.j@school.edu' :
+             'jane@school.edu',
+      password: 'demo123'
     };
     
     console.log(`Demo Login - ${role} - Starting login with:`, demoCredentials);
@@ -153,23 +153,11 @@ const Login = () => {
                 fullWidth 
                 variant="contained"
                 color="success"
-                size="medium"
-                onClick={() => handleDemoLogin('student')}
+                size="small"
+                onClick={() => handleDemoLogin('john')}
                 disabled={isSubmitting}
               >
-                Student
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button 
-                fullWidth 
-                variant="contained"
-                color="primary"
-                size="medium"
-                onClick={() => handleDemoLogin('instructor')}
-                disabled={isSubmitting}
-              >
-                Instructor
+                John Smith
               </Button>
             </Grid>
             <Grid item xs={4}>
@@ -177,11 +165,23 @@ const Login = () => {
                 fullWidth 
                 variant="contained"
                 color="secondary"
-                size="medium"
-                onClick={() => handleDemoLogin('admin')}
+                size="small"
+                onClick={() => handleDemoLogin('emily')}
                 disabled={isSubmitting}
               >
-                Admin
+                Emily Jones
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button 
+                fullWidth 
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={() => handleDemoLogin('instructor')}
+                disabled={isSubmitting}
+              >
+                Instructor
               </Button>
             </Grid>
           </Grid>

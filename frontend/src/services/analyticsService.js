@@ -68,6 +68,12 @@ class AnalyticsService {
   async sendPendingInteractions() {
     if (this.interactions.length === 0) return;
 
+    // Skip analytics in production GitHub Pages environment
+    if (window.location.hostname === 'usmanaman.github.io') {
+      this.interactions = []; // Clear interactions
+      return;
+    }
+
     try {
       const token = localStorage.getItem('token');
       if (!token) return; // Don't track anonymous users
@@ -230,6 +236,11 @@ class AnalyticsService {
 
   // Get analytics for current user
   async getUserAnalytics(timeframe = 30) {
+    // Skip analytics in production GitHub Pages environment
+    if (window.location.hostname === 'usmanaman.github.io') {
+      return null;
+    }
+
     try {
       const token = localStorage.getItem('token');
       if (!token) return null;

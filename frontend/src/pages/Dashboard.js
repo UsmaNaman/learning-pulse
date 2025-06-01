@@ -269,7 +269,7 @@ const Dashboard = () => {
   } else {
     // Default to teacher dashboard
     return <TeacherDashboard 
-      currentUser={currentUser || {name: "Usman Akram", role: "instructor"}}
+      currentUser={currentUser || {name: "Jane Smith", role: "instructor"}}
       courses={courses} 
       students={students} 
       dashboardStats={dashboardStats}

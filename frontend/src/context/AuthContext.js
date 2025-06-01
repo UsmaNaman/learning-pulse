@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
         if (email === 'jones@school.edu' || email === 'smith@school.edu') {
           demoUser = {
             _id: email === 'jones@school.edu' ? 'teacher1' : 'teacher2',
-            name: email === 'jones@school.edu' ? 'David Jones' : 'Usman Akram',
+            name: email === 'jones@school.edu' ? 'David Jones' : 'Jane Smith',
             email: email,
             role: 'instructor'
           };
