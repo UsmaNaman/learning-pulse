@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Systems Architecture Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .quiz-info {
+            background-color: #3498db;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .option {
+            margin: 8px 0;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .option:hover {
+            background-color: #e8f4f8;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .reset-btn {
+            background-color: #95a5a6;
+        }
+        .reset-btn:hover {
+            background-color: #7f8c8d;
+        }
+        .results {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 2px solid #3498db;
+        }
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .correct {
+            background-color: #d5f4e6 !important;
+            border: 2px solid #27ae60;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .incorrect {
+            background-color: #fadbd8 !important;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .timer {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Computer Systems Architecture Quiz</h1>
+        
+        <div class="quiz-info">
+            <h3>Quiz Instructions</h3>
+            <p><strong>Questions:</strong> 20 Multiple Choice | <strong>Time:</strong> 30 minutes | <strong>Pass Mark:</strong> 60%</p>
+        </div>
+
+        <div id="timer" class="timer hidden">
+            Time Remaining: <span id="timeDisplay">30:00</span>
+        </div>
+
+        <form id="quizForm">
+            <div class="question">
+                <div class="question-number">1. What is the primary function of the CPU in a computer system?</div>
+                <label class="option"><input type="radio" name="q1" value="a"> a) Store permanent data</label>
+                <label class="option"><input type="radio" name="q1" value="b"> b) Control all computer processes and calculations</label>
+                <label class="option"><input type="radio" name="q1" value="c"> c) Display graphics on the screen</label>
+                <label class="option"><input type="radio" name="q1" value="d"> d) Manage network connections</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">2. Which component of the CPU performs arithmetic and logical operations?</div>
+                <label class="option"><input type="radio" name="q2" value="a"> a) Control Unit</label>
+                <label class="option"><input type="radio" name="q2" value="b"> b) ALU (Arithmetic Logic Unit)</label>
+                <label class="option"><input type="radio" name="q2" value="c"> c) Cache</label>
+                <label class="option"><input type="radio" name="q2" value="d"> d) Registers</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">3. What is the purpose of the CPU cache?</div>
+                <label class="option"><input type="radio" name="q3" value="a"> a) To provide permanent storage</label>
+                <label class="option"><input type="radio" name="q3" value="b"> b) To slow down processing speed</label>
+                <label class="option"><input type="radio" name="q3" value="c"> c) To store frequently used data for quick access</label>
+                <label class="option"><input type="radio" name="q3" value="d"> d) To manage power supply</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">4. What unit in the CPU is responsible for fetching and decoding instructions?</div>
+                <label class="option"><input type="radio" name="q4" value="a"> a) Control Unit</label>
+                <label class="option"><input type="radio" name="q4" value="b"> b) ALU</label>
+                <label class="option"><input type="radio" name="q4" value="c"> c) RAM</label>
+                <label class="option"><input type="radio" name="q4" value="d"> d) System Clock</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">5. How does CPU clock speed affect performance?</div>
+                <label class="option"><input type="radio" name="q5" value="a"> a) Higher clock speed means slower processing</label>
+                <label class="option"><input type="radio" name="q5" value="b"> b) Clock speed has no effect on performance</label>
+                <label class="option"><input type="radio" name="q5" value="c"> c) Higher clock speed means faster processing</label>
+                <label class="option"><input type="radio" name="q5" value="d"> d) Clock speed only affects graphics</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">6. What is the Von Neumann architecture?</div>
+                <label class="option"><input type="radio" name="q6" value="a"> a) A modern graphics processing system</label>
+                <label class="option"><input type="radio" name="q6" value="b"> b) A basic stored program computer design</label>
+                <label class="option"><input type="radio" name="q6" value="c"> c) A type of computer network</label>
+                <label class="option"><input type="radio" name="q6" value="d"> d) A programming language</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">7. What is an embedded system?</div>
+                <label class="option"><input type="radio" name="q7" value="a"> a) A computer built into a larger system for a specific purpose</label>
+                <label class="option"><input type="radio" name="q7" value="b"> b) A standalone desktop computer</label>
+                <label class="option"><input type="radio" name="q7" value="c"> c) A type of computer virus</label>
+                <label class="option"><input type="radio" name="q7" value="d"> d) A wireless network protocol</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">8. Which factor does NOT affect CPU performance?</div>
+                <label class="option"><input type="radio" name="q8" value="a"> a) Cache size</label>
+                <label class="option"><input type="radio" name="q8" value="b"> b) Number of cores</label>
+                <label class="option"><input type="radio" name="q8" value="c"> c) Screen resolution</label>
+                <label class="option"><input type="radio" name="q8" value="d"> d) Clock speed</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">9. What is the purpose of RAM in a computer system?</div>
+                <label class="option"><input type="radio" name="q9" value="a"> a) Permanent data storage</label>
+                <label class="option"><input type="radio" name="q9" value="b"> b) Temporary data storage while the computer is running</label>
+                <label class="option"><input type="radio" name="q9" value="c"> c) Processing calculations</label>
+                <label class="option"><input type="radio" name="q9" value="d"> d) Managing peripherals</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">10. What happens to data in RAM when the computer is powered off?</div>
+                <label class="option"><input type="radio" name="q10" value="a"> a) It is automatically backed up</label>
+                <label class="option"><input type="radio" name="q10" value="b"> b) It is transferred to the hard drive</label>
+                <label class="option"><input type="radio" name="q10" value="c"> c) It is lost</label>
+                <label class="option"><input type="radio" name="q10" value="d"> d) It remains unchanged</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">11. What is the function of registers in a CPU?</div>
+                <label class="option"><input type="radio" name="q11" value="a"> a) To store very small amounts of data for immediate processing</label>
+                <label class="option"><input type="radio" name="q11" value="b"> b) To provide permanent storage</label>
+                <label class="option"><input type="radio" name="q11" value="c"> c) To control network access</label>
+                <label class="option"><input type="radio" name="q11" value="d"> d) To manage power consumption</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">12. Which of these is a valid CPU manufacturer?</div>
+                <label class="option"><input type="radio" name="q12" value="a"> a) Nokia</label>
+                <label class="option"><input type="radio" name="q12" value="b"> b) Samsung</label>
+                <label class="option"><input type="radio" name="q12" value="c"> c) Intel</label>
+                <label class="option"><input type="radio" name="q12" value="d"> d) Microsoft</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">13. What is multi-core processing?</div>
+                <label class="option"><input type="radio" name="q13" value="a"> a) Using multiple computers at once</label>
+                <label class="option"><input type="radio" name="q13" value="b"> b) Running multiple programs simultaneously</label>
+                <label class="option"><input type="radio" name="q13" value="c"> c) Having multiple processing units on a single chip</label>
+                <label class="option"><input type="radio" name="q13" value="d"> d) Using multiple monitors</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">14. What is the fetch-execute cycle?</div>
+                <label class="option"><input type="radio" name="q14" value="a"> a) A way to download files</label>
+                <label class="option"><input type="radio" name="q14" value="b"> b) The basic operation cycle of a CPU</label>
+                <label class="option"><input type="radio" name="q14" value="c"> c) A backup process</label>
+                <label class="option"><input type="radio" name="q14" value="d"> d) A type of virus scan</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">15. Which memory type is typically the fastest?</div>
+                <label class="option"><input type="radio" name="q15" value="a"> a) Hard Drive</label>
+                <label class="option"><input type="radio" name="q15" value="b"> b) RAM</label>
+                <label class="option"><input type="radio" name="q15" value="c"> c) CPU Cache</label>
+                <label class="option"><input type="radio" name="q15" value="d"> d) USB Drive</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">16. What does RISC stand for in computer architecture?</div>
+                <label class="option"><input type="radio" name="q16" value="a"> a) Reduced Instruction Set Computing</label>
+                <label class="option"><input type="radio" name="q16" value="b"> b) Random Internal System Control</label>
+                <label class="option"><input type="radio" name="q16" value="c"> c) Rapid Information Storage Center</label>
+                <label class="option"><input type="radio" name="q16" value="d"> d) Remote Instruction System Control</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">17. How does virtual memory work?</div>
+                <label class="option"><input type="radio" name="q17" value="a"> a) It creates fake memory</label>
+                <label class="option"><input type="radio" name="q17" value="b"> b) It uses hard drive space as additional RAM</label>
+                <label class="option"><input type="radio" name="q17" value="c"> c) It doubles the physical RAM</label>
+                <label class="option"><input type="radio" name="q17" value="d"> d) It speeds up the CPU</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">18. What is pipelining in CPU architecture?</div>
+                <label class="option"><input type="radio" name="q18" value="a"> a) A cooling system</label>
+                <label class="option"><input type="radio" name="q18" value="b"> b) A way to transfer data between computers</label>
+                <label class="option"><input type="radio" name="q18" value="c"> c) Overlapping instruction execution stages</label>
+                <label class="option"><input type="radio" name="q18" value="d"> d) A type of computer virus</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">19. Which factor determines how much data a CPU can process at once?</div>
+                <label class="option"><input type="radio" name="q19" value="a"> a) Screen size</label>
+                <label class="option"><input type="radio" name="q19" value="b"> b) Internet speed</label>
+                <label class="option"><input type="radio" name="q19" value="c"> c) Word length (bits)</label>
+                <label class="option"><input type="radio" name="q19" value="d"> d) Hard drive capacity</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">20. What is the purpose of the system clock?</div>
+                <label class="option"><input type="radio" name="q20" value="a"> a) To show the time and date</label>
+                <label class="option"><input type="radio" name="q20" value="b"> b) To synchronize CPU operations</label>
+                <label class="option"><input type="radio" name="q20" value="c"> c) To manage power settings</label>
+                <label class="option"><input type="radio" name="q20" value="d"> d) To control fan speed</label>
+            </div>
+        </form>
+
+        <div class="buttons">
+            <button type="button" onclick="startQuiz()">Start Quiz</button>
+            <button type="button" onclick="submitQuiz()" id="submitBtn" disabled>Submit Quiz</button>
+            <button type="button" onclick="resetQuiz()" class="reset-btn">Reset Quiz</button>
+        </div>
+
+        <div id="results" class="results hidden">
+            <div id="scoreDisplay" class="score"></div>
+            <div id="feedback"></div>
+        </div>
+    </div>
+
+    <script>
+        // Correct answers for all 20 questions
+        const answers = ['b', 'b', 'c', 'a', 'c', 'b', 'a', 'c', 'b', 'c', 'a', 'c', 'c', 'b', 'c', 'a', 'b', 'c', 'c', 'b'];
+        
+        let quizStarted = false;
+        let timeLeft = 30 * 60; // 30 minutes in seconds
+        let timerInterval;
+
+        function startQuiz() {
+            quizStarted = true;
+            
+            // Enable submit button
+            document.getElementById('submitBtn').disabled = false;
+            
+            // Show timer
+            document.getElementById('timer').classList.remove('hidden');
+            
+            // Start countdown
+            timerInterval = setInterval(countdown, 1000);
+            
+            // Disable start button
+            event.target.disabled = true;
+            event.target.textContent = 'Quiz Started';
+            
+            console.log('Quiz started successfully!');
+        }
+
+        function countdown() {
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                submitQuiz();
+                return;
+            }
+            
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timeDisplay').textContent = 
+                minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+            
+            timeLeft--;
+        }
+
+        function submitQuiz() {
+            // Stop timer
+            clearInterval(timerInterval);
+            
+            let score = 0;
+            let feedback = '<h3>Question Results:</h3>';
+            
+            // Check each question
+            for (let i = 1; i <= 20; i++) {
+                const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                const userAnswer = selectedAnswer ? selectedAnswer.value : null;
+                const correctAnswer = answers[i-1];
+                
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    feedback += `<p style="color: green;">Question ${i}: ✓ Correct (${correctAnswer})</p>`;
+                } else {
+                    feedback += `<p style="color: red;">Question ${i}: ✗ Your answer: ${userAnswer || 'No answer'}, Correct: ${correctAnswer}</p>`;
+                }
+                
+                // Visual feedback on the form
+                const questionDiv = document.querySelectorAll('.question')[i-1];
+                const options = questionDiv.querySelectorAll('.option');
+                
+                options.forEach(option => {
+                    const input = option.querySelector('input');
+                    if (input.value === correctAnswer) {
+                        option.classList.add('correct');
+                    } else if (input.checked && input.value !== correctAnswer) {
+                        option.classList.add('incorrect');
+                    }
+                });
+            }
+            
+            // Calculate percentage
+            const percentage = Math.round((score / 20) * 100);
+            
+            // Determine grade
+            let grade;
+            if (percentage >= 90) grade = 'A*';
+            else if (percentage >= 80) grade = 'A';
+            else if (percentage >= 70) grade = 'B';
+            else if (percentage >= 60) grade = 'C';
+            else if (percentage >= 50) grade = 'D';
+            else grade = 'F';
+            
+            // Display results
+            document.getElementById('scoreDisplay').innerHTML = 
+                `Score: ${score}/20 (${percentage}%) - Grade: ${grade}`;
+            document.getElementById('feedback').innerHTML = feedback;
+            document.getElementById('results').classList.remove('hidden');
+            
+            // Disable all inputs
+            const allInputs = document.querySelectorAll('input[type="radio"]');
+            allInputs.forEach(input => input.disabled = true);
+            
+            // Disable submit button
+            document.getElementById('submitBtn').disabled = true;
+            
+            console.log(`Quiz submitted! Score: ${score}/20 (${percentage}%)`);
+        }
+
+        function resetQuiz() {
+            // Reset timer
+            clearInterval(timerInterval);
+            timeLeft = 30 * 60;
+            quizStarted = false;
+            
+            // Hide timer and results
+            document.getElementById('timer').classList.add('hidden');
+            document.getElementById('results').classList.add('hidden');
+            
+            // Clear all selections
+            const allInputs = document.querySelectorAll('input[type="radio"]');
+            allInputs.forEach(input => {
+                input.checked = false;
+                input.disabled = false;
+            });
+            
+            // Clear visual feedback
+            const allOptions = document.querySelectorAll('.option');
+            allOptions.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+            });
+            
+            // Reset buttons
+            const startBtn = document.querySelector('button[onclick="startQuiz()"]');
+            startBtn.disabled = false;
+            startBtn.textContent = 'Start Quiz';
+            document.getElementById('submitBtn').disabled = true;
+            
+            console.log('Quiz reset successfully!');
+        }
+
+        // Disable submit button initially
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('submitBtn').disabled = true;
+        });
+    </script>
+</body>
+</html>

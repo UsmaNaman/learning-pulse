@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Constructs OCR – Year 10 Worksheet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        .intro {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #3498db;
+        }
+        .question {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 8px;
+        }
+        .fill-blank {
+            display: inline-block;
+            min-width: 120px;
+            padding: 4px 8px;
+            margin: 0 5px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            background-color: white;
+            font-size: 14px;
+        }
+        .word-bank {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ffeaa7;
+        }
+        .mcq-option {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .mcq-option:hover {
+            background-color: #ecf0f1;
+        }
+        .mcq-option input {
+            margin-right: 10px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        .check-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: background-color 0.3s;
+        }
+        .check-btn:hover {
+            background-color: #2980b9;
+        }
+        .reset-btn {
+            background-color: #95a5a6;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        .reset-btn:hover {
+            background-color: #7f8c8d;
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .score-display {
+            background-color: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .answer-key {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .answer-key h3 {
+            color: #155724;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Programming Constructs OCR – Year 10 Worksheet</h1>
+
+        <div class="intro">
+            <p><strong>Introduction:</strong> Programming constructs are fundamental building blocks used to create computer programs. They help organize and control the flow of code. The three main types are sequence, selection, and iteration. Sequence is the order in which instructions are carried out. Selection uses conditions to make decisions (like "if" statements), and iteration repeats actions using loops (such as "for" and "while" loops). Understanding these constructs is essential for designing effective and efficient programs.</p>
+        </div>
+
+        <h2>Fill in the Blank</h2>
+        <p><em>Fill in the blank with the correct words.</em></p>
+
+        <div class="question">
+            <div class="question-number">1.</div>
+            The <input type="text" id="blank1" class="fill-blank"> construct executes instructions one after another in the order they appear.
+        </div>
+
+        <div class="question">
+            <div class="question-number">2.</div>
+            A(n) <input type="text" id="blank2" class="fill-blank"> is used in programming to repeat a set of instructions multiple times.
+        </div>
+
+        <div class="question">
+            <div class="question-number">3.</div>
+            The <input type="text" id="blank3" class="fill-blank"> construct allows a program to choose between different actions based on conditions.
+        </div>
+
+        <div class="question">
+            <div class="question-number">4.</div>
+            In Python, the <input type="text" id="blank4" class="fill-blank"> statement is used to perform selection based on a condition.
+        </div>
+
+        <div class="question">
+            <div class="question-number">5.</div>
+            The two main types of loops in most programming languages are <input type="text" id="blank5" class="fill-blank"> and <input type="text" id="blank6" class="fill-blank">.
+        </div>
+
+        <div class="word-bank">
+            <strong>Word bank:</strong> sequence, while, selection, if, iteration, for
+        </div>
+
+        <button class="check-btn" onclick="checkFillBlanks()">Check Fill in the Blank</button>
+        <div id="fillBlankFeedback"></div>
+
+        <h2>Multiple Choice Questions</h2>
+        <p><em>Choose the correct answer from the choices for each question.</em></p>
+
+        <div class="question">
+            <div class="question-number">1.</div>
+            Which programming construct is used when you want to execute a block of code only if a specific condition is true?
+            <label class="mcq-option"><input type="radio" name="q1" value="a"> A) Sequence</label>
+            <label class="mcq-option"><input type="radio" name="q1" value="b"> B) Selection</label>
+            <label class="mcq-option"><input type="radio" name="q1" value="c"> C) Iteration</label>
+            <label class="mcq-option"><input type="radio" name="q1" value="d"> D) Declaration</label>
+        </div>
+
+        <div class="question">
+            <div class="question-number">2.</div>
+            What is the main purpose of an iteration construct?
+            <label class="mcq-option"><input type="radio" name="q2" value="a"> A) To make the program run faster</label>
+            <label class="mcq-option"><input type="radio" name="q2" value="b"> B) To repeat a set of instructions</label>
+            <label class="mcq-option"><input type="radio" name="q2" value="c"> C) To organize code into functions</label>
+            <label class="mcq-option"><input type="radio" name="q2" value="d"> D) To select between different actions</label>
+        </div>
+
+        <div class="question">
+            <div class="question-number">3.</div>
+            Which keyword is used in Python to begin a loop that repeats as long as a condition is true?
+            <label class="mcq-option"><input type="radio" name="q3" value="a"> A) if</label>
+            <label class="mcq-option"><input type="radio" name="q3" value="b"> B) repeat</label>
+            <label class="mcq-option"><input type="radio" name="q3" value="c"> C) while</label>
+            <label class="mcq-option"><input type="radio" name="q3" value="d"> D) select</label>
+        </div>
+
+        <div class="question">
+            <div class="question-number">4.</div>
+            What does the 'for' loop do in a program?
+            <label class="mcq-option"><input type="radio" name="q4" value="a"> A) Makes a choice between two actions</label>
+            <label class="mcq-option"><input type="radio" name="q4" value="b"> B) Repeats a block of code a specific number of times</label>
+            <label class="mcq-option"><input type="radio" name="q4" value="c"> C) Ends the program</label>
+            <label class="mcq-option"><input type="radio" name="q4" value="d"> D) Declares a variable</label>
+        </div>
+
+        <div class="question">
+            <div class="question-number">5.</div>
+            Which construct would you use to check if a user's input matches a password?
+            <label class="mcq-option"><input type="radio" name="q5" value="a"> A) Sequence</label>
+            <label class="mcq-option"><input type="radio" name="q5" value="b"> B) Iteration</label>
+            <label class="mcq-option"><input type="radio" name="q5" value="c"> C) Selection</label>
+            <label class="mcq-option"><input type="radio" name="q5" value="d"> D) Repetition</label>
+        </div>
+
+        <button class="check-btn" onclick="checkMultipleChoice()">Check Multiple Choice</button>
+        <div id="mcqFeedback"></div>
+
+        <h2>Open-Ended Questions</h2>
+        <p><em>Answer the following questions in complete sentences.</em></p>
+
+        <div class="question">
+            <div class="question-number">1.</div>
+            Explain the difference between sequence and selection in programming.
+            <textarea id="openQ1" placeholder="Write your answer here..."></textarea>
+        </div>
+
+        <div class="question">
+            <div class="question-number">2.</div>
+            Give an example of a real-world situation where you would use iteration in a program.
+            <textarea id="openQ2" placeholder="Write your answer here..."></textarea>
+        </div>
+
+        <div class="question">
+            <div class="question-number">3.</div>
+            Why is it important for a programmer to understand and use different programming constructs?
+            <textarea id="openQ3" placeholder="Write your answer here..."></textarea>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="check-btn" onclick="checkAllAnswers()">Check All Answers</button>
+            <button class="reset-btn" onclick="resetWorksheet()">Reset Worksheet</button>
+            <button class="check-btn" onclick="toggleAnswerKey()">Show/Hide Answer Key</button>
+        </div>
+
+        <div id="totalScore" class="score-display hidden"></div>
+
+        <div id="answerKey" class="answer-key hidden">
+            <h3>Answer Key</h3>
+            <p><strong>Fill in the Blank:</strong></p>
+            <ol>
+                <li>sequence</li>
+                <li>iteration</li>
+                <li>selection</li>
+                <li>if</li>
+                <li>for, while (either order)</li>
+            </ol>
+            
+            <p><strong>Multiple Choice:</strong></p>
+            <ol>
+                <li>B) Selection</li>
+                <li>B) To repeat a set of instructions</li>
+                <li>C) while</li>
+                <li>B) Repeats a block of code a specific number of times</li>
+                <li>C) Selection</li>
+            </ol>
+            
+            <p><strong>Open-Ended Sample Answers:</strong></p>
+            <ol>
+                <li>Sequence refers to executing instructions one after another in the order they appear, while selection involves making decisions in a program, often using conditions to choose which set of instructions to run.</li>
+                <li>An example is making a program that prints all the numbers from 1 to 10. The iteration construct (like a for loop) would repeat the print command for each number.</li>
+                <li>It is important because using different programming constructs allows a programmer to write code that is clear, efficient, and able to solve complex problems by organizing the flow of the program logically.</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Correct answers
+        const fillBlankAnswers = ['sequence', 'iteration', 'selection', 'if', 'for', 'while'];
+        const mcqAnswers = ['b', 'b', 'c', 'b', 'c'];
+
+        function checkFillBlanks() {
+            let correct = 0;
+            let total = 5; // 5 questions, but question 5 has 2 parts
+            let feedback = '<div class="feedback">';
+
+            for (let i = 1; i <= 4; i++) {
+                const userAnswer = document.getElementById(`blank${i}`).value.toLowerCase().trim();
+                const correctAnswer = fillBlankAnswers[i-1].toLowerCase();
+                
+                if (userAnswer === correctAnswer) {
+                    correct++;
+                    feedback += `<p class="correct">Question ${i}: ✓ Correct! "${correctAnswer}"</p>`;
+                } else {
+                    feedback += `<p class="incorrect">Question ${i}: ✗ Incorrect. You entered "${userAnswer}", correct answer is "${correctAnswer}"</p>`;
+                }
+            }
+
+            // Special handling for question 5 (two blanks)
+            const blank5 = document.getElementById('blank5').value.toLowerCase().trim();
+            const blank6 = document.getElementById('blank6').value.toLowerCase().trim();
+            
+            if ((blank5 === 'for' && blank6 === 'while') || (blank5 === 'while' && blank6 === 'for')) {
+                correct++;
+                feedback += `<p class="correct">Question 5: ✓ Correct! "for" and "while"</p>`;
+            } else {
+                feedback += `<p class="incorrect">Question 5: ✗ Incorrect. You entered "${blank5}" and "${blank6}", correct answers are "for" and "while"</p>`;
+            }
+
+            feedback += `<p><strong>Fill in the Blank Score: ${correct}/${total}</strong></p></div>`;
+            document.getElementById('fillBlankFeedback').innerHTML = feedback;
+        }
+
+        function checkMultipleChoice() {
+            let correct = 0;
+            let total = mcqAnswers.length;
+            let feedback = '<div class="feedback">';
+
+            for (let i = 1; i <= total; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                const userAnswer = selectedOption ? selectedOption.value : '';
+                const correctAnswer = mcqAnswers[i-1];
+                
+                if (userAnswer === correctAnswer) {
+                    correct++;
+                    feedback += `<p class="correct">Question ${i}: ✓ Correct! Answer ${correctAnswer.toUpperCase()}</p>`;
+                } else {
+                    feedback += `<p class="incorrect">Question ${i}: ✗ Incorrect. You selected "${userAnswer.toUpperCase()}", correct answer is "${correctAnswer.toUpperCase()}"</p>`;
+                }
+            }
+
+            feedback += `<p><strong>Multiple Choice Score: ${correct}/${total}</strong></p></div>`;
+            document.getElementById('mcqFeedback').innerHTML = feedback;
+        }
+
+        function checkAllAnswers() {
+            checkFillBlanks();
+            checkMultipleChoice();
+            
+            // Calculate total score
+            let fillBlankScore = 0;
+            for (let i = 1; i <= 4; i++) {
+                const userAnswer = document.getElementById(`blank${i}`).value.toLowerCase().trim();
+                if (userAnswer === fillBlankAnswers[i-1].toLowerCase()) {
+                    fillBlankScore++;
+                }
+            }
+            
+            // Check question 5 (two parts)
+            const blank5 = document.getElementById('blank5').value.toLowerCase().trim();
+            const blank6 = document.getElementById('blank6').value.toLowerCase().trim();
+            if ((blank5 === 'for' && blank6 === 'while') || (blank5 === 'while' && blank6 === 'for')) {
+                fillBlankScore++;
+            }
+
+            let mcqScore = 0;
+            for (let i = 1; i <= mcqAnswers.length; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                const userAnswer = selectedOption ? selectedOption.value : '';
+                if (userAnswer === mcqAnswers[i-1]) {
+                    mcqScore++;
+                }
+            }
+
+            const totalScore = fillBlankScore + mcqScore;
+            const maxScore = 5 + mcqAnswers.length; // 5 fill blanks + 5 MCQ
+            const percentage = Math.round((totalScore / maxScore) * 100);
+
+            document.getElementById('totalScore').innerHTML = 
+                `Overall Score: ${totalScore}/${maxScore} (${percentage}%)`;
+            document.getElementById('totalScore').classList.remove('hidden');
+        }
+
+        function resetWorksheet() {
+            // Clear fill in the blank answers
+            for (let i = 1; i <= 6; i++) {
+                const element = document.getElementById(`blank${i}`);
+                if (element) element.value = '';
+            }
+
+            // Clear multiple choice selections
+            for (let i = 1; i <= mcqAnswers.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q${i}"]`);
+                radios.forEach(radio => radio.checked = false);
+            }
+
+            // Clear open-ended questions
+            document.getElementById('openQ1').value = '';
+            document.getElementById('openQ2').value = '';
+            document.getElementById('openQ3').value = '';
+
+            // Clear feedback
+            document.getElementById('fillBlankFeedback').innerHTML = '';
+            document.getElementById('mcqFeedback').innerHTML = '';
+            document.getElementById('totalScore').classList.add('hidden');
+        }
+
+        function toggleAnswerKey() {
+            const answerKey = document.getElementById('answerKey');
+            answerKey.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

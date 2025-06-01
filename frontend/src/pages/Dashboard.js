@@ -24,6 +24,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import MessageIcon from '@mui/icons-material/Message';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 // Import our custom components
 import StudentSkillProgress from '../components/StudentSkillProgress';

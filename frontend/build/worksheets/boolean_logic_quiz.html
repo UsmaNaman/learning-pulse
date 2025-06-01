@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boolean Logic Quiz - OCR J277</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .quiz-info {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #3498db;
+        }
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 8px;
+        }
+        .option {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .option:hover {
+            background-color: #ecf0f1;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        .submit-btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .submit-btn:hover {
+            background-color: #229954;
+        }
+        .results {
+            display: none;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .results h2 {
+            color: #155724;
+            margin-top: 0;
+        }
+        .correct { color: #27ae60; font-weight: bold; }
+        .incorrect { color: #e74c3c; font-weight: bold; }
+        .time-up {
+            background-color: #e74c3c !important;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .truth-table {
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer" id="timer">Time: 20:00</div>
+    
+    <div class="container">
+        <h1>Boolean Logic Quiz</h1>
+        <p style="text-align: center;"><em>OCR J277 Computer Science - Unit Assessment</em></p>
+        
+        <div class="quiz-info">
+            <p><strong>Instructions:</strong></p>
+            <ul>
+                <li>This quiz contains 12 multiple choice questions</li>
+                <li>You have 20 minutes to complete the quiz</li>
+                <li>Each question is worth 1 mark</li>
+                <li>Pass mark: 60% (8/12 questions)</li>
+                <li>Select the best answer for each question</li>
+                <li>Click "Submit Quiz" when finished</li>
+            </ul>
+        </div>
+        
+        <form id="quizForm">
+            <div class="question">
+                <div class="question-number">Question 1</div>
+                <p>What is the result of True AND False?</p>
+                <label class="option"><input type="radio" name="q1" value="a"> A) True</label>
+                <label class="option"><input type="radio" name="q1" value="b"> B) False</label>
+                <label class="option"><input type="radio" name="q1" value="c"> C) 1</label>
+                <label class="option"><input type="radio" name="q1" value="d"> D) 0</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 2</div>
+                <p>What is the result of True OR False?</p>
+                <label class="option"><input type="radio" name="q2" value="a"> A) True</label>
+                <label class="option"><input type="radio" name="q2" value="b"> B) False</label>
+                <label class="option"><input type="radio" name="q2" value="c"> C) Maybe</label>
+                <label class="option"><input type="radio" name="q2" value="d"> D) Error</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 3</div>
+                <p>What is the result of NOT True?</p>
+                <label class="option"><input type="radio" name="q3" value="a"> A) True</label>
+                <label class="option"><input type="radio" name="q3" value="b"> B) False</label>
+                <label class="option"><input type="radio" name="q3" value="c"> C) 1</label>
+                <label class="option"><input type="radio" name="q3" value="d"> D) Undefined</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 4</div>
+                <p>Which gate produces an output of 1 only when both inputs are 1?</p>
+                <label class="option"><input type="radio" name="q4" value="a"> A) OR gate</label>
+                <label class="option"><input type="radio" name="q4" value="b"> B) AND gate</label>
+                <label class="option"><input type="radio" name="q4" value="c"> C) NOT gate</label>
+                <label class="option"><input type="radio" name="q4" value="d"> D) XOR gate</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 5</div>
+                <p>What does a truth table show?</p>
+                <label class="option"><input type="radio" name="q5" value="a"> A) The truth about computers</label>
+                <label class="option"><input type="radio" name="q5" value="b"> B) All possible input combinations and their outputs</label>
+                <label class="option"><input type="radio" name="q5" value="c"> C) The speed of logical operations</label>
+                <label class="option"><input type="radio" name="q5" value="d"> D) The cost of logic gates</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 6</div>
+                <p>For the expression (A AND B) OR C, if A=0, B=1, C=1, what is the result?</p>
+                <label class="option"><input type="radio" name="q6" value="a"> A) 0</label>
+                <label class="option"><input type="radio" name="q6" value="b"> B) 1</label>
+                <label class="option"><input type="radio" name="q6" value="c"> C) 2</label>
+                <label class="option"><input type="radio" name="q6" value="d"> D) Error</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 7</div>
+                <p>Which symbol is commonly used to represent the AND operation?</p>
+                <label class="option"><input type="radio" name="q7" value="a"> A) +</label>
+                <label class="option"><input type="radio" name="q7" value="b"> B) ·</label>
+                <label class="option"><input type="radio" name="q7" value="c"> C) |</label>
+                <label class="option"><input type="radio" name="q7" value="d"> D) ~</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 8</div>
+                <p>What is the result of 1 XOR 1?</p>
+                <label class="option"><input type="radio" name="q8" value="a"> A) 0</label>
+                <label class="option"><input type="radio" name="q8" value="b"> B) 1</label>
+                <label class="option"><input type="radio" name="q8" value="c"> C) 2</label>
+                <label class="option"><input type="radio" name="q8" value="d"> D) True</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 9</div>
+                <p>In Boolean algebra, what does the + symbol typically represent?</p>
+                <label class="option"><input type="radio" name="q9" value="a"> A) Addition</label>
+                <label class="option"><input type="radio" name="q9" value="b"> B) AND operation</label>
+                <label class="option"><input type="radio" name="q9" value="c"> C) OR operation</label>
+                <label class="option"><input type="radio" name="q9" value="d"> D) NOT operation</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 10</div>
+                <p>What is a NAND gate?</p>
+                <label class="option"><input type="radio" name="q10" value="a"> A) An AND gate followed by a NOT gate</label>
+                <label class="option"><input type="radio" name="q10" value="b"> B) An OR gate followed by a NOT gate</label>
+                <label class="option"><input type="radio" name="q10" value="c"> C) A NOT gate followed by an AND gate</label>
+                <label class="option"><input type="radio" name="q10" value="d"> D) Two AND gates connected together</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 11</div>
+                <p>Complete this truth table for A AND (NOT B):</p>
+                <div class="truth-table">
+A | B | NOT B | A AND (NOT B)<br>
+0 | 0 |   1   |       ?<br>
+0 | 1 |   0   |       0<br>
+1 | 0 |   1   |       1<br>
+1 | 1 |   0   |       0
+                </div>
+                <p>What should replace the ?</p>
+                <label class="option"><input type="radio" name="q11" value="a"> A) 0</label>
+                <label class="option"><input type="radio" name="q11" value="b"> B) 1</label>
+                <label class="option"><input type="radio" name="q11" value="c"> C) True</label>
+                <label class="option"><input type="radio" name="q11" value="d"> D) False</label>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 12</div>
+                <p>Which of these is a real-world application of Boolean logic?</p>
+                <label class="option"><input type="radio" name="q12" value="a"> A) Digital circuits in computers</label>
+                <label class="option"><input type="radio" name="q12" value="b"> B) Traffic light systems</label>
+                <label class="option"><input type="radio" name="q12" value="c"> C) Search engines</label>
+                <label class="option"><input type="radio" name="q12" value="d"> D) All of the above</label>
+            </div>
+        </form>
+        
+        <button type="button" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+        
+        <div id="results" class="results"></div>
+    </div>
+
+    <script>
+        // Quiz timer
+        let timeLeft = 20 * 60; // 20 minutes in seconds
+        const timerElement = document.getElementById('timer');
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 60) {
+                timerElement.classList.add('time-up');
+            }
+            
+            if (timeLeft <= 0) {
+                submitQuiz();
+                return;
+            }
+            
+            timeLeft--;
+        }
+        
+        // Start timer
+        const timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // Correct answers
+        const answers = {
+            q1: 'b', q2: 'a', q3: 'b', q4: 'b', q5: 'b',
+            q6: 'b', q7: 'b', q8: 'a', q9: 'c', q10: 'a',
+            q11: 'a', q12: 'd'
+        };
+
+        function submitQuiz() {
+            clearInterval(timerInterval);
+            
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            let score = 0;
+            let results = '<h2>Quiz Results</h2>';
+            
+            for (let i = 1; i <= 12; i++) {
+                const questionKey = `q${i}`;
+                const userAnswer = formData.get(questionKey);
+                const correctAnswer = answers[questionKey];
+                
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    results += `<p class="correct">Question ${i}: ✓ Correct</p>`;
+                } else {
+                    results += `<p class="incorrect">Question ${i}: ✗ Your answer: ${(userAnswer || 'Not answered').toUpperCase()}, Correct answer: ${correctAnswer.toUpperCase()}</p>`;
+                }
+            }
+            
+            const percentage = Math.round((score / 12) * 100);
+            const passed = percentage >= 60;
+            
+            results = `
+                <h2>Quiz Complete!</h2>
+                <p><strong>Score: ${score}/12 (${percentage}%)</strong></p>
+                <p><strong>Result: ${passed ? 'PASS' : 'FAIL'}</strong> (Pass mark: 60%)</p>
+                <hr>
+                ${results}
+                <hr>
+                <p><strong>Topics to review:</strong></p>
+                <ul>
+                    <li>Basic Boolean Operations (AND, OR, NOT)</li>
+                    <li>Truth Tables and Logic Gates</li>
+                    <li>Boolean Expressions and Evaluation</li>
+                    <li>XOR and NAND Gates</li>
+                    <li>Real-world Applications of Boolean Logic</li>
+                </ul>
+            `;
+            
+            document.getElementById('results').innerHTML = results;
+            document.getElementById('results').style.display = 'block';
+            
+            // Disable form
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => input.disabled = true);
+            
+            // Hide submit button
+            document.querySelector('.submit-btn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -50,6 +50,7 @@ const Login = () => {
 
   // Demo login credentials for easy testing
   const handleDemoLogin = async (role) => {
+    console.log(`Demo Login Button Clicked - Role: ${role}`);
     setIsSubmitting(true);
     setError('');
     
@@ -68,9 +69,8 @@ const Login = () => {
       const user = await login(demoCredentials);
       console.log(`Demo Login - ${role} - Login successful, user:`, user);
       
-      // Force a direct redirect with window.location to ensure page reload
-      // This bypasses any state issues with the React navigation
-      window.location.href = '/dashboard';
+      // Use React Router navigation instead of window.location
+      navigate('/dashboard');
     } catch (err) {
       console.error(`Demo Login - ${role} - Error during login:`, err);
       setError('Failed to login with demo account. Please try again.');
