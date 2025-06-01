@@ -355,7 +355,7 @@ const mockUsers = {
     name: "Jane Smith",
     email: "jane@school.edu",
     role: "instructor",
-    avatar: "UA"
+    avatar: "JS"
   }
 };
 
