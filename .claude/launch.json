@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Backend (Node/Express :5001)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "backend"],
+      "port": 5001
+    },
+    {
+      "name": "Frontend (React :3001)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "frontend"],
+      "port": 3001
+    }
+  ]
+}

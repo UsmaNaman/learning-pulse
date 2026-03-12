@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from './api';
 
 class AnalyticsService {
   constructor() {
@@ -75,16 +75,10 @@ class AnalyticsService {
     }
 
     try {
-      const token = localStorage.getItem('token');
-      if (!token) return; // Don't track anonymous users
+      if (!localStorage.getItem('token')) return; // Don't track anonymous users
 
-      await axios.post('http://localhost:5000/api/analytics/interactions', {
+      await api.post('/analytics/interactions', {
         interactions: this.interactions
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
       });
 
       this.interactions = []; // Clear sent interactions
@@ -242,14 +236,7 @@ class AnalyticsService {
     }
 
     try {
-      const token = localStorage.getItem('token');
-      if (!token) return null;
-
-      const response = await axios.get(`http://localhost:5000/api/analytics/user?timeframe=${timeframe}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      const response = await api.get(`/analytics/user?timeframe=${timeframe}`);
 
       return response.data;
     } catch (error) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import { courseService, progressService } from '../services';
 import { 
   Box, Typography, Grid, Card, CardContent, LinearProgress, Paper, Tabs, Tab, 
@@ -58,16 +58,14 @@ const Dashboard = () => {
           try {
             // Use the current user's name (first name) if available, or specified student ID
             const effectiveStudentId = studentId || (currentUser?.name ? currentUser.name.toLowerCase().split(' ')[0] : 'john');
-            const mockResponse = await axios.get(`http://localhost:5000/api/mock/dashboard/${effectiveStudentId}`);
+            const mockResponse = await api.get(`/mock/dashboard/${effectiveStudentId}`);
             setDashboardStats(mockResponse.data);
             console.log(`Directly fetched mock student data for ${effectiveStudentId}:`, mockResponse.data);
             
             // If instructor is viewing a student, also fetch student analytics
             if (currentUser?.role === 'instructor' && studentId) {
               try {
-                const analyticsResponse = await axios.get(`http://localhost:5000/api/analytics/user/${studentId}/timeline?timeframe=30`, {
-                  headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-                });
+                const analyticsResponse = await api.get(`/analytics/user/${studentId}/timeline?timeframe=30`);
                 setDashboardStats(prev => ({
                   ...prev,
                   analytics: analyticsResponse.data,
@@ -83,7 +81,7 @@ const Dashboard = () => {
           }
         } else if (viewType === 'instructor' || currentUser?.role === 'instructor') {
           try {
-            const instructorResponse = await axios.get('http://localhost:5000/api/mock/instructor-dashboard');
+            const instructorResponse = await api.get('/mock/instructor-dashboard');
             setStudents(instructorResponse.data.students);
             setDashboardStats({
               ...instructorResponse.data.classStats,
@@ -130,7 +128,7 @@ const Dashboard = () => {
               const studentId = urlParams.get('student') || currentUser?.id || currentUser?.name?.toLowerCase().split(' ')[0] || 'john';
               
               // Fetch from our mock API endpoint with the student ID
-              const mockResponse = await axios.get(`http://localhost:5000/api/mock/dashboard/${studentId}`);
+              const mockResponse = await api.get(`/mock/dashboard/${studentId}`);
               setDashboardStats(mockResponse.data);
               console.log(`Fetched mock student data for ${studentId}:`, mockResponse.data);
             } catch (error) {
@@ -164,7 +162,7 @@ const Dashboard = () => {
           try {
             // Try to fetch from our new instructor dashboard API
             try {
-              const instructorDashRes = await axios.get('http://localhost:5000/api/mock/instructor-dashboard');
+              const instructorDashRes = await api.get('/mock/instructor-dashboard');
               console.log('Fetched instructor dashboard data:', instructorDashRes.data);
               setStudents(instructorDashRes.data.students);
               setDashboardStats({
@@ -1284,7 +1282,7 @@ const PerformanceAnalyticsTab = ({ dashboardStats }) => {
     // Try to fetch instructor analytics data
     const fetchAnalytics = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/mock/instructor-dashboard');
+        const response = await api.get('/mock/instructor-dashboard');
         if (response.data && response.data.analytics) {
           window.instructorAnalytics = response.data.analytics;
           // Force a re-render

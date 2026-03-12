@@ -4,11 +4,11 @@
   "description": "A learning management system with analytics",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd backend && npm run dev\" \"cd frontend && PORT=3001 npm start\"",
+    "start": "concurrently \"cd backend && npx nodemon server.js\" \"cd frontend && PORT=3001 npx react-scripts start\"",
     "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
-    "backend": "cd backend && npm run dev",
-    "frontend": "cd frontend && PORT=3001 DISABLE_ESLINT_PLUGIN=true npm start",
-    "seed": "cd backend && npm run seed"
+    "backend": "cd backend && npx nodemon server.js",
+    "frontend": "cd frontend && PORT=3001 DISABLE_ESLINT_PLUGIN=true npx react-scripts start",
+    "seed": "cd backend && node seed.js"
   },
   "author": "",
   "license": "ISC",
