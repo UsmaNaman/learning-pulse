@@ -104,7 +104,7 @@ const StudentSkillProgress = ({ skills = [], title = "Topic Progress" }) => {
                   sx={{
                     height: 10,
                     borderRadius: 5,
-                    backgroundColor: '#e0e0e0',
+                    backgroundColor: 'rgba(255,255,255,0.08)',
                     '& .MuiLinearProgress-bar': {
                       backgroundColor: bloomsInfo.color
                     }

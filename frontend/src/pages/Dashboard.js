@@ -25,12 +25,14 @@ import MessageIcon from '@mui/icons-material/Message';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 // Import our custom components
 import StudentSkillProgress from '../components/StudentSkillProgress';
 import ProgressSummaryCard from '../components/ProgressSummaryCard';
 import RecentActivityList from '../components/RecentActivityList';
 import MotivationalElements from '../components/MotivationalElements';
+import AITutor from '../components/AITutor';
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
@@ -282,7 +284,18 @@ const StudentDashboard = ({ currentUser, courses, userProgress, dashboardStats }
   const urlParams = new URLSearchParams(window.location.search);
   const isInstructorView = dashboardStats?.isInstructorView || (currentUser?.role === 'instructor' && urlParams.get('student'));
   const viewingStudentId = dashboardStats?.viewingStudentId || urlParams.get('student');
-  
+  const [studentTabValue, setStudentTabValue] = useState(0);
+
+  // Build mastery map for AI Tutor from skills data
+  const skills = dashboardStats?.skills || [];
+  const studentMastery = {
+    binary: skills.find(s => s.name?.toLowerCase().includes('binary') || s.name?.toLowerCase().includes('data rep'))?.mastery ?? 25,
+    algorithms: skills.find(s => s.id === 'algo' || s.name?.toLowerCase().includes('algorithm'))?.mastery ?? 25,
+    programming: skills.find(s => s.id === 'programming' || s.name?.toLowerCase().includes('programming'))?.mastery ?? 25,
+    boolean: skills.find(s => s.name?.toLowerCase().includes('boolean'))?.mastery ?? 25,
+    python: skills.find(s => s.name?.toLowerCase().includes('python'))?.mastery ?? 25,
+  };
+
   // Debug logging
   console.log('StudentDashboard render:', {
     currentUserRole: currentUser?.role,
@@ -424,53 +437,67 @@ const StudentDashboard = ({ currentUser, courses, userProgress, dashboardStats }
           </Card>
         </Grid>
       </Grid>
-      
-      {/* OCR J277 Skills Progress and Analytics */}
-      <Grid container spacing={3}>
-        {/* Left column - Skill Progress */}
-        <Grid item xs={12} md={7}>
-          {/* New StudentSkillProgress component to show skill mastery levels */}
-          <StudentSkillProgress 
-            skills={dashboardStats?.skills || []} 
-            title="OCR J277 Topic Progress"
-          />
-        </Grid>
-        
-        {/* Right column - Summary and Recent Activity */}
-        <Grid item xs={12} md={5}>
-          {/* Progress Summary Card */}
-          <ProgressSummaryCard
-            overallProgress={dashboardStats?.overallProgress}
-            strengths={dashboardStats?.insights?.strengths}
-            weaknesses={dashboardStats?.insights?.areasForImprovement}
-            studentName={dashboardStats?.studentName}
-            skills={dashboardStats?.skills || []}
-          />
-          
-          {/* Recent Activity List */}
-          <RecentActivityList 
-            activities={dashboardStats?.recentActivity || []} 
-          />
-        </Grid>
-      </Grid>
-      
-      {/* Motivational Elements Section */}
-      {!isInstructorView && (
-        <>
-          <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
-            Your Achievements
-          </Typography>
-          <MotivationalElements 
-            studentProgress={dashboardStats?.insights || {}}
-            recentActivities={dashboardStats?.recentActivity || []}
-            overallProgress={dashboardStats?.overallProgress || 0}
-            awardedBadges={dashboardStats?.badges || []}
-          />
-        </>
-      )}
 
-      {/* Instructor Analytics Section */}
-      {isInstructorView && dashboardStats?.analytics && (
+      {/* Tab bar */}
+      <Paper sx={{ mb: 3 }}>
+        <Tabs
+          value={studentTabValue}
+          onChange={(e, v) => setStudentTabValue(v)}
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          <Tab label="Overview" icon={<SchoolIcon />} iconPosition="start" />
+          {!isInstructorView && (
+            <Tab label="AI Tutor" icon={<AutoAwesomeIcon />} iconPosition="start" />
+          )}
+        </Tabs>
+      </Paper>
+
+      {/* Overview tab */}
+      {studentTabValue === 0 && (
+        <>
+          {/* OCR J277 Skills Progress and Analytics */}
+          <Grid container spacing={3}>
+            {/* Left column - Skill Progress */}
+            <Grid item xs={12} md={7}>
+              <StudentSkillProgress
+                skills={dashboardStats?.skills || []}
+                title="OCR J277 Topic Progress"
+              />
+            </Grid>
+
+            {/* Right column - Summary and Recent Activity */}
+            <Grid item xs={12} md={5}>
+              <ProgressSummaryCard
+                overallProgress={dashboardStats?.overallProgress}
+                strengths={dashboardStats?.insights?.strengths}
+                weaknesses={dashboardStats?.insights?.areasForImprovement}
+                studentName={dashboardStats?.studentName}
+                skills={dashboardStats?.skills || []}
+              />
+              <RecentActivityList
+                activities={dashboardStats?.recentActivity || []}
+              />
+            </Grid>
+          </Grid>
+
+          {/* Motivational Elements Section */}
+          {!isInstructorView && (
+            <>
+              <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+                Your Achievements
+              </Typography>
+              <MotivationalElements
+                studentProgress={dashboardStats?.insights || {}}
+                recentActivities={dashboardStats?.recentActivity || []}
+                overallProgress={dashboardStats?.overallProgress || 0}
+                awardedBadges={dashboardStats?.badges || []}
+              />
+            </>
+          )}
+
+          {/* Instructor Analytics Section */}
+          {isInstructorView && dashboardStats?.analytics && (
         <>
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
             🔍 Instructor Analytics
@@ -485,7 +512,7 @@ const StudentDashboard = ({ currentUser, courses, userProgress, dashboardStats }
                 </Typography>
                 
                 {dashboardStats.analytics.interactions?.slice(0, 10).map((interaction, index) => (
-                  <Box key={index} sx={{ mb: 2, pb: 1, borderBottom: '1px solid #e0e0e0' }}>
+                  <Box key={index} sx={{ mb: 2, pb: 1, borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                     <Typography variant="body2" fontWeight="bold">
                       {interaction.interactionType.replace(/_/g, ' ').toUpperCase()}
                     </Typography>
@@ -617,49 +644,59 @@ const StudentDashboard = ({ currentUser, courses, userProgress, dashboardStats }
               </Paper>
             </Grid>
           </Grid>
+          </>
+          )}
+
+          {/* Enrolled Courses Section */}
+          <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+            Your Courses
+          </Typography>
+          <Grid container spacing={3}>
+            {courses.length > 0 ? (
+              courses.map(course => (
+                <Grid item xs={12} sm={6} md={4} key={course._id}>
+                  <Card sx={{ height: '100%' }}>
+                    <CardContent>
+                      <Typography variant="h6">{course.title}</Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                        {course.description}
+                      </Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
+                        <Box sx={{ width: '100%', mr: 1 }}>
+                          <LinearProgress
+                            variant="determinate"
+                            value={calculateProgress(course._id, userProgress)}
+                            sx={{ height: 10, borderRadius: 5 }}
+                          />
+                        </Box>
+                        <Box>
+                          <Typography variant="body2" color="text.secondary">
+                            {calculateProgress(course._id, userProgress)}%
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))
+            ) : (
+              <Grid item xs={12}>
+                <Paper sx={{ p: 3, textAlign: 'center' }}>
+                  <Typography>You are not enrolled in any courses yet.</Typography>
+                </Paper>
+              </Grid>
+            )}
+          </Grid>
         </>
       )}
-      
-      {/* Enrolled Courses Section */}
-      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
-        Your Courses
-      </Typography>
-      <Grid container spacing={3}>
-        {courses.length > 0 ? (
-          courses.map(course => (
-            <Grid item xs={12} sm={6} md={4} key={course._id}>
-              <Card sx={{ height: '100%' }}>
-                <CardContent>
-                  <Typography variant="h6">{course.title}</Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    {course.description}
-                  </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-                    <Box sx={{ width: '100%', mr: 1 }}>
-                      <LinearProgress 
-                        variant="determinate" 
-                        value={calculateProgress(course._id, userProgress)} 
-                        sx={{ height: 10, borderRadius: 5 }}
-                      />
-                    </Box>
-                    <Box>
-                      <Typography variant="body2" color="text.secondary">
-                        {calculateProgress(course._id, userProgress)}%
-                      </Typography>
-                    </Box>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))
-        ) : (
-          <Grid item xs={12}>
-            <Paper sx={{ p: 3, textAlign: 'center' }}>
-              <Typography>You are not enrolled in any courses yet.</Typography>
-            </Paper>
-          </Grid>
-        )}
-      </Grid>
+
+      {/* AI Tutor tab */}
+      {studentTabValue === 1 && !isInstructorView && (
+        <AITutor
+          studentMastery={studentMastery}
+          studentName={dashboardStats?.studentName || currentUser?.name || 'Student'}
+        />
+      )}
     </Box>
   );
 };
@@ -983,12 +1020,12 @@ const StudentProgressTab = ({ students }) => {
                                       variant="determinate" 
                                       value={topic.mastery}
                                       sx={{ 
-                                        height: 6, 
+                                        height: 6,
                                         borderRadius: 3,
-                                        backgroundColor: '#e0e0e0',
+                                        backgroundColor: 'rgba(255,255,255,0.08)',
                                         '& .MuiLinearProgress-bar': {
-                                          backgroundColor: topic.mastery >= 70 ? '#4caf50' : 
-                                                          topic.mastery >= 40 ? '#ff9800' : 
+                                          backgroundColor: topic.mastery >= 70 ? '#4caf50' :
+                                                          topic.mastery >= 40 ? '#ff9800' :
                                                           '#f44336'
                                         }
                                       }}
@@ -1198,12 +1235,12 @@ const CourseOverviewTab = ({ courses }) => {
                               variant="determinate" 
                               value={topic.progress}
                               sx={{ 
-                                height: 6, 
+                                height: 6,
                                 borderRadius: 3,
-                                backgroundColor: '#e0e0e0',
+                                backgroundColor: 'rgba(255,255,255,0.08)',
                                 '& .MuiLinearProgress-bar': {
-                                  backgroundColor: topic.progress >= 70 ? '#4caf50' : 
-                                                   topic.progress >= 40 ? '#ff9800' : 
+                                  backgroundColor: topic.progress >= 70 ? '#4caf50' :
+                                                   topic.progress >= 40 ? '#ff9800' :
                                                    '#f44336'
                                 }
                               }}
@@ -1442,7 +1479,7 @@ const PerformanceAnalyticsTab = ({ dashboardStats }) => {
                     <LinearProgress 
                       variant="determinate" 
                       value={(dashboardStats?.skillLevelDistribution?.beginner / dashboardStats?.totalStudents) * 100 || 0}
-                      sx={{ height: 8, borderRadius: 4, bgcolor: '#e8f5e9', '& .MuiLinearProgress-bar': { bgcolor: '#4caf50' } }}
+                      sx={{ height: 8, borderRadius: 4, bgcolor: 'rgba(76,175,80,0.12)', '& .MuiLinearProgress-bar': { bgcolor: '#4caf50' } }}
                     />
                   </Box>
                 </ListItem>
@@ -1456,7 +1493,7 @@ const PerformanceAnalyticsTab = ({ dashboardStats }) => {
                     <LinearProgress 
                       variant="determinate" 
                       value={(dashboardStats?.skillLevelDistribution?.intermediate / dashboardStats?.totalStudents) * 100 || 0}
-                      sx={{ height: 8, borderRadius: 4, bgcolor: '#e3f2fd', '& .MuiLinearProgress-bar': { bgcolor: '#2196f3' } }}
+                      sx={{ height: 8, borderRadius: 4, bgcolor: 'rgba(33,150,243,0.12)', '& .MuiLinearProgress-bar': { bgcolor: '#2196f3' } }}
                     />
                   </Box>
                 </ListItem>
@@ -1470,7 +1507,7 @@ const PerformanceAnalyticsTab = ({ dashboardStats }) => {
                     <LinearProgress 
                       variant="determinate" 
                       value={(dashboardStats?.skillLevelDistribution?.advanced / dashboardStats?.totalStudents) * 100 || 0}
-                      sx={{ height: 8, borderRadius: 4, bgcolor: '#ffebee', '& .MuiLinearProgress-bar': { bgcolor: '#f44336' } }}
+                      sx={{ height: 8, borderRadius: 4, bgcolor: 'rgba(244,67,54,0.12)', '& .MuiLinearProgress-bar': { bgcolor: '#f44336' } }}
                     />
                   </Box>
                 </ListItem>
@@ -1484,7 +1521,7 @@ const PerformanceAnalyticsTab = ({ dashboardStats }) => {
                     <LinearProgress 
                       variant="determinate" 
                       value={(dashboardStats?.skillLevelDistribution?.expert / dashboardStats?.totalStudents) * 100 || 0}
-                      sx={{ height: 8, borderRadius: 4, bgcolor: '#f3e5f5', '& .MuiLinearProgress-bar': { bgcolor: '#9c27b0' } }}
+                      sx={{ height: 8, borderRadius: 4, bgcolor: 'rgba(156,39,176,0.12)', '& .MuiLinearProgress-bar': { bgcolor: '#9c27b0' } }}
                     />
                   </Box>
                 </ListItem>

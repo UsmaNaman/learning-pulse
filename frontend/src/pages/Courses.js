@@ -142,10 +142,11 @@ const Courses = () => {
                   flexDirection: 'column',
                   borderRadius: '12px',
                   overflow: 'hidden',
-                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  transition: 'transform 0.2s, box-shadow 0.2s, border-color 0.2s',
                   '&:hover': {
-                    transform: 'translateY(-5px)',
-                    boxShadow: '0 12px 20px rgba(0,0,0,0.1)'
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 0 0 1px #00e5a0, 0 12px 32px rgba(0,229,160,0.12)',
+                    borderColor: '#00e5a0'
                   }
                 }}
               >
