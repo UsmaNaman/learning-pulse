@@ -20,6 +20,7 @@ import Courses from './pages/Courses';
 import Profile from './pages/Profile';
 import StudentReport from './pages/StudentReport';
 import BinaryLessonPage from './pages/BinaryLessonPage';
+import AlgorithmsLessonPage from './pages/AlgorithmsLessonPage';
 
 function AppInner() {
   const { currentUser } = useAuth();
@@ -42,6 +43,7 @@ function AppInner() {
               <Route path="/student-report/:studentId" element={<StudentReport />} />
               <Route path="/student-selector" element={<StudentDashboardSelector />} />
               <Route path="/lessons/binary" element={<BinaryLessonPage />} />
+              <Route path="/lessons/algorithms" element={<AlgorithmsLessonPage />} />
             </Route>
 
             {/* Fallback route */}

@@ -16,6 +16,7 @@ import TopicResources from './TopicResources';
 // Map skill IDs to available interactive lessons
 const LESSON_ROUTES = {
   mem_storage: '/lessons/binary',
+  algo:        '/lessons/algorithms',
 };
 // Bloom's taxonomy utility - inline for now
 const getBloomsLevel = (percentage) => {
