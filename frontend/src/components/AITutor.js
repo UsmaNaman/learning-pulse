@@ -145,11 +145,21 @@ const AITutor = ({ studentMastery = {}, studentName = "Student" }) => {
         content: m.content,
       }));
 
+      const apiKey = process.env.REACT_APP_ANTHROPIC_API_KEY;
+      if (!apiKey) {
+        throw new Error("No API key configured");
+      }
+
       const response = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true",
+        },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
+          model: "claude-sonnet-4-6",
           max_tokens: 1000,
           system: systemPrompt,
           messages: apiMessages,
@@ -166,12 +176,14 @@ const AITutor = ({ studentMastery = {}, studentName = "Student" }) => {
         { role: "assistant", content: assistantMessage },
       ]);
     } catch (err) {
+      const isKeyMissing = err.message === "No API key configured";
       setMessages([
         ...newMessages,
         {
           role: "assistant",
-          content:
-            "Hmm, something went wrong on my end. Give it another go!",
+          content: isKeyMissing
+            ? "⚠️ AI Tutor isn't set up yet — add your Anthropic API key to frontend/.env as REACT_APP_ANTHROPIC_API_KEY, then restart the dev server."
+            : "Hmm, something went wrong on my end. Give it another go!",
         },
       ]);
     } finally {

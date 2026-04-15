@@ -19,6 +19,7 @@ import Courses from './pages/Courses';
 // import CourseDetail from './pages/CourseDetail';
 import Profile from './pages/Profile';
 import StudentReport from './pages/StudentReport';
+import BinaryLessonPage from './pages/BinaryLessonPage';
 
 function AppInner() {
   const { currentUser } = useAuth();
@@ -40,6 +41,7 @@ function AppInner() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/student-report/:studentId" element={<StudentReport />} />
               <Route path="/student-selector" element={<StudentDashboardSelector />} />
+              <Route path="/lessons/binary" element={<BinaryLessonPage />} />
             </Route>
 
             {/* Fallback route */}
