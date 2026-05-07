@@ -89,26 +89,27 @@ const Profile = () => {
               {currentUser?.name}
             </Typography>
             
-            <Typography 
-              variant="subtitle1" 
-              sx={{ 
-                mt: 1, 
-                bgcolor: 'primary.light', 
-                color: 'primary.contrastText',
-                py: 0.5,
-                px: 2,
-                borderRadius: 1,
-                display: 'inline-block'
-              }}
-            >
-              {currentUser?.role === 'student' ? 'Student' : 
-               currentUser?.role === 'instructor' || currentUser?.role === 'teacher' ? 'Instructor' : 
-               currentUser?.role || 'User'}
-            </Typography>
-            
+            <Box sx={{ mt: 1 }}>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  bgcolor: 'primary.light',
+                  color: 'primary.contrastText',
+                  py: 0.5,
+                  px: 2,
+                  borderRadius: 1,
+                  display: 'inline-block'
+                }}
+              >
+                {currentUser?.role === 'student' ? 'Student' :
+                 currentUser?.role === 'instructor' || currentUser?.role === 'teacher' ? 'Instructor' :
+                 currentUser?.role || 'User'}
+              </Typography>
+            </Box>
+
             {!editing && (
-              <Button 
-                variant="outlined" 
+              <Button
+                variant="outlined"
                 sx={{ mt: 3 }}
                 onClick={() => setEditing(true)}
               >
@@ -119,7 +120,7 @@ const Profile = () => {
           
           {/* Right Column - Profile Information */}
           <Grid item xs={12} md={8}>
-            <Typography variant="h6" sx={{ mb: 3, borderBottom: '1px solid #eee', pb: 1 }}>
+            <Typography variant="h6" sx={{ mb: 3, borderBottom: '1px solid rgba(255,255,255,0.08)', pb: 1 }}>
               {editing ? 'Edit Profile' : 'Profile Information'}
             </Typography>
             
@@ -372,7 +373,7 @@ const Profile = () => {
       {/* Role-specific information sections */}
       {currentUser?.role === 'student' && (
         <Paper elevation={3} sx={{ p: 4, mt: 4 }}>
-          <Typography variant="h6" sx={{ mb: 3, borderBottom: '1px solid #eee', pb: 1 }}>
+          <Typography variant="h6" sx={{ mb: 3, borderBottom: '1px solid rgba(255,255,255,0.08)', pb: 1 }}>
             Student Information
           </Typography>
           
@@ -416,7 +417,7 @@ const Profile = () => {
       
       {(currentUser?.role === 'instructor' || currentUser?.role === 'teacher') && (
         <Paper elevation={3} sx={{ p: 4, mt: 4 }}>
-          <Typography variant="h6" sx={{ mb: 3, borderBottom: '1px solid #eee', pb: 1 }}>
+          <Typography variant="h6" sx={{ mb: 3, borderBottom: '1px solid rgba(255,255,255,0.08)', pb: 1 }}>
             Instructor Information
           </Typography>
           

@@ -247,8 +247,8 @@ const MotivationalElements = ({
                     cursor: 'pointer',
                     transition: 'transform 0.2s',
                     '&:hover': { transform: 'scale(1.05)' },
-                    '&:focus': { 
-                      outline: '2px solid #1976d2',
+                    '&:focus': {
+                      outline: '2px solid #00e5a0',
                       outlineOffset: '2px'
                     },
                     border: 'none',

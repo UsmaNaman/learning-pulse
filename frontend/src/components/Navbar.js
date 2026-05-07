@@ -21,7 +21,6 @@ import {
   useMediaQuery,
   useTheme
 } from '@mui/material';
-import SchoolIcon from '@mui/icons-material/School';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
@@ -57,12 +56,12 @@ const Navbar = () => {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2, fontWeight: 'bold', color: 'primary.main', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <SchoolIcon sx={{ mr: 1, fontSize: '1.2rem' }} />
-        Learning Pulse
-      </Typography>
-      <Divider />
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', bgcolor: '#0a0e1a', minHeight: '100%' }}>
+      <Box sx={{ my: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ fontSize: 20, fontWeight: 800, color: '#f0f2f8', letterSpacing: '-0.5px' }}>Learning</span>
+        <span style={{ fontSize: 20, fontWeight: 800, color: '#00e5a0', letterSpacing: '-0.5px' }}>Pulse</span>
+      </Box>
+      <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)' }} />
       <List>
         <ListItem component={RouterLink} to="/courses" sx={{ color: 'inherit', textDecoration: 'none' }}>
           <ListItemIcon>
@@ -120,7 +119,7 @@ const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="default" elevation={1} sx={{ backgroundColor: 'white' }}>
+      <AppBar position="sticky" color="default" elevation={0}>
         <Container maxWidth="lg">
           <Toolbar>
             {isMobile && (
@@ -135,23 +134,14 @@ const Navbar = () => {
               </IconButton>
             )}
 
-            <Typography
-              variant="h5"
-              noWrap
+            <Box
               component={RouterLink}
               to="/"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', sm: 'flex' },
-                fontWeight: 700,
-                color: 'primary.main',
-                textDecoration: 'none',
-                alignItems: 'center'
-              }}
+              sx={{ mr: 2, display: { xs: 'none', sm: 'flex' }, textDecoration: 'none', alignItems: 'center' }}
             >
-              <SchoolIcon sx={{ mr: 1, fontSize: '1.75rem' }} />
-              Learning Pulse
-            </Typography>
+              <span style={{ fontSize: 20, fontWeight: 800, color: '#f0f2f8', letterSpacing: '-0.5px' }}>Learning</span>
+              <span style={{ fontSize: 20, fontWeight: 800, color: '#00e5a0', letterSpacing: '-0.5px' }}>Pulse</span>
+            </Box>
 
             <Box sx={{ flexGrow: 1 }} />
 
@@ -165,7 +155,7 @@ const Navbar = () => {
                     mx: 1, 
                     color: 'text.primary',
                     '&:hover': {
-                      backgroundColor: 'rgba(74, 0, 224, 0.04)',
+                      backgroundColor: 'rgba(255,255,255,0.06)',
                     }
                   }}
                 >
@@ -182,7 +172,7 @@ const Navbar = () => {
                         mx: 1, 
                         color: 'text.primary',
                         '&:hover': {
-                          backgroundColor: 'rgba(74, 0, 224, 0.04)',
+                          backgroundColor: 'rgba(255,255,255,0.06)',
                         }
                       }}
                     >
@@ -196,7 +186,7 @@ const Navbar = () => {
                         mx: 1, 
                         color: 'text.primary',
                         '&:hover': {
-                          backgroundColor: 'rgba(74, 0, 224, 0.04)',
+                          backgroundColor: 'rgba(255,255,255,0.06)',
                         }
                       }}
                     >
@@ -284,7 +274,7 @@ const Navbar = () => {
           }}
           sx={{
             display: { xs: 'block', md: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240, bgcolor: '#0a0e1a', borderRight: '1px solid rgba(255,255,255,0.08)' },
           }}
         >
           {drawer}

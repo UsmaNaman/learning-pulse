@@ -5,11 +5,10 @@ const Schema = mongoose.Schema;
 // Import models
 const UserModel = require('./User');
 const ActivityModel = require('./Activity');
-const AssessmentModel = require('./Assessment');
 const CourseModel = require('./Course');
 const LearningPathModel = require('./LearningPath');
 const LessonModel = require('./Lesson');
-const ProgressModel = require('./Progress');
+// Progress.js uses user/course refs; seed uses student/topic (inline ProgressSchema below)
 const SkillLevelModel = require('./SkillLevel');
 const StudentProgressModel = require('./StudentProgress');
 
@@ -126,7 +125,9 @@ const ActivityLogSchema = new Schema({
 // Create additional models
 const Topic = mongoose.model('Topic', TopicSchema);
 const Resource = mongoose.model('Resource', ResourceSchema);
+const Assessment = mongoose.model('Assessment', AssessmentSchema);
 const MasteryLevel = mongoose.model('MasteryLevel', MasteryLevelSchema);
+const Progress = mongoose.model('Progress', ProgressSchema);
 const AssessmentResult = mongoose.model('AssessmentResult', AssessmentResultSchema);
 const ActivityLog = mongoose.model('ActivityLog', ActivityLogSchema);
 
@@ -134,11 +135,11 @@ const ActivityLog = mongoose.model('ActivityLog', ActivityLogSchema);
 module.exports = {
   User: UserModel,
   Activity: ActivityModel,
-  Assessment: AssessmentModel,
+  Assessment,
   Course: CourseModel,
   LearningPath: LearningPathModel,
   Lesson: LessonModel,
-  Progress: ProgressModel,
+  Progress,
   SkillLevel: SkillLevelModel,
   StudentProgress: StudentProgressModel,
   Topic,

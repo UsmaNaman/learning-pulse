@@ -2,76 +2,96 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
-      main: '#4a00e0',
+      main: '#00e5a0',
+      contrastText: '#0a0e1a',
     },
     secondary: {
-      main: '#8e2de2',
+      main: '#0099ff',
     },
     background: {
-      default: '#f8f9fa',
+      default: '#0a0e1a',
+      paper: '#111827',
+    },
+    text: {
+      primary: '#f0f2f8',
+      secondary: 'rgba(232,234,240,0.6)',
     },
   },
   typography: {
-    fontFamily: [
-      'Inter',
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-    ].join(','),
-    h1: {
-      fontWeight: 700,
-    },
-    h2: {
-      fontWeight: 700,
-    },
-    h3: {
-      fontWeight: 600,
-    },
-    h4: {
-      fontWeight: 600,
-    },
-    h5: {
-      fontWeight: 600,
-    },
-    h6: {
-      fontWeight: 600,
-    },
+    fontFamily: ["'DM Sans'", "'Segoe UI'", 'sans-serif'].join(','),
+    h1: { fontWeight: 800 },
+    h2: { fontWeight: 800 },
+    h3: { fontWeight: 700 },
+    h4: { fontWeight: 700 },
+    h5: { fontWeight: 600 },
+    h6: { fontWeight: 600 },
     button: {
       textTransform: 'none',
       fontWeight: 600,
     },
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: 10,
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
           boxShadow: 'none',
-          '&:hover': {
-            boxShadow: 'none',
-          },
+          '&:hover': { boxShadow: 'none' },
+        },
+        containedPrimary: {
+          color: '#0a0e1a',
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-          borderRadius: 12,
+          background: 'rgba(255,255,255,0.04)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: 14,
+          boxShadow: 'none',
         },
       },
     },
     MuiAppBar: {
       styleOverrides: {
         root: {
-          boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
+          background: 'rgba(10,14,26,0.92)',
+          backdropFilter: 'blur(12px)',
+          boxShadow: 'none',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'none',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            background: 'rgba(255,255,255,0.05)',
+            '& fieldset': {
+              borderColor: 'rgba(255,255,255,0.12)',
+            },
+            '&:hover fieldset': {
+              borderColor: 'rgba(255,255,255,0.25)',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#00e5a0',
+            },
+          },
+          '& .MuiInputLabel-root.Mui-focused': {
+            color: '#00e5a0',
+          },
         },
       },
     },

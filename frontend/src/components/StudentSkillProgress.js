@@ -1,14 +1,23 @@
 import React from 'react';
-import { 
-  Box, 
-  Typography, 
-  LinearProgress, 
-  Paper, 
+import { Link } from 'react-router-dom';
+import {
+  Box,
+  Typography,
+  LinearProgress,
+  Paper,
   Grid,
   Tooltip,
-  Chip
+  Chip,
+  Button
 } from '@mui/material';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import TopicResources from './TopicResources';
+
+// Map skill IDs to available interactive lessons
+const LESSON_ROUTES = {
+  mem_storage: '/lessons/binary',
+  algo:        '/lessons/algorithms',
+};
 // Bloom's taxonomy utility - inline for now
 const getBloomsLevel = (percentage) => {
   const BLOOMS_LEVELS = {
@@ -104,7 +113,7 @@ const StudentSkillProgress = ({ skills = [], title = "Topic Progress" }) => {
                   sx={{
                     height: 10,
                     borderRadius: 5,
-                    backgroundColor: '#e0e0e0',
+                    backgroundColor: 'rgba(255,255,255,0.08)',
                     '& .MuiLinearProgress-bar': {
                       backgroundColor: bloomsInfo.color
                     }
@@ -127,10 +136,24 @@ const StudentSkillProgress = ({ skills = [], title = "Topic Progress" }) => {
                 {`${friendlyName}: ${skill.mastery}% mastery at ${bloomsInfo.label} level. ${bloomsInfo.description}`}
               </Typography>
               
+              {/* Interactive lesson button if one exists for this topic */}
+              {LESSON_ROUTES[skill.id] && (
+                <Button
+                  component={Link}
+                  to={LESSON_ROUTES[skill.id]}
+                  size="small"
+                  variant="outlined"
+                  startIcon={<PlayArrowIcon />}
+                  sx={{ mt: 1, borderRadius: 2, fontSize: '0.75rem' }}
+                >
+                  Start Lesson
+                </Button>
+              )}
+
               {/* Display resources for this topic if available */}
               {skill.resources && skill.resources.length > 0 && (
-                <TopicResources 
-                  resources={skill.resources} 
+                <TopicResources
+                  resources={skill.resources}
                   topicName={friendlyName}
                   expanded={skill.mastery < 60} // Auto-expand for low mastery topics
                 />

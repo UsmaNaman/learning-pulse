@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import { 
   Box, 
   Container, 
@@ -70,7 +70,7 @@ const StudentReport = () => {
         setLoading(true);
         
         // Fetch student dashboard data
-        const response = await axios.get(`http://localhost:5000/api/mock/dashboard/${studentId}`);
+        const response = await api.get(`/mock/dashboard/${studentId}`);
         setStudentData(response.data);
         
         // Simulate fetching student activities (would come from API)
