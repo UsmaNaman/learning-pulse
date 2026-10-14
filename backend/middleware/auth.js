@@ -4,10 +4,7 @@ module.exports = function(req, res, next) {
   // Get token from header
   try {
     const authHeader = req.header('Authorization');
-    
-    // Debug info
-    console.log('Authorization header:', authHeader);
-    
+
     // Extract token with more defensive coding
     let token = null;
     

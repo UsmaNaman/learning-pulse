@@ -8,7 +8,9 @@
     "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
     "backend": "cd backend && npx nodemon server.js",
     "frontend": "cd frontend && PORT=3001 DISABLE_ESLINT_PLUGIN=true npx react-scripts start",
-    "seed": "cd backend && node seed.js"
+    "seed": "cd backend && node seed.js",
+    "create-teacher": "cd backend && node scripts/createTeacher.js",
+    "create-class": "cd backend && node scripts/createClassAccounts.js"
   },
   "author": "",
   "license": "ISC",

@@ -83,16 +83,15 @@ const Dashboard = () => {
           }
         } else if (viewType === 'instructor' || currentUser?.role === 'instructor') {
           try {
-            const instructorResponse = await api.get('/mock/instructor-dashboard');
+            const instructorResponse = await progressService.getTeacherDashboard();
             setStudents(instructorResponse.data.students);
             setDashboardStats({
               ...instructorResponse.data.classStats,
               instructorInfo: instructorResponse.data.instructor
             });
             setCourses(instructorResponse.data.courseStats);
-            console.log('Directly fetched mock instructor data');
-          } catch (mockError) {
-            console.warn('Could not fetch mock instructor dashboard data', mockError);
+          } catch (instructorError) {
+            console.warn('Could not fetch instructor dashboard data', instructorError);
           }
         }
         
@@ -159,56 +158,19 @@ const Dashboard = () => {
           }
         }
         
-        // Teacher-specific data
+        // Teacher-specific data — real quiz attempts from the backend (demo data on GitHub Pages)
         if (currentUser?.role === 'instructor' || currentUser?.role === 'teacher' || currentUser?.role === 'admin') {
           try {
-            // Try to fetch from our new instructor dashboard API
-            try {
-              const instructorDashRes = await api.get('/mock/instructor-dashboard');
-              console.log('Fetched instructor dashboard data:', instructorDashRes.data);
-              setStudents(instructorDashRes.data.students);
-              setDashboardStats({
-                ...instructorDashRes.data.classStats,
-                instructorInfo: instructorDashRes.data.instructor
-              });
-              setCourses(instructorDashRes.data.courseStats);
-            } catch (instructorError) {
-              console.warn('Could not fetch instructor dashboard', instructorError);
-              
-              // Fall back to regular class overview
-              try {
-                const classOverviewRes = await progressService.getClassOverview();
-                setStudents(classOverviewRes.data.students);
-                setDashboardStats(classOverviewRes.data.classStats);
-              } catch (classError) {
-                console.warn('Could not fetch class overview', classError);
-                // Use dummy data for demo
-                setStudents([
-                  {
-                    student: { id: '1', name: 'John Smith', email: 'john.s@school.edu' },
-                    progress: { skillLevel: 'Developing', totalPoints: 520, activitiesCompleted: 15, pathsInProgress: 2, pathsCompleted: 1 }
-                  },
-                  {
-                    student: { id: '2', name: 'Emily Jones', email: 'emily.j@school.edu' },
-                    progress: { skillLevel: 'Advanced', totalPoints: 890, activitiesCompleted: 28, pathsInProgress: 1, pathsCompleted: 2 }
-                  }
-                ]);
-                
-                setDashboardStats({
-                  totalStudents: 5,
-                  averagePoints: 650,
-                  skillLevelDistribution: {
-                    beginner: 1,
-                    intermediate: 2,
-                    advanced: 1,
-                    expert: 1
-                  },
-                  activeStudentsLast7Days: 4
-                });
-              }
-            }
+            const instructorDashRes = await progressService.getTeacherDashboard();
+            setStudents(instructorDashRes.data.students);
+            setDashboardStats({
+              ...instructorDashRes.data.classStats,
+              instructorInfo: instructorDashRes.data.instructor
+            });
           } catch (error) {
+            // Don't fall back to made-up students — a teacher could act on fake data
             console.error('Error fetching instructor data:', error);
+            setError("Couldn't load your class data. Check the backend is running, then refresh.");
           }
         }
       } catch (err) {
@@ -890,7 +852,7 @@ const StudentProgressTab = ({ students }) => {
                     <Grid item xs={6} sm={1}>
                       <Typography variant="body2" color="text.secondary">Mastery</Typography>
                       <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                        {studentData.progress.overallMastery || '0'}%
+                        {studentData.progress.overallMastery == null ? '—' : `${studentData.progress.overallMastery}%`}
                       </Typography>
                     </Grid>
                     
@@ -908,7 +870,7 @@ const StudentProgressTab = ({ students }) => {
                       <Typography variant="body2" color="text.secondary">Weekly Streak</Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Typography variant="body1" sx={{ mr: 1 }}>
-                          {studentData.progress.weeklyStreak || 0} days
+                          {studentData.progress.weeklyStreak || 0} {studentData.progress.weeklyStreak === 1 ? 'week' : 'weeks'}
                         </Typography>
                         {studentData.progress.weeklyStreak > 0 && (
                           <EmojiEventsIcon 
@@ -925,7 +887,7 @@ const StudentProgressTab = ({ students }) => {
                         label={studentData.progress.riskLevel ? 
                           studentData.progress.riskLevel.charAt(0).toUpperCase() + 
                           studentData.progress.riskLevel.slice(1) : 
-                          'Unknown'
+                          'Not started'
                         }
                         sx={{ 
                           bgcolor: getRiskLevelColor(studentData.progress.riskLevel),
@@ -1014,11 +976,11 @@ const StudentProgressTab = ({ students }) => {
                                   <Box sx={{ mb: 1 }}>
                                     <Typography variant="body2" sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                       <span>{topic.topic}</span>
-                                      <strong>{topic.mastery}%</strong>
+                                      <strong>{topic.mastery == null ? 'Not started' : `${topic.mastery}%`}</strong>
                                     </Typography>
                                     <LinearProgress 
                                       variant="determinate" 
-                                      value={topic.mastery}
+                                      value={topic.mastery ?? 0}
                                       sx={{ 
                                         height: 6,
                                         borderRadius: 3,

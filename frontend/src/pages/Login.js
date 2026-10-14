@@ -35,7 +35,7 @@ const Login = () => {
       await login(credentials);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid email or password. Please try again.');
+      setError(err.response?.data?.message || 'Invalid email/username or password. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -44,11 +44,12 @@ const Login = () => {
   const handleDemoLogin = async (role) => {
     setIsSubmitting(true);
     setError('');
+    // Passwords match the seeded demo accounts (npm run seed)
     const demoCredentials = {
       email: role === 'john' ? 'john.s@school.edu'
            : role === 'emily' ? 'emily.j@school.edu'
            : 'jones@school.edu',
-      password: 'demo123',
+      password: role === 'instructor' ? 'password123' : 'student123',
     };
     try {
       await login(demoCredentials);
@@ -83,17 +84,19 @@ const Login = () => {
           )}
 
           <form onSubmit={handleSubmit}>
-            <label style={labelStyle}>Email address</label>
+            {/* Teachers use their email; pupils use their class codename, e.g. 10X-07 */}
+            <label style={labelStyle}>Email or username</label>
             <input
               name="email"
-              type="email"
+              type="text"
               required
-              autoComplete="email"
+              autoComplete="username"
+              autoCapitalize="none"
               autoFocus
               value={credentials.email}
               onChange={handleChange}
               style={inputStyle}
-              placeholder="you@school.edu"
+              placeholder="you@school.edu or 10X-07"
             />
 
             <label style={{ ...labelStyle, marginTop: 16 }}>Password</label>

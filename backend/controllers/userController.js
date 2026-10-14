@@ -11,7 +11,7 @@ exports.registerUser = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
 
   try {
     // Check if user already exists
@@ -20,12 +20,13 @@ exports.registerUser = async (req, res) => {
       return res.status(400).json({ msg: 'User already exists' });
     }
 
-    // Create new user
+    // Self-registration always creates a student — teacher accounts are
+    // created with `npm run create-teacher` so pupils can't make themselves teachers
     user = new User({
       name,
       email,
       password,
-      role: role || 'student'
+      role: 'student'
     });
 
     await user.save();
@@ -44,9 +45,6 @@ exports.registerUser = async (req, res) => {
       return res.status(500).json({ msg: 'Server configuration error' });
     }
 
-    // Add debug logging
-    console.log('Creating JWT token with payload:', JSON.stringify(payload));
-    console.log('Using JWT_SECRET (first 3 chars):', process.env.JWT_SECRET.substring(0, 3));
     
     jwt.sign(
       payload,
@@ -57,12 +55,12 @@ exports.registerUser = async (req, res) => {
           console.error('Error signing JWT token:', err);
           return res.status(500).json({ msg: 'Error creating authentication token' });
         }
-        console.log('Token created successfully (first 15 chars):', token.substring(0, 15));
         // Return user data along with token
         const userData = {
           _id: user.id,
           name: user.name,
           email: user.email,
+          username: user.username,
           role: user.role
         };
         res.json({ token, user: userData });
@@ -83,11 +81,14 @@ exports.loginUser = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { email, password } = req.body;
+  // `email` holds either an email address or a pupil username
+  const { email: identifier, password } = req.body;
 
   try {
     // Check if user exists
-    const user = await User.findOne({ email });
+    const user = await User.findOne(
+      identifier.includes('@') ? { email: identifier } : { username: identifier.toUpperCase() }
+    );
     if (!user) {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
@@ -117,9 +118,6 @@ exports.loginUser = async (req, res) => {
       return res.status(500).json({ msg: 'Server configuration error' });
     }
 
-    // Add debug logging
-    console.log('Creating JWT token with payload:', JSON.stringify(payload));
-    console.log('Using JWT_SECRET (first 3 chars):', process.env.JWT_SECRET.substring(0, 3));
     
     jwt.sign(
       payload,
@@ -130,12 +128,12 @@ exports.loginUser = async (req, res) => {
           console.error('Error signing JWT token:', err);
           return res.status(500).json({ msg: 'Error creating authentication token' });
         }
-        console.log('Token created successfully (first 15 chars):', token.substring(0, 15));
         // Return user data along with token
         const userData = {
           _id: user.id,
           name: user.name,
           email: user.email,
+          username: user.username,
           role: user.role
         };
         res.json({ token, user: userData });

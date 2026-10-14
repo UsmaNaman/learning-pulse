@@ -4,6 +4,8 @@ const { check } = require('express-validator');
 const auth = require('../middleware/auth');
 const progressController = require('../controllers/progressController');
 const studentProgressController = require('../controllers/studentProgressController');
+const quizAttemptController = require('../controllers/quizAttemptController');
+const { TRACKED_TOPICS } = require('../models/QuizAttempt');
 
 // Legacy routes
 // @route   GET api/progress/:courseId
@@ -41,6 +43,27 @@ router.get('/analytics', auth, studentProgressController.getLearningAnalytics);
 // @desc    Get overview of entire class (for teachers)
 // @access  Private (Teachers only)
 router.get('/class-overview', auth, studentProgressController.getClassOverview);
+
+// @route   POST api/progress/attempts
+// @desc    Record a completed lesson quiz
+// @access  Private (Students only)
+router.post(
+  '/attempts',
+  [
+    auth,
+    [
+      check('topic', 'Topic must be one of: ' + Object.keys(TRACKED_TOPICS).join(', ')).isIn(Object.keys(TRACKED_TOPICS)),
+      check('score', 'Score must be a whole number from 0 to 100').isInt({ min: 0, max: 100 }).toInt(),
+      check('bloomsLevel', "Bloom's level must be a whole number from 1 to 5").isInt({ min: 1, max: 5 }).toInt()
+    ]
+  ],
+  quizAttemptController.recordAttempt
+);
+
+// @route   GET api/progress/teacher-dashboard
+// @desc    Class overview built from real quiz attempts
+// @access  Private (Teachers only)
+router.get('/teacher-dashboard', auth, quizAttemptController.getTeacherDashboard);
 
 // @route   GET api/progress/students/:id
 // @desc    Get a specific student's progress (for teachers/admins)

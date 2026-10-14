@@ -50,6 +50,23 @@ const progressService = {
     return api.get('/progress/dashboard');
   },
 
+  // Save a completed lesson quiz. Nothing is saved on the GitHub Pages demo.
+  recordAttempt: (topic, score, bloomsLevel) => {
+    if (window.location.hostname === 'usmanaman.github.io') {
+      return Promise.resolve({ data: { demo: true } });
+    }
+    return api.post('/progress/attempts', { topic, score, bloomsLevel });
+  },
+
+  // Teacher dashboard built from real quiz attempts (demo data on GitHub Pages)
+  getTeacherDashboard: async () => {
+    if (window.location.hostname === 'usmanaman.github.io') {
+      const data = await mockDataService.getInstructorDashboard();
+      return { data };
+    }
+    return api.get('/progress/teacher-dashboard');
+  },
+
   getClassOverview: async () => {
     if (window.location.hostname === 'usmanaman.github.io') {
       const data = await mockDataService.getInstructorDashboard();

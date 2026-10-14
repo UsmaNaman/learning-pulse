@@ -23,7 +23,8 @@ router.post(
 router.post(
   '/login',
   [
-    check('email', 'Please include a valid email').isEmail(),
+    // Holds an email (teachers) or a username like 10X-07 (pupils)
+    check('email', 'Please enter your email or username').trim().not().isEmpty(),
     check('password', 'Password is required').exists()
   ],
   userController.loginUser

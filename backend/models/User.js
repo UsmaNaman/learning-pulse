@@ -7,10 +7,20 @@ const UserSchema = new Schema({
     type: String, 
     required: true 
   },
-  email: { 
-    type: String, 
-    required: true, 
-    unique: true 
+  // Optional for pupil accounts, which log in with a username instead
+  email: {
+    type: String,
+    required: function() { return !this.username; },
+    unique: true,
+    sparse: true
+  },
+  // Codename login for pupils (e.g. "10X-07") so no personal data is stored
+  username: {
+    type: String,
+    unique: true,
+    sparse: true,
+    trim: true,
+    uppercase: true
   },
   password: { 
     type: String, 

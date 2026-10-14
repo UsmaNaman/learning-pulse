@@ -36,6 +36,8 @@ The core problem it solves: CS teachers have no real-time visibility into which 
 | Frontend only | `npm run frontend` |
 | Install all packages | `npm run install-all` |
 | Seed database | `npm run seed` |
+| Create a teacher account | `npm run create-teacher -- --name "Mr Akram" --email you@school.org --password "8+ chars"` |
+| Create codename pupil accounts | `npm run create-class -- --class 10X --count 30` (add `--reset` for new passwords) |
 | Run all frontend tests | `cd frontend && npm test` |
 | Run single test | `cd frontend && npm test -- -t "test name"` |
 

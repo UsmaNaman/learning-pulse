@@ -27,9 +27,11 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Handle auth errors, e.g., redirect to login
+      // Expired or invalid login — clear it and go to the login page.
+      // PUBLIC_URL keeps the /learning-pulse prefix; without it the router renders nothing.
       localStorage.removeItem('token');
-      window.location.href = '/login';
+      localStorage.removeItem('currentUser');
+      window.location.href = `${process.env.PUBLIC_URL}/login`;
     }
     return Promise.reject(error);
   }

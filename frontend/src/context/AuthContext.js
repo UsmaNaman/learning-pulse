@@ -50,12 +50,10 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       setError(null);
-      console.log('Attempting login with credentials:', credentials);
-      
+
       try {
         // Try to login with the API
         const response = await userService.login(credentials);
-        console.log('Login response:', response);
         const { token, user } = response.data;
         console.log('Received token from API (first 15 chars):', token ? token.substring(0, 15) : 'none');
         
